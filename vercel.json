@@ -1,0 +1,43 @@
+{
+ "rewrites": [
+  {
+   "source": "/posters/en/:f",
+   "destination": "/posters__en__:f"
+  },
+  {
+   "source": "/icons/:f",
+   "destination": "/icons__:f"
+  },
+  {
+   "source": "/media/:f",
+   "destination": "/media__:f"
+  },
+  {
+   "source": "/posters/:f",
+   "destination": "/posters__:f"
+  },
+  {
+   "source": "/shots/:f",
+   "destination": "/shots__:f"
+  },
+  {
+   "source": "/downloads/:f",
+   "destination": "/downloads__:f"
+  }
+ ],
+ "headers": [
+  {
+   "source": "/downloads/(.*)",
+   "headers": [
+    {
+     "key": "Content-Type",
+     "value": "application/vnd.android.package-archive"
+    },
+    {
+     "key": "Content-Disposition",
+     "value": "attachment"
+    }
+   ]
+  }
+ ]
+}

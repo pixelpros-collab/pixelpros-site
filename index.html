@@ -1,0 +1,1179 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pixel Pros</title>
+<meta name="description" content="Pixel Pros: استوديو كميل لتصميم وتطوير التطبيقات العربية.">
+<meta name="theme-color" content="#141A3F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kufam:wght@500;600;700;800&family=Zain:wght@400;700;800&display=swap">
+<style>
+/* Layout: an indigo page holding one rounded board. Space hero slider, tilted marquee + stats, centered intro,
+   selected-work poster cards that open a floating app window, a three-step process, footer.
+   Brand: Pixel Pros, a pixel-built "P" in a cyan → blue → violet → pink spectrum (from Komail's reference). */
+:root {
+  color-scheme: light;
+  --page: #E7E3D9;
+  --board: #F6F4EE;          /* off-white, not pure white */
+  --surface: #FCFBF7;
+  --surface-2: #EFECE4;
+  --ink: #0F1530;
+  --fg-2: #444C68;
+  --fg-3: #5A6280;
+  --line: rgba(15, 21, 48, 0.10);
+  --line-strong: rgba(15, 21, 48, 0.20);
+  --brand: #4F46E5;          /* fills with white text, 6.3:1 */
+  --brand-hover: #4338CA;
+  --brand-text: #4F46E5;
+  --on-brand: #FFFFFF;
+  --knob: #0F1530; --on-knob: #F6F4EE;
+  --soft: rgba(79, 70, 229, 0.09);
+  --spectrum: linear-gradient(90deg, #0D9488 0%, #2563EB 34%, #4F46E5 66%, #B45309 100%);
+  --navy: #1E2D74;
+  --card-shadow: 0 1px 2px rgba(20, 26, 63, 0.06), 0 22px 44px -28px rgba(20, 26, 63, 0.45);
+  --poster-shadow: 0 34px 60px -34px rgba(20, 26, 63, 0.55);
+  --scrim: rgba(8, 10, 28, 0.6);
+  --f-display: "Kufam", "Zain", "Segoe UI", Tahoma, sans-serif;
+  --f-body: "Zain", "Kufam", "Segoe UI", Tahoma, sans-serif;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --frame: clamp(8px, 1.6vw, 22px);
+  --board-r: clamp(22px, 3vw, 40px);
+  --pad: clamp(14px, 2.2vw, 28px);
+  --r: 24px;
+  --dir: -1;
+  /* day theme: banner, cards, bands and footer follow the light surfaces */
+  --paper: #FCFBF7;
+  --hero-bg: radial-gradient(120% 95% at 30% 6%, #B9D1FF 0%, #D3E1FA 46%, #E3E9F5 100%);
+  --hero-fg: #0F1530; --hero-fg-2: rgba(15, 21, 48, 0.6);
+  --hero-shade: linear-gradient(to top, rgba(227, 233, 245, 0.92) 0%, rgba(227, 233, 245, 0.45) 36%, transparent 62%), linear-gradient(to bottom, rgba(214, 226, 248, 0.5), transparent 22%);
+  --hp-bg: #0F1530; --hp-fg: #F6F4EE; --hp-ico-bg: #F6F4EE; --hp-ico-fg: #0F1530;
+  --glass-bg: rgba(15, 21, 48, 0.06); --glass-bg-hover: rgba(15, 21, 48, 0.12); --glass-line: rgba(15, 21, 48, 0.2); --glass-fg: #0F1530;
+  --search-line: rgba(15, 21, 48, 0.16);
+  --thumb-line: rgba(15, 21, 48, 0.16); --thumb-line-hover: rgba(15, 21, 48, 0.4);
+  --work-base: #EFECE4; --work-fg: #0F1530; --work-text-shadow: none;
+  --work-scrim: linear-gradient(to bottom, rgba(246, 244, 238, 0.94) 0%, rgba(246, 244, 238, 0.74) 50%, rgba(246, 244, 238, 0.93) 100%);
+  --cb-bg: #0F1530; --cb-fg: #F6F4EE; --cb-ico-bg: #F6F4EE; --cb-ico-fg: #0F1530;
+  --band-bg: #E2DDD1; --band-fg: #2A3150;
+  --foot-fg: #2A3150; --foot-fg-2: #4B5370; --foot-head: #0F1530; --foot-line: rgba(15, 21, 48, 0.12);
+  --foot-tile: rgba(15, 21, 48, 0.05); --foot-tile-line: rgba(15, 21, 48, 0.14); --foot-tile-hover: rgba(15, 21, 48, 0.1);
+  --scroll-thumb: rgba(15, 21, 48, 0.25);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #05071A; --board: #0D1126; --navy: #7C8DF0; --surface: #151A35; --surface-2: #11162E;
+    --ink: #EEF0FF; --fg-2: #B8BEDB; --fg-3: #9097B8;
+    --line: rgba(190, 200, 255, 0.12); --line-strong: rgba(190, 200, 255, 0.26);
+    --brand: #4F46E5; --brand-hover: #6158F0; --brand-text: #A5B4FC; --on-brand: #FFFFFF;
+    --knob: #EEF0FF; --on-knob: #0D1126; --soft: rgba(165, 180, 252, 0.12);
+    --card-shadow: 0 0 0 1px rgba(190, 200, 255, 0.10); --poster-shadow: 0 34px 70px -30px rgba(0, 0, 0, 0.9); --scrim: rgba(2, 3, 12, 0.75);
+    --paper: #FFFFFF;
+    --hero-bg: radial-gradient(120% 90% at 30% 10%, #1D2457 0%, #0A0D24 55%, #04050F 100%);
+    --hero-fg: #FFFFFF; --hero-fg-2: rgba(255, 255, 255, 0.6);
+    --hero-shade: linear-gradient(to top, rgba(4, 5, 15, 0.9) 0%, rgba(4, 5, 15, 0.35) 36%, transparent 60%), linear-gradient(to bottom, rgba(4, 5, 15, 0.55), transparent 22%);
+    --hp-bg: #FFFFFF; --hp-fg: #0F1530; --hp-ico-bg: #0F1530; --hp-ico-fg: #FFFFFF;
+    --glass-bg: rgba(255, 255, 255, 0.12); --glass-bg-hover: rgba(255, 255, 255, 0.22); --glass-line: rgba(255, 255, 255, 0.3); --glass-fg: #FFFFFF;
+    --search-line: transparent;
+    --thumb-line: rgba(255, 255, 255, 0.22); --thumb-line-hover: rgba(255, 255, 255, 0.6);
+    --work-base: #0A0D24; --work-fg: #FFFFFF; --work-text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+    --work-scrim: linear-gradient(to bottom, rgba(5, 6, 18, 0.88) 0%, rgba(5, 6, 18, 0.62) 50%, rgba(5, 6, 18, 0.85) 100%);
+    --cb-bg: #FFFFFF; --cb-fg: #0F1530; --cb-ico-bg: #0F1530; --cb-ico-fg: #FFFFFF;
+    --band-bg: #141A3F; --band-fg: #DCE0FF;
+    --foot-fg: #DCE0FF; --foot-fg-2: #BCC2E4; --foot-head: #FFFFFF; --foot-line: rgba(255, 255, 255, 0.14);
+    --foot-tile: rgba(255, 255, 255, 0.08); --foot-tile-line: rgba(255, 255, 255, 0.16); --foot-tile-hover: rgba(255, 255, 255, 0.2);
+    --scroll-thumb: rgba(255, 255, 255, 0.22);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #05071A; --board: #0D1126; --navy: #7C8DF0; --surface: #151A35; --surface-2: #11162E;
+  --ink: #EEF0FF; --fg-2: #B8BEDB; --fg-3: #9097B8;
+  --line: rgba(190, 200, 255, 0.12); --line-strong: rgba(190, 200, 255, 0.26);
+  --brand: #4F46E5; --brand-hover: #6158F0; --brand-text: #A5B4FC; --on-brand: #FFFFFF;
+  --knob: #EEF0FF; --on-knob: #0D1126; --soft: rgba(165, 180, 252, 0.12);
+  --card-shadow: 0 0 0 1px rgba(190, 200, 255, 0.10); --poster-shadow: 0 34px 70px -30px rgba(0, 0, 0, 0.9); --scrim: rgba(2, 3, 12, 0.75);
+    --paper: #FFFFFF;
+    --hero-bg: radial-gradient(120% 90% at 30% 10%, #1D2457 0%, #0A0D24 55%, #04050F 100%);
+    --hero-fg: #FFFFFF; --hero-fg-2: rgba(255, 255, 255, 0.6);
+    --hero-shade: linear-gradient(to top, rgba(4, 5, 15, 0.9) 0%, rgba(4, 5, 15, 0.35) 36%, transparent 60%), linear-gradient(to bottom, rgba(4, 5, 15, 0.55), transparent 22%);
+    --hp-bg: #FFFFFF; --hp-fg: #0F1530; --hp-ico-bg: #0F1530; --hp-ico-fg: #FFFFFF;
+    --glass-bg: rgba(255, 255, 255, 0.12); --glass-bg-hover: rgba(255, 255, 255, 0.22); --glass-line: rgba(255, 255, 255, 0.3); --glass-fg: #FFFFFF;
+    --search-line: transparent;
+    --thumb-line: rgba(255, 255, 255, 0.22); --thumb-line-hover: rgba(255, 255, 255, 0.6);
+    --work-base: #0A0D24; --work-fg: #FFFFFF; --work-text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+    --work-scrim: linear-gradient(to bottom, rgba(5, 6, 18, 0.88) 0%, rgba(5, 6, 18, 0.62) 50%, rgba(5, 6, 18, 0.85) 100%);
+    --cb-bg: #FFFFFF; --cb-fg: #0F1530; --cb-ico-bg: #0F1530; --cb-ico-fg: #FFFFFF;
+    --band-bg: #141A3F; --band-fg: #DCE0FF;
+    --foot-fg: #DCE0FF; --foot-fg-2: #BCC2E4; --foot-head: #FFFFFF; --foot-line: rgba(255, 255, 255, 0.14);
+    --foot-tile: rgba(255, 255, 255, 0.08); --foot-tile-line: rgba(255, 255, 255, 0.16); --foot-tile-hover: rgba(255, 255, 255, 0.2);
+    --scroll-thumb: rgba(255, 255, 255, 0.22);
+}
+.tone { --accent: var(--acc-l); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tone { --accent: var(--acc-d); } }
+:root[data-theme="dark"] .tone { --accent: var(--acc-d); }
+.only-dark { display: none !important; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .only-dark { display: block !important; } :root:not([data-theme="light"]) .only-light { display: none !important; } }
+:root[data-theme="dark"] .only-dark { display: block !important; }
+:root[data-theme="dark"] .only-light { display: none !important; }
+
+[data-lang="ar"] [data-l="en"], [data-lang="en"] [data-l="ar"] { display: none !important; }
+[dir="ltr"] { --dir: 1; }
+[dir="rtl"] .flip-rtl { transform: scaleX(-1); }
+[dir="ltr"] .flip-ltr { transform: scaleX(-1); }
+
+* { box-sizing: border-box; }
+html { background: var(--page); scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; scrollbar-color: var(--scroll-thumb) var(--page); }
+@media (pointer: fine) { html { overscroll-behavior: none; } }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 1.1875rem/1.7 var(--f-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; caret-color: var(--brand-text); -webkit-tap-highlight-color: transparent; transition: background-color 240ms ease, color 240ms ease; }
+::selection { background: var(--brand); color: var(--on-brand); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--page); }
+::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 10px; border: 2px solid var(--page); }
+a { color: inherit; text-decoration: none; }
+a, button { touch-action: manipulation; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--brand-text); outline-offset: 3px; border-radius: 10px; }
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 800; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+[data-lang="en"] :is(h1, h2, h3, .slide-title) { letter-spacing: -0.025em; }
+p { margin: 0; text-wrap: pretty; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.ico { flex: none; }
+.ln { display: block; }
+.accent { color: var(--accent, var(--brand-text)); }
+section[id], article[id] { scroll-margin-top: 96px; }
+.skip { position: fixed; inset-inline-start: 16px; top: 12px; z-index: 100; padding: 10px 16px; border-radius: 12px; background: var(--brand); color: var(--on-brand); transform: translateY(-180%); transition: transform 160ms var(--ease-out); }
+.skip:focus-visible { transform: none; }
+
+/* ---------- brand */
+.logo { display: inline-flex; align-items: center; gap: 10px; direction: ltr; }
+.logo-mark { width: 30px; height: 36px; flex: none; }
+.wordmark { font: 800 1.25rem/1 var(--f-display); letter-spacing: 0.01em; background: var(--spectrum); -webkit-background-clip: text; background-clip: text; color: transparent; white-space: nowrap; }
+
+/* ---------- board */
+#app { padding: 0; padding-top: env(safe-area-inset-top, 0px); overflow-x: clip; }
+.board { background: var(--board); border-radius: 0 0 var(--board-r) var(--board-r); padding: var(--pad); max-width: none; margin-inline: auto; transition: background-color 240ms ease; overflow-x: clip; }
+.wrap { width: 100%; max-width: 1240px; margin-inline: auto; padding-inline: clamp(4px, 2vw, 28px); }
+
+/* ---------- buttons */
+.pill-btn { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding-inline: 20px 6px; border-radius: 999px; border: 1px solid transparent; cursor: pointer; white-space: nowrap; font: 600 0.9375rem/1 var(--f-display); transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 120ms var(--ease-out); }
+.pill-btn:active { transform: scale(0.97); }
+.pb-ico { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; transition: transform 240ms var(--ease-out); }
+.pill-btn--light { background: var(--cb-bg); color: var(--cb-fg); }
+.pill-btn--light .pb-ico { background: var(--cb-ico-bg); color: var(--cb-ico-fg); }
+.pill-btn--glass { padding-inline: 20px; background: var(--glass-bg); color: var(--glass-fg); border-color: var(--glass-line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.pill-btn--brand { background: var(--brand); color: var(--on-brand); }
+.pill-btn--brand .pb-ico { background: rgba(255, 255, 255, 0.2); color: #fff; }
+.pill-btn--line { padding-inline: 20px; background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.pill-btn--outline { padding-inline: 30px; height: 56px; border: 2px solid var(--ink); color: var(--ink); background: transparent; font-size: 1.0625rem; }
+@media (hover: hover) and (pointer: fine) {
+  .pill-btn:hover .pb-ico { transform: translateX(calc(4px * var(--dir))); }
+  .pill-btn--glass:hover { background: var(--glass-bg-hover); }
+  .pill-btn--brand:hover { background: var(--brand-hover); }
+  .pill-btn--line:hover { border-color: var(--brand-text); color: var(--brand-text); }
+  .pill-btn--outline:hover { background: var(--ink); color: var(--board); }
+}
+.round-btn { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; cursor: pointer; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink); transition: border-color 160ms ease, color 160ms ease, transform 120ms var(--ease-out); }
+.round-btn:active { transform: scale(0.94); }
+@media (hover: hover) and (pointer: fine) { .round-btn:hover { border-color: var(--brand-text); color: var(--brand-text); } }
+
+/* ---------- hero */
+.hero { position: relative; }
+.hero-card { position: relative; isolation: isolate; overflow: hidden; border-radius: calc(var(--board-r) - 8px); height: clamp(540px, 72svh, 740px); background: var(--hero-bg); color: var(--hero-fg); touch-action: pan-y; transition: background 400ms ease, color 240ms ease; }
+.hero-card canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
+.hero-shade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: var(--hero-shade); }
+.hero-bar { position: absolute; z-index: 5; inset-inline: clamp(14px, 2vw, 26px); top: clamp(14px, 2vw, 24px); display: flex; align-items: center; gap: 10px; }
+.menu-pill { display: inline-flex; align-items: center; gap: 12px; height: 48px; padding-inline: 20px 6px; border-radius: 999px; border: 0; cursor: pointer; background: var(--hp-bg); color: var(--hp-fg); font: 700 1rem/1 var(--f-display); transition: transform 120ms var(--ease-out), background-color 240ms ease, color 240ms ease; }
+.menu-pill:active { transform: scale(0.97); }
+.menu-pill .dot { width: 36px; height: 36px; border-radius: 50%; background: var(--brand); display: grid; place-items: center; color: #fff; transition: transform 300ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .menu-pill:hover .dot { transform: rotate(90deg); } }
+.hero-logo { margin-inline-start: 6px; }
+.hero-logo .wordmark { font-size: 1.125rem; }
+.lang-toggle { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding-inline: 10px 12px; border-radius: 999px; border: 0; background: transparent; color: var(--hero-fg); cursor: pointer; font: 600 0.875rem/1 var(--f-display); }
+.lang-toggle span { color: var(--hero-fg-2); }
+.lang-toggle span[aria-current="true"] { color: var(--hero-fg); }
+@media (hover: hover) and (pointer: fine) { .lang-toggle:hover { background: var(--glass-bg-hover); } }
+.bar-gap { flex: 1; }
+.search { position: relative; }
+.search-box { display: flex; align-items: center; height: 46px; width: clamp(200px, 22vw, 300px); padding-inline: 18px 5px; border-radius: 999px; background: var(--paper); color: #0F1530; box-shadow: inset 0 0 0 1px var(--search-line); }
+.search-box input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: 500 0.9375rem/1 var(--f-body); color: #0F1530; }
+.search-box input::placeholder { color: #5A6280; }
+.search-box:focus-within { box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.55); }
+.search-go { width: 36px; height: 36px; border-radius: 50%; border: 0; display: grid; place-items: center; background: var(--brand); color: #fff; cursor: pointer; }
+.results { position: absolute; inset-inline: 0; top: calc(100% + 8px); z-index: 10; padding: 6px; border-radius: 18px; background: var(--paper); color: #0F1530; box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.5); max-height: 360px; overflow: auto; }
+.results [role="option"] { display: grid; grid-template-columns: 40px minmax(0, 1fr); align-items: center; gap: 12px; padding: 8px 10px; border-radius: 12px; cursor: pointer; }
+.results [role="option"] img { width: 40px; height: 40px; border-radius: 24%; }
+.results b { display: block; font: 700 0.9375rem/1.3 var(--f-display); }
+.results small { display: block; font-size: 0.8125rem; color: #5A6280; line-height: 1.4; }
+.results [aria-selected="true"], .results [role="option"]:hover { background: #ECEBFF; }
+.results .empty { padding: 12px; font-size: 0.875rem; color: #5A6280; }
+.circle-btn { width: 46px; height: 46px; border-radius: 50%; border: 0; display: grid; place-items: center; cursor: pointer; background: var(--hp-bg); color: var(--hp-fg); transition: transform 120ms var(--ease-out); }
+.circle-btn:active { transform: scale(0.94); }
+.circle-btn .pause { display: none; }
+.circle-btn[aria-pressed="true"] .pause { display: block; }
+.circle-btn[aria-pressed="true"] .play { display: none; }
+.search .search-btn-sm { display: none; }
+.theme-pill { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding-inline: 5px 16px; border-radius: 999px; border: 0; cursor: pointer; background: var(--hp-bg); color: var(--hp-fg); font: 600 0.875rem/1 var(--f-display); }
+.theme-pill .t-ico { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--hp-ico-bg); color: var(--hp-ico-fg); }
+.theme-pill .moon, .theme-pill .lbl-dark { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .theme-pill .moon, :root:not([data-theme="light"]) .theme-pill .lbl-dark { display: inline; } :root:not([data-theme="light"]) .theme-pill .sun, :root:not([data-theme="light"]) .theme-pill .lbl-light { display: none; } }
+:root[data-theme="dark"] .theme-pill .moon, :root[data-theme="dark"] .theme-pill .lbl-dark { display: inline; }
+:root[data-theme="dark"] .theme-pill .sun, :root[data-theme="dark"] .theme-pill .lbl-light { display: none; }
+
+.nums { position: absolute; z-index: 4; inset-inline-start: clamp(14px, 2vw, 26px); top: 50%; translate: 0 -50%; display: flex; flex-direction: column; gap: 10px; }
+.num { position: relative; overflow: hidden; width: 52px; height: 52px; border-radius: 18px; cursor: pointer; border: 1px solid var(--glass-line); background: var(--glass-bg); color: var(--hero-fg); font: 700 1.0625rem/1 var(--f-display); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background-color 200ms ease, border-color 200ms ease, transform 120ms var(--ease-out); }
+.num bdi { position: relative; z-index: 1; }
+.num-fill { position: absolute; inset: 0; background: rgba(139, 92, 246, 0.6); transform-origin: bottom; transform: scaleY(0); }
+.num.is-active { background: var(--brand); border-color: #8B5CF6; color: #FFFFFF; }
+.num:active { transform: scale(0.95); }
+@media (hover: hover) and (pointer: fine) { .num:not(.is-active):hover { background: var(--glass-bg-hover); } }
+.slides { position: absolute; z-index: 3; inset-inline-start: clamp(88px, 8vw, 110px); bottom: clamp(26px, 4vw, 52px); max-width: min(580px, 60%); }
+.slide { display: flex; flex-direction: column; gap: 16px; }
+.slide[hidden] { display: none; }
+.slide .lk-name { color: var(--hero-fg); }
+.slide-title { font: 800 clamp(1.9rem, 3.6vw, 3.25rem)/1.25 var(--f-display); color: var(--hero-fg); text-wrap: balance; }
+[data-lang="en"] .slide-title { line-height: 1.08; }
+.slide .accent { color: var(--accent); }
+.slide-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.thumbs { position: absolute; z-index: 4; inset-inline-end: clamp(14px, 2vw, 26px); top: clamp(88px, 8vw, 112px); display: flex; flex-direction: column; gap: 12px; }
+.thumb { position: relative; width: clamp(118px, 10vw, 156px); aspect-ratio: 1 / 1.08; padding: 0; border-radius: 22px; overflow: hidden; cursor: pointer; border: 2px solid var(--thumb-line); background: var(--work-base); transition: transform 260ms var(--ease-out), border-color 200ms ease; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform 500ms var(--ease-out); }
+.thumb-label { position: absolute; inset-inline: 0; bottom: 0; padding: 26px 10px 10px; text-align: center; font: 700 0.8125rem/1.3 var(--f-display); color: #fff; background: linear-gradient(to top, rgba(0, 0, 0, 0.82), transparent); }
+@media (hover: hover) and (pointer: fine) { .thumb:hover { transform: translateY(-3px); border-color: var(--thumb-line-hover); } .thumb:hover img { transform: scale(1.06); } }
+
+.badge { position: absolute; z-index: 6; inset-inline-end: clamp(14px, 2vw, 26px); bottom: clamp(14px, 2vw, 26px); width: clamp(104px, 9vw, 132px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: var(--board); color: var(--ink); transition: background-color 240ms ease; }
+@media (prefers-reduced-motion: no-preference) { .badge { transition: transform 300ms var(--ease-out), background-color 240ms ease; } }
+@media (hover: hover) and (pointer: fine) { .badge:hover { transform: scale(1.05); } }
+.badge .ring { position: absolute; inset: 3%; }
+.ring-face { position: absolute; inset: 0; display: block; background: var(--ink); -webkit-mask: url(media/ring-ar.png) center / contain no-repeat; mask: url(media/ring-ar.png) center / contain no-repeat; }
+.ring-face.ring-en { -webkit-mask-image: url(media/ring-en.png); mask-image: url(media/ring-en.png); }
+.badge .core { width: 56%; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: var(--spectrum); color: #fff; transition: transform 300ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .badge:hover .core { transform: scale(1.08) rotate(-12deg); } }
+
+/* ---------- marquee + stats */
+.strip { position: relative; margin-top: clamp(36px, 5vw, 64px); padding-block: 26px 10px; overflow: hidden; margin-inline: calc(var(--pad) * -1); }
+.mq { display: flex; overflow: hidden; white-space: nowrap; }
+.mq--a { background: var(--spectrum); color: #FFFFFF; padding-block: clamp(14px, 1.8vw, 22px); transform: rotate(-2.4deg) scale(1.04); position: relative; z-index: 2; box-shadow: 0 18px 40px -20px rgba(79, 70, 229, 0.55); }
+.mq--b { background: var(--band-bg); color: var(--band-fg); padding-block: 14px; transform: rotate(1.4deg) scale(1.04); margin-top: -10px; }
+.mq-track { display: inline-flex; align-items: center; gap: clamp(22px, 3vw, 40px); padding-inline-end: clamp(22px, 3vw, 40px); will-change: transform; }
+.mq--a .mq-item { font: 800 clamp(1.75rem, 3.6vw, 3.25rem)/1.2 var(--f-display); }
+.mq--a .mq-item:nth-of-type(2n) { opacity: 0.82; }
+.mq--b .mq-item { font: 600 clamp(1.125rem, 1.8vw, 1.5rem)/1.3 var(--f-display); }
+.spark { width: clamp(18px, 2vw, 28px); height: auto; fill: currentColor; flex: none; }
+.mq--a .spark { fill: rgba(255, 255, 255, 0.85); }
+.mq--b .spark { fill: #F59E5B; width: 16px; }
+@media (prefers-reduced-motion: no-preference) {
+  .mq-track { animation: mq 32s linear infinite; }
+  .mq--b .mq-track { animation-duration: 40s; animation-direction: reverse; }
+  .strip.is-paused .mq-track, .strip:hover .mq-track { animation-play-state: paused; }
+}
+@keyframes mq { to { transform: translateX(calc(50% * var(--dir) * -1)); } }
+[dir="rtl"] .mq { direction: rtl; }
+.stats-row { margin-top: clamp(28px, 3vw, 40px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--surface); border-radius: var(--r); box-shadow: var(--card-shadow); }
+.stats-row li { padding: clamp(22px, 3vw, 36px) 16px; text-align: center; display: flex; flex-direction: column; gap: 8px; }
+.stats-row li + li { border-inline-start: 1px solid var(--line); }
+.sv { font: 800 clamp(2.75rem, 5vw, 4rem)/1 var(--f-display); background: var(--spectrum); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+.sl { font-size: 1rem; color: var(--fg-2); }
+
+/* ---------- intro (centered) */
+.intro { padding-block: clamp(72px, 8vw, 120px) clamp(24px, 3vw, 40px); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.intro-mark { width: 56px; height: 68px; filter: drop-shadow(0 10px 18px rgba(79, 70, 229, 0.28)); }
+.intro h1 { font-size: clamp(2rem, 4.6vw, 4rem); line-height: 1.35; max-width: none; }
+.intro h1 .ln + .ln { margin-top: 0.08em; }
+[data-lang="en"] .intro h1 { line-height: 1.08; }
+.intro h1 .hl { position: relative; display: inline-block; background: var(--spectrum); -webkit-background-clip: text; background-clip: text; color: transparent; padding-inline: 0.06em; }
+.intro h1 .hl::after { content: ""; position: absolute; inset-inline: 8%; bottom: 0.02em; height: 0.09em; border-radius: 99px; background: var(--spectrum); opacity: 0.35; }
+.intro p { max-width: 52ch; color: var(--fg-2); font-size: clamp(1.1875rem, 1.5vw, 1.375rem); line-height: 1.75; }
+.intro-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 22px; margin-top: 8px; }
+.share { display: flex; align-items: center; gap: 8px; }
+.share > span { font-size: 0.875rem; color: var(--fg-3); margin-inline-end: 4px; }
+
+/* ---------- section titles (centered) */
+.sec { padding-block: clamp(64px, 8vw, 112px) 0; }
+.sec-title { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.sec-title h2 { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.3; }
+[data-lang="en"] .sec-title h2 { line-height: 1.1; }
+.sec-title p { color: var(--fg-2); max-width: 56ch; }
+
+/* ---------- selected work */
+.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 28px; }
+.chip { height: 44px; padding-inline: 18px 8px; border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--fg-2); font: 600 0.9375rem/1 var(--f-display); transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 120ms var(--ease-out); }
+.chip:active { transform: scale(0.96); }
+.chip-n { min-width: 28px; height: 28px; padding-inline: 6px; border-radius: 999px; display: grid; place-items: center; font-size: 0.8125rem; background: var(--surface-2); color: var(--fg-3); font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--board); }
+.chip[aria-pressed="true"] .chip-n { background: var(--brand); color: #fff; }
+@media (hover: hover) and (pointer: fine) { .chip[aria-pressed="false"]:hover { border-color: var(--brand-text); color: var(--ink); } }
+.works { margin-top: 32px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 1.8vw, 22px); }
+.work { position: relative; isolation: isolate; overflow: hidden; min-height: clamp(280px, 26vw, 360px); border-radius: var(--r); padding: clamp(20px, 2.2vw, 30px); display: flex; flex-direction: column; justify-content: space-between; gap: 18px; color: var(--work-fg); background: var(--work-base); }
+.work.is-hidden { display: none; }
+.work-bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); filter: blur(2px) saturate(1.15); transition: transform 900ms var(--ease-out), filter 600ms ease; }
+.work::after { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--work-scrim); transition: background 300ms ease; }
+.work-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.work .lk-name { color: var(--work-fg); }
+.work-line { font: 600 clamp(1.125rem, 1.7vw, 1.375rem)/1.55 var(--f-display); max-width: 30ch; text-shadow: var(--work-text-shadow); }
+.work .pill-btn { align-self: flex-start; }
+.pill { display: inline-flex; align-items: center; height: 30px; padding-inline: 12px; border-radius: 999px; font: 600 0.8125rem/1 var(--f-display); }
+.pill--soon { margin-inline-start: 6px; }
+.pill-btn.is-soon { opacity: .55; cursor: not-allowed; }
+.pill--glass { background: var(--glass-bg); color: var(--glass-fg); border: 1px solid var(--glass-line); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+@media (hover: hover) and (pointer: fine) { .work:hover .work-bg { transform: scale(1.12); filter: blur(0) saturate(1.15); } }
+
+/* ---------- lockups + stats */
+.lockup { display: inline-flex; align-items: center; gap: 16px; }
+.lk-icon { width: 76px; height: 76px; border-radius: 22%; filter: drop-shadow(0 12px 16px rgba(10, 14, 40, 0.3)); }
+.lk-text { display: flex; flex-direction: column; gap: 8px; }
+.lk-name { font: 800 1.875rem/1.2 var(--f-display); color: var(--ink); }
+.lk-en { font: 600 0.6875rem/1 var(--f-display); letter-spacing: 0.34em; color: var(--accent); direction: ltr; align-self: flex-start; }
+.lockup--md { gap: 12px; }
+.lockup--md .lk-icon { width: 54px; height: 54px; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.5)); }
+.lockup--md .lk-name { font-size: 1.25rem; }
+.lockup--md .lk-en, .work .lk-en { color: var(--accent); }
+.lockup--sm { gap: 10px; }
+.lockup--sm .lk-icon { width: 44px; height: 44px; filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.4)); }
+.lockup--sm .lk-name { font-size: 1.0625rem; font-weight: 700; }
+.lockup--sm .lk-en { font-size: 0.6875rem; letter-spacing: 0.26em; }
+.lockup--xs { gap: 10px; }
+.lockup--xs .lk-icon { width: 30px; height: 30px; filter: none; }
+.lockup--xs .lk-en { display: none; }
+.stats { display: flex; flex-wrap: wrap; row-gap: 14px; }
+.stats li { display: flex; flex-direction: column; gap: 4px; padding-inline: 22px; border-inline-start: 1px solid var(--line-strong); }
+.stats li:first-child { padding-inline-start: 0; border-inline-start: 0; }
+.st-v { font: 700 1.375rem/1.3 var(--f-display); font-variant-numeric: tabular-nums; }
+.st-l { font-size: 0.875rem; color: var(--fg-3); line-height: 1.5; }
+/* ---------- process */
+.process { padding-block: clamp(64px, 8vw, 112px) clamp(40px, 5vw, 72px); padding-inline: clamp(4px, 2vw, 28px); }
+.steps { position: relative; margin-top: clamp(40px, 5vw, 64px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.steps-line { position: absolute; top: 52px; inset-inline: 16%; height: 2px; background: var(--line-strong); }
+.steps-line i { position: absolute; inset: 0; background: var(--spectrum); transform-origin: var(--line-origin, right); }
+[dir="ltr"] .steps-line i { --line-origin: left; }
+.step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
+.step-tile { position: relative; width: 104px; height: 104px; border-radius: 30px; display: grid; place-items: center; background: var(--surface); border: 2px solid var(--navy); color: var(--brand-text); box-shadow: 0 0 0 10px var(--board), var(--card-shadow); transition: background-color 240ms ease; }
+.step-n { position: absolute; top: -12px; inset-inline-end: -12px; min-width: 44px; height: 32px; padding-inline: 8px; border-radius: 999px; display: grid; place-items: center; background: var(--spectrum); color: #fff; font: 800 0.9375rem/1 var(--f-display); }
+.step h3 { margin-top: 10px; font-size: clamp(1.25rem, 1.8vw, 1.5rem); }
+.step p { color: var(--fg-2); max-width: 30ch; }
+
+/* ---------- footer */
+.site-footer { max-width: 1480px; margin: 0 auto; padding: clamp(36px, 5vw, 56px) clamp(12px, 3vw, 40px) calc(24px + env(safe-area-inset-bottom, 0px)); color: var(--foot-fg); }
+.f-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr)); gap: 32px; }
+.f-brand p { margin-top: 14px; color: var(--foot-fg-2); font-size: 0.9375rem; max-width: 34ch; }
+.f-col h3 { font: 700 0.9375rem/1.4 var(--f-display); margin-bottom: 12px; color: var(--foot-head); }
+.f-col ul { display: flex; flex-direction: column; gap: 2px; }
+.f-col a { display: inline-block; padding-block: 5px; font-size: 0.9375rem; color: var(--foot-fg-2); transition: color 160ms ease; }
+@media (hover: hover) and (pointer: fine) { .f-col a:hover { color: var(--foot-head); } }
+.f-social { display: flex; flex-wrap: wrap; gap: 10px; }
+.f-social a { width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; background: var(--foot-tile); border: 1px solid var(--foot-tile-line); color: var(--foot-head); transition: background-color 200ms ease, transform 120ms var(--ease-out); }
+.f-social a:active { transform: scale(0.96); }
+@media (hover: hover) and (pointer: fine) { .f-social a:hover { background: var(--foot-tile-hover); } }
+.f-col--c { text-align: center; }
+.f-col--c h3 { text-align: center; }
+.f-social { justify-content: center; }
+.f-apps { display: grid; grid-template-columns: repeat(4, 44px); gap: 10px; justify-content: center; }
+.f-apps button { width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 13px; }
+.f-apps img { width: 100%; height: 100%; border-radius: 13px; display: block; box-shadow: 0 10px 18px -12px rgba(0, 0, 0, 0.6); transition: transform 200ms var(--ease-out); }
+.f-apps button:active img { transform: scale(0.96); }
+@media (hover: hover) and (pointer: fine) { .f-apps button:hover img { transform: translateY(-3px); } }
+.f-bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--foot-line); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.875rem; color: var(--foot-fg-2); }
+.to-top { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding-inline: 14px; border-radius: 999px; border: 1px solid var(--foot-tile-line); background: transparent; color: var(--foot-head); cursor: pointer; }
+
+/* ---------- dock */
+.dock { position: fixed; z-index: 40; top: calc(10px + env(safe-area-inset-top, 0px)); left: 50%; translate: -50% 0; display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 999px; background: color-mix(in oklab, var(--board) 86%, transparent); border: 1px solid var(--line); backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3); box-shadow: 0 16px 36px -18px rgba(0, 0, 0, 0.45); transform: translateY(calc(-100% - 24px)); opacity: 0; pointer-events: none; transition: transform 420ms var(--ease-out), opacity 300ms ease, background-color 240ms ease; }
+.dock.is-on { transform: none; opacity: 1; pointer-events: auto; }
+.dock .logo { padding-inline: 12px 8px; }
+.dock .logo-mark { width: 22px; height: 27px; }
+.dock .wordmark { font-size: 1rem; }
+.dock nav { display: flex; gap: 2px; }
+.dock nav a { padding: 9px 14px; border-radius: 999px; font: 500 0.9375rem/1 var(--f-display); color: var(--fg-2); transition: background-color 160ms ease, color 160ms ease; }
+.dock nav a.is-current { background: var(--ink); color: var(--board); }
+@media (hover: hover) and (pointer: fine) { .dock nav a:not(.is-current):hover { color: var(--ink); background: var(--soft); } }
+.dock .round-btn { width: 40px; height: 40px; }
+.dock-lang { font: 700 0.8125rem/1 var(--f-display); }
+
+/* ---------- drawer */
+.drawer { position: fixed; inset-block: 0; inset-inline-end: 0; inset-inline-start: auto; margin: 0; height: 100dvh; max-height: none; width: min(88vw, 360px); padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px)); border: 0; background: var(--board); color: var(--ink); overscroll-behavior: contain; }
+.drawer[open] { display: flex; flex-direction: column; gap: 20px; }
+.drawer::backdrop { background: var(--scrim); }
+@media (prefers-reduced-motion: no-preference) { .drawer[open] { animation: drawer-in 340ms var(--ease-out); } .drawer[open]::backdrop { animation: fade 240ms ease; } }
+@keyframes drawer-in { from { transform: translateX(calc(100% * var(--dir))); } }
+@keyframes fade { from { opacity: 0; } }
+.drawer-top { display: flex; align-items: center; justify-content: space-between; }
+.d-nav { display: flex; flex-direction: column; gap: 4px; }
+.d-nav a { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 16px; border-radius: 16px; font: 600 1.0625rem/1.3 var(--f-display); background: var(--surface); }
+.d-nav a .idx { font: 600 0.8125rem/1 var(--f-display); color: var(--fg-3); }
+.d-nav a.is-current { background: var(--brand); color: #fff; }
+.d-nav a.is-current .idx { color: rgba(255, 255, 255, 0.85); }
+.d-group { display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--line); }
+.d-group > span { font-size: 0.875rem; color: var(--fg-3); display: inline-flex; align-items: center; gap: 8px; }
+.seg { display: flex; padding: 4px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); }
+.seg button { flex: 1; height: 40px; border: 0; border-radius: 999px; cursor: pointer; background: transparent; color: var(--fg-2); font: 600 0.875rem/1 var(--f-display); display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: background-color 160ms ease, color 160ms ease; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--board); }
+
+/* ---------- floating app window */
+.app-modal { width: min(94vw, 1120px); max-width: none; max-height: 90svh; padding: 0; border: 0; background: transparent; color: var(--ink); overflow: visible; overscroll-behavior: contain; }
+.am-shell { height: min(86svh, 700px); max-height: 90svh; border-radius: 30px; background: var(--board); overflow: hidden; box-shadow: 0 50px 100px -30px rgba(0, 0, 0, 0.6); display: grid; grid-template-columns: auto minmax(0, 1fr); }
+.app-modal::backdrop { background: var(--scrim); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+
+.am-poster { position: relative; height: 100%; aspect-ratio: var(--ratio, 4 / 5); max-width: 56vw; min-height: 0; padding: 0; overflow: hidden; background: var(--surface-2); }
+.am-poster img { display: block; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; border-radius: 0; box-shadow: none; cursor: zoom-in; }
+.am-poster::after { content: ""; position: absolute; inset-block: 0; inset-inline-end: 0; width: 22px; pointer-events: none; }
+[dir="rtl"] .am-poster::after { background: linear-gradient(to right, rgba(0, 0, 0, 0.26), transparent); }
+[dir="ltr"] .am-poster::after { background: linear-gradient(to left, rgba(0, 0, 0, 0.26), transparent); }
+.am-poster img.is-zoomed { cursor: zoom-out; }
+.am-body { position: relative; overflow: auto; padding: clamp(22px, 3vw, 40px); display: flex; flex-direction: column; gap: 18px; }
+.am-close { position: absolute; top: 16px; inset-inline-end: 16px; }
+.am-head { font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1.3; padding-inline-end: 52px; }
+[data-lang="en"] .am-head { line-height: 1.12; }
+.am-lead { color: var(--fg-2); }
+.am-lead strong { color: var(--ink); font-weight: 600; }
+.am-feat { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.am-feat li { display: flex; align-items: flex-start; gap: 10px; padding: 14px; border-radius: 16px; background: var(--surface); box-shadow: var(--card-shadow); font-size: 0.9375rem; line-height: 1.55; }
+.am-feat .ck { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; flex: none; color: #fff; background: var(--accent); }
+.am-sub { font: 700 1rem/1.4 var(--f-display); color: var(--fg-3); }
+.am-actions { position: sticky; bottom: calc(clamp(22px, 3vw, 40px) * -1); z-index: 2; display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; margin-inline: calc(clamp(22px, 3vw, 40px) * -1); padding: 14px clamp(22px, 3vw, 40px) clamp(18px, 2.4vw, 28px); background: linear-gradient(to bottom, color-mix(in oklab, var(--board) 0%, transparent), var(--board) 26%); }
+.pill-btn--ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.pill-btn--ghost .pb-ico { background: var(--soft); color: var(--brand-text); }
+@media (hover: hover) and (pointer: fine) { .pill-btn--ghost:hover { border-color: var(--brand-text); color: var(--brand-text); } }
+@media (prefers-reduced-motion: no-preference) { .app-modal[open]::backdrop { animation: fade 260ms ease; } }
+
+.toast { position: fixed; z-index: 60; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; padding: 12px 20px; border-radius: 999px; background: var(--ink); color: var(--board); font: 600 0.9375rem/1.2 var(--f-display); opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity 200ms ease, transform 300ms var(--ease-out); }
+.toast.is-on { opacity: 1; transform: none; }
+
+/* ---------- responsive */
+@media (max-width: 1180px) { .f-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .f-brand { grid-column: 1 / -1; } }
+@media (max-width: 1023px) {
+  .thumbs { display: none; }
+  .search-box { width: clamp(160px, 26vw, 240px); }
+  .hero-logo .wordmark { display: none; }
+  .ch-poster { display: block; width: 100%; max-width: 520px; border-radius: 20px; overflow: hidden; box-shadow: var(--poster-shadow); }
+  .ch-poster img { width: 100%; height: 100%; object-fit: cover; }
+  .dock nav { display: none; }
+  .am-shell { height: auto; grid-template-columns: minmax(0, 1fr); overflow: auto; }
+  .am-poster { width: 100%; height: auto; max-width: none; max-height: 80svh; }
+  .am-poster::after { display: none; }
+  .am-body { overflow: visible; }
+}
+@media (max-width: 760px) {
+  .hero-card { height: clamp(540px, 80svh, 700px); }
+  .hero-bar .lang-toggle, .hero-logo { display: none; }
+  .theme-pill .lbl-light, .theme-pill .lbl-dark { display: none !important; }
+  .hero-bar { gap: 8px; }
+  .circle-btn, .theme-pill { width: 44px; height: 44px; padding: 0; justify-content: center; }
+  .theme-pill .t-ico { width: 34px; height: 34px; }
+  .search { position: static; }
+  .search-box { display: none; }
+  .search.is-open .search-box { display: flex; position: absolute; inset-inline: 0; top: calc(100% + 8px); width: auto; z-index: 9; }
+  .search.is-open .results { top: calc(100% + 64px); }
+  .search .search-btn-sm { display: grid; }
+  .menu-pill { padding-inline: 16px 5px; }
+  .nums { top: auto; bottom: 18px; translate: none; flex-direction: row; inset-inline-start: 16px; gap: 6px; }
+  .num { width: 34px; height: 34px; border-radius: 11px; font-size: 0.8125rem; }
+  .nums { gap: 5px; }
+  .hero-bar > * { flex-shrink: 0; }
+  .slides { inset-inline: 16px; bottom: 96px; max-width: none; }
+  .badge { inset-inline-end: 12px; bottom: 12px; width: 70px; }
+  .badge .core svg { width: 16px; height: 16px; }
+  .stats-row { grid-template-columns: minmax(0, 1fr); }
+  .stats-row li + li { border-inline-start: 0; border-top: 1px solid var(--line); }
+  .works { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .steps-line { inset-inline: auto; inset-inline-start: 50%; top: 52px; bottom: 52px; width: 2px; height: auto; translate: 50% 0; }
+  .steps-line i { transform-origin: top; }
+  .step { background: transparent; }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stats li { padding-inline: 12px; }
+  .st-v { font-size: 1.125rem; }
+  .lk-icon { width: 64px; height: 64px; }
+  .lk-name { font-size: 1.5rem; }
+  .am-feat { grid-template-columns: minmax(0, 1fr); }
+  .intro { gap: 18px; }
+  .intro-actions { flex-direction: column; width: 100%; gap: 18px; }
+  .intro-actions .pill-btn--outline { width: min(100%, 320px); justify-content: center; }
+  .share { flex-wrap: wrap; justify-content: center; }
+  .share > span { flex-basis: 100%; text-align: center; margin: 0 0 2px; }
+  .app-modal { width: 100vw; height: 100dvh; max-height: 100dvh; }
+  .am-shell { display: block; height: 100dvh; max-height: 100dvh; border-radius: 0; overflow: auto; }
+  .am-poster { max-height: none; }
+  .am-close { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); z-index: 5; background: color-mix(in oklab, var(--paper) 92%, transparent); color: #0F1530; border-color: transparent; }
+  .am-head { padding-inline-end: 0; }
+  .steps-line { display: none; }
+
+  .f-grid { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+}
+@media (max-width: 400px) {
+  .num { width: 29px; height: 29px; border-radius: 9px; font-size: 0.75rem; }
+  .nums { gap: 4px; inset-inline-start: 12px; bottom: 16px; }
+  .badge { width: 58px; bottom: 10px; inset-inline-end: 10px; }
+  .badge .core svg { width: 14px; height: 14px; }
+  .slides { bottom: 84px; }
+  .menu-pill { font-size: 0; gap: 0; padding-inline: 5px; }
+  .hero-bar .circle-btn { width: 44px; height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dock { transition: opacity 200ms ease; transform: none; }
+}
+</style>
+
+<div id="app" dir="rtl" lang="ar" data-lang="ar">
+<a class="skip" href="#main"><span data-l="ar">تخطَّ إلى المحتوى</span><span data-l="en" lang="en">Skip to content</span></a>
+
+<div class="dock" id="dock">
+  <a class="logo" href="#top" aria-label="Pixel Pros"><svg class="logo-mark" viewBox="0 0 36 44" aria-hidden="true"><defs><linearGradient id="g-dock" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0D9488"/><stop offset=".45" stop-color="#2563EB"/><stop offset=".75" stop-color="#4F46E5"/><stop offset="1" stop-color="#B45309"/></linearGradient></defs><g fill="url(#g-dock)"><rect x="2.0" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="8.8" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="15.6" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="9.8" width="6.2" height="6.2" rx="1.6"/><rect x="22.4" y="9.8" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="16.6" width="6.2" height="6.2" rx="1.6"/><rect x="22.4" y="16.6" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="8.8" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="15.6" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="30.2" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="37.0" width="6.2" height="6.2" rx="1.6"/><rect x="30" y="0" width="4.5" height="4.5" rx="1.2" opacity=".9"/><rect x="33" y="6.5" width="3" height="3" rx=".9" opacity=".65"/></g></svg><span class="wordmark" translate="no">PIXEL PROS</span></a>
+  <nav aria-label="أقسام الصفحة" data-ar-aria-label="أقسام الصفحة" data-en-aria-label="Page sections">
+    <a href="#work" data-sec="work"><span data-l="ar">أعمال مختارة</span><span data-l="en" lang="en">Selected Work</span></a>
+    <a href="#process" data-sec="process"><span data-l="ar">المسار</span><span data-l="en" lang="en">Process</span></a>
+  </nav>
+  <button class="round-btn dock-lang" type="button" data-toggle-lang aria-label="English" data-ar-aria-label="English" data-en-aria-label="العربية"><span data-l="ar" lang="en">EN</span><span data-l="en" lang="ar">ع</span></button>
+  <button class="round-btn" type="button" data-toggle-theme aria-label="تبديل المظهر" data-ar-aria-label="تبديل المظهر" data-en-aria-label="Toggle theme"><span class="only-light"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span><span class="only-dark"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span></button>
+  <button class="round-btn" type="button" data-open-drawer aria-controls="drawer" aria-label="فتح القائمة" data-ar-aria-label="فتح القائمة" data-en-aria-label="Open menu"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg></button>
+</div>
+
+<div class="board">
+<main id="main">
+  <section class="hero" id="top" aria-label="أعمال Pixel Pros" data-ar-aria-label="أعمال Pixel Pros" data-en-aria-label="Pixel Pros work" aria-roledescription="carousel">
+    <div class="hero-card" id="hero" tabindex="-1">
+      <canvas id="space" aria-hidden="true"></canvas>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-bar">
+        <button class="menu-pill" type="button" data-open-drawer aria-controls="drawer" aria-expanded="false"><span data-l="ar">القائمة</span><span data-l="en" lang="en">Menu</span><span class="dot"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg></span></button>
+        <a class="logo hero-logo" href="#top" aria-label="Pixel Pros"><svg class="logo-mark" viewBox="0 0 36 44" aria-hidden="true"><defs><linearGradient id="g-hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0D9488"/><stop offset=".45" stop-color="#2563EB"/><stop offset=".75" stop-color="#4F46E5"/><stop offset="1" stop-color="#B45309"/></linearGradient></defs><g fill="url(#g-hero)"><rect x="2.0" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="8.8" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="15.6" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="9.8" width="6.2" height="6.2" rx="1.6"/><rect x="22.4" y="9.8" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="16.6" width="6.2" height="6.2" rx="1.6"/><rect x="22.4" y="16.6" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="8.8" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="15.6" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="30.2" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="37.0" width="6.2" height="6.2" rx="1.6"/><rect x="30" y="0" width="4.5" height="4.5" rx="1.2" opacity=".9"/><rect x="33" y="6.5" width="3" height="3" rx=".9" opacity=".65"/></g></svg><span class="wordmark" translate="no">PIXEL PROS</span></a>
+        <button class="lang-toggle" type="button" data-toggle-lang aria-label="غيّر اللغة إلى الإنجليزية" data-ar-aria-label="غيّر اللغة إلى الإنجليزية" data-en-aria-label="Switch to Arabic"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><span class="lbl"><span data-l="ar"><span aria-current="true">ع</span> · <span lang="en">EN</span></span><span data-l="en" lang="en"><span>ع</span> · <span aria-current="true">EN</span></span></span></button>
+        <span class="bar-gap"></span>
+        <div class="search" id="search">
+          <button class="circle-btn search-btn-sm" type="button" data-open-search aria-label="ابحث في التطبيقات" data-ar-aria-label="ابحث في التطبيقات" data-en-aria-label="Search the apps"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+          <div class="search-box">
+            <input id="q" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="results" placeholder="ابحث: راتب، دوام، دواء…" data-ar-placeholder="ابحث: راتب، دوام، دواء…" data-en-placeholder="Search: salary, rotation, dose…" aria-label="ابحث في التطبيقات" data-ar-aria-label="ابحث في التطبيقات" data-en-aria-label="Search the apps">
+            <button class="search-go" type="button" data-search-go aria-label="ابحث" data-ar-aria-label="ابحث" data-en-aria-label="Search"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+          </div>
+          <ul class="results" id="results" role="listbox" aria-label="نتائج البحث" data-ar-aria-label="نتائج البحث" data-en-aria-label="Search results" hidden></ul>
+        </div>
+        <button class="circle-btn" id="play" type="button" aria-pressed="false" aria-label="تشغيل العرض التلقائي" data-ar-aria-label="تشغيل العرض التلقائي" data-en-aria-label="Autoplay slides"><span class="play"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4.5a1.5 1.5 0 0 1 2.3-1.27l11 7a1.5 1.5 0 0 1 0 2.54l-11 7A1.5 1.5 0 0 1 6 18.5z"/></svg></span><span class="pause"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg></span></button>
+        <button class="theme-pill" type="button" data-toggle-theme aria-label="تبديل المظهر" data-ar-aria-label="تبديل المظهر" data-en-aria-label="Toggle theme"><span class="t-ico"><span class="sun"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span><span class="moon"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span></span><span class="lbl-light"><span data-l="ar">فاتح</span><span data-l="en" lang="en">Light</span></span><span class="lbl-dark"><span data-l="ar">داكن</span><span data-l="en" lang="en">Dark</span></span></button>
+      </div>
+      <ol class="nums" aria-label="اختر تطبيق" data-ar-aria-label="اختر تطبيق" data-en-aria-label="Choose an app"><li><button class="num is-active" type="button" data-slide="0" aria-label="يومي" data-ar-aria-label="يومي" data-en-aria-label="Yawmi" aria-current="true"><span class="num-fill" aria-hidden="true"></span><bdi>01</bdi></button></li><li><button class="num" type="button" data-slide="1" aria-label="متابعة الدوام" data-ar-aria-label="متابعة الدوام" data-en-aria-label="Duty Tracker" aria-current="false"><span class="num-fill" aria-hidden="true"></span><bdi>02</bdi></button></li><li><button class="num" type="button" data-slide="2" aria-label="حاسبة الزيت والغاز" data-ar-aria-label="حاسبة الزيت والغاز" data-en-aria-label="Oil &amp; Gas Calculator" aria-current="false"><span class="num-fill" aria-hidden="true"></span><bdi>03</bdi></button></li><li><button class="num" type="button" data-slide="3" aria-label="مصاريفي" data-ar-aria-label="مصاريفي" data-en-aria-label="Masarifi" aria-current="false"><span class="num-fill" aria-hidden="true"></span><bdi>04</bdi></button></li><li><button class="num" type="button" data-slide="4" aria-label="شهاداتي" data-ar-aria-label="شهاداتي" data-en-aria-label="My Certs" aria-current="false"><span class="num-fill" aria-hidden="true"></span><bdi>05</bdi></button></li><li><button class="num" type="button" data-slide="5" aria-label="صحتي" data-ar-aria-label="صحتي" data-en-aria-label="MyHealth" aria-current="false"><span class="num-fill" aria-hidden="true"></span><bdi>06</bdi></button></li><li><button class="num" type="button" data-slide="6" aria-label="قيد" data-ar-aria-label="قيد" data-en-aria-label="Qayd" aria-current="false"><span class="num-fill" aria-hidden="true"></span><bdi>07</bdi></button></li></ol>
+      <div class="slides" aria-live="polite">
+<div class="slide tone is-active" data-i="0" style="--acc-l:#1460B8;--acc-d:#5CC8F5;--glow:#1C5FD0" >
+  <div class="lockup lockup--md"><img class="lk-icon" src="icons/yawmi.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">يومي</span><span data-l="en" lang="en">Yawmi</span></span><span class="lk-en" lang="en" translate="no">YAWMI</span></span></div>
+  <p class="slide-title"><span class="ln"><span data-l="ar">تفاصيل يومك كلها</span><span data-l="en" lang="en">Every detail of your day</span></span><span class="ln accent"><span data-l="ar">في مكان واحد</span><span data-l="en" lang="en">in one place</span></span></p>
+  <div class="slide-actions">
+    <button class="pill-btn pill-btn--light" type="button" data-app="yawmi"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+    <a class="pill-btn pill-btn--glass" href="#work"><span data-l="ar">كل الأعمال</span><span data-l="en" lang="en">All Work</span></a>
+  </div>
+</div>
+<div class="slide tone" data-i="1" style="--acc-l:#B8420B;--acc-d:#FF9D45;--glow:#C2410C" hidden>
+  <div class="lockup lockup--md"><img class="lk-icon" src="icons/duty.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">متابعة الدوام</span><span data-l="en" lang="en">Duty Tracker</span></span><span class="lk-en" lang="en" translate="no">DUTY TRACKER</span></span></div>
+  <p class="slide-title"><span class="ln"><span data-l="ar">كم باقي</span><span data-l="en" lang="en">How many days</span></span><span class="ln accent"><span data-l="ar">على النزول؟</span><span data-l="en" lang="en">until you are off?</span></span></p>
+  <div class="slide-actions">
+    <button class="pill-btn pill-btn--light" type="button" data-app="duty"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+    <a class="pill-btn pill-btn--glass" href="#work"><span data-l="ar">كل الأعمال</span><span data-l="en" lang="en">All Work</span></a>
+  </div>
+</div>
+<div class="slide tone" data-i="2" style="--acc-l:#855406;--acc-d:#F5BC48;--glow:#A86A12" hidden>
+  <div class="lockup lockup--md"><img class="lk-icon" src="icons/calc.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">حاسبة الزيت والغاز</span><span data-l="en" lang="en">Oil &amp; Gas Calculator</span></span><span class="lk-en" lang="en" translate="no">OIL &amp; GAS CALCULATOR</span></span></div>
+  <p class="slide-title"><span class="ln"><span data-l="ar">حسابات الحقل</span><span data-l="en" lang="en">Field calculations</span></span><span class="ln accent"><span data-l="ar">بنتيجة فورية</span><span data-l="en" lang="en">with instant results</span></span></p>
+  <div class="slide-actions">
+    <button class="pill-btn pill-btn--light" type="button" data-app="calc"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+    <a class="pill-btn pill-btn--glass" href="#work"><span data-l="ar">كل الأعمال</span><span data-l="en" lang="en">All Work</span></a>
+  </div>
+</div>
+<div class="slide tone" data-i="3" style="--acc-l:#0B6E5C;--acc-d:#E8C872;--glow:#0D6B50" hidden>
+  <div class="lockup lockup--md"><img class="lk-icon" src="icons/masarifi.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">مصاريفي</span><span data-l="en" lang="en">Masarifi</span></span><span class="lk-en" lang="en" translate="no">MASARIFI</span></span></div>
+  <p class="slide-title"><span class="ln"><span data-l="ar">اعرف وين يروح</span><span data-l="en" lang="en">Know where every</span></span><span class="ln accent"><span data-l="ar">كل ريال</span><span data-l="en" lang="en">riyal goes</span></span></p>
+  <div class="slide-actions">
+    <button class="pill-btn pill-btn--light" type="button" data-app="masarifi"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+    <a class="pill-btn pill-btn--glass" href="#work"><span data-l="ar">كل الأعمال</span><span data-l="en" lang="en">All Work</span></a>
+  </div>
+</div>
+<div class="slide tone" data-i="4" style="--acc-l:#A34F06;--acc-d:#F7AC45;--glow:#1D4F98" hidden>
+  <div class="lockup lockup--md"><img class="lk-icon" src="icons/certs.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">شهاداتي</span><span data-l="en" lang="en">My Certs</span></span><span class="lk-en" lang="en" translate="no">MY CERTS</span></span></div>
+  <p class="slide-title"><span class="ln"><span data-l="ar">شهاداتك كلها</span><span data-l="en" lang="en">All your certificates</span></span><span class="ln accent"><span data-l="ar">ولا وحدة تفوتك</span><span data-l="en" lang="en">none slip by</span></span></p>
+  <div class="slide-actions">
+    <button class="pill-btn pill-btn--light" type="button" data-app="certs"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+    <a class="pill-btn pill-btn--glass" href="#work"><span data-l="ar">كل الأعمال</span><span data-l="en" lang="en">All Work</span></a>
+  </div>
+</div>
+<div class="slide tone" data-i="5" style="--acc-l:#0B6F74;--acc-d:#43D6B6;--glow:#0B7A82" hidden>
+  <div class="lockup lockup--md"><img class="lk-icon" src="icons/sehati.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">صحتي</span><span data-l="en" lang="en">MyHealth</span></span><span class="lk-en" lang="en" translate="no">MYHEALTH</span></span></div>
+  <p class="slide-title"><span class="ln"><span data-l="ar">لا تنسَ جرعة</span><span data-l="en" lang="en">Never miss a dose</span></span><span class="ln accent"><span data-l="ar">ولا موعد</span><span data-l="en" lang="en">or an appointment</span></span></p>
+  <div class="slide-actions">
+    <button class="pill-btn pill-btn--light" type="button" data-app="sehati"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+    <a class="pill-btn pill-btn--glass" href="#work"><span data-l="ar">كل الأعمال</span><span data-l="en" lang="en">All Work</span></a>
+  </div>
+</div>
+<div class="slide tone" data-i="6" style="--acc-l:#5B3FD0;--acc-d:#B3A6FF;--glow:#5B3FD0" hidden>
+  <div class="lockup lockup--md"><img class="lk-icon" src="icons/qayd.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">قيد</span><span data-l="en" lang="en">Qayd</span></span><span class="lk-en" lang="en" translate="no">QAYD</span></span></div>
+  <p class="slide-title"><span class="ln"><span data-l="ar">اشتراكاتك كلها</span><span data-l="en" lang="en">All your subscriptions</span></span><span class="ln accent"><span data-l="ar">في صفحة وحدة</span><span data-l="en" lang="en">on one page</span></span></p>
+  <div class="slide-actions">
+    <button class="pill-btn pill-btn--light" type="button" data-app="qayd"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+    <a class="pill-btn pill-btn--glass" href="#work"><span data-l="ar">كل الأعمال</span><span data-l="en" lang="en">All Work</span></a>
+  </div>
+</div></div>
+      <div class="thumbs" aria-label="التطبيقات التالية" data-ar-aria-label="التطبيقات التالية" data-en-aria-label="Next apps"><button class="thumb" type="button" data-thumb="1" data-go="1">
+  <img src="posters/duty.jpg" alt="" width="1080" height="1350">
+  <span class="thumb-label">متابعة الدوام</span>
+</button><button class="thumb" type="button" data-thumb="2" data-go="2">
+  <img src="posters/calc.jpg" alt="" width="1080" height="1350">
+  <span class="thumb-label">حاسبة الزيت والغاز</span>
+</button></div>
+    </div>
+    <a class="badge" href="#work" aria-label="أعمال مختارة" data-ar-aria-label="أعمال مختارة" data-en-aria-label="Selected work">
+      <span class="ring" aria-hidden="true"><span class="ring-face" data-l="ar"></span><span class="ring-face ring-en" data-l="en"></span></span>
+      <span class="core"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+    </a>
+  </section>
+
+  <section class="strip" id="strip" aria-label="Pixel Pros بالأرقام" data-ar-aria-label="Pixel Pros بالأرقام" data-en-aria-label="Pixel Pros in numbers">
+    
+<div class="mq mq--a" aria-hidden="true"><div class="mq-track"><span class="mq-item"><span data-l="ar">تطبيقات مميزة</span><span data-l="en" lang="en">Standout apps</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">بتصميم عصري</span><span data-l="en" lang="en">Modern design</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">أحوّل الأفكار إلى تطبيقات</span><span data-l="en" lang="en">Ideas into apps</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">عربي أولًا</span><span data-l="en" lang="en">Arabic first</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">تطبيقات مميزة</span><span data-l="en" lang="en">Standout apps</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">بتصميم عصري</span><span data-l="en" lang="en">Modern design</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">أحوّل الأفكار إلى تطبيقات</span><span data-l="en" lang="en">Ideas into apps</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">عربي أولًا</span><span data-l="en" lang="en">Arabic first</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">تطبيقات مميزة</span><span data-l="en" lang="en">Standout apps</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">بتصميم عصري</span><span data-l="en" lang="en">Modern design</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">أحوّل الأفكار إلى تطبيقات</span><span data-l="en" lang="en">Ideas into apps</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">عربي أولًا</span><span data-l="en" lang="en">Arabic first</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">تطبيقات مميزة</span><span data-l="en" lang="en">Standout apps</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">بتصميم عصري</span><span data-l="en" lang="en">Modern design</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">أحوّل الأفكار إلى تطبيقات</span><span data-l="en" lang="en">Ideas into apps</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">عربي أولًا</span><span data-l="en" lang="en">Arabic first</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg></div></div>
+<div class="mq mq--b" aria-hidden="true"><div class="mq-track"><span class="mq-item"><span data-l="ar">يومي</span><span data-l="en" lang="en">Yawmi</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">متابعة الدوام</span><span data-l="en" lang="en">Duty Tracker</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">حاسبة الزيت والغاز</span><span data-l="en" lang="en">Oil &amp; Gas Calculator</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">مصاريفي</span><span data-l="en" lang="en">Masarifi</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">شهاداتي</span><span data-l="en" lang="en">My Certs</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">صحتي</span><span data-l="en" lang="en">MyHealth</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">قيد</span><span data-l="en" lang="en">Qayd</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">يومي</span><span data-l="en" lang="en">Yawmi</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">متابعة الدوام</span><span data-l="en" lang="en">Duty Tracker</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">حاسبة الزيت والغاز</span><span data-l="en" lang="en">Oil &amp; Gas Calculator</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">مصاريفي</span><span data-l="en" lang="en">Masarifi</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">شهاداتي</span><span data-l="en" lang="en">My Certs</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">صحتي</span><span data-l="en" lang="en">MyHealth</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">قيد</span><span data-l="en" lang="en">Qayd</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">يومي</span><span data-l="en" lang="en">Yawmi</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">متابعة الدوام</span><span data-l="en" lang="en">Duty Tracker</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">حاسبة الزيت والغاز</span><span data-l="en" lang="en">Oil &amp; Gas Calculator</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">مصاريفي</span><span data-l="en" lang="en">Masarifi</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">شهاداتي</span><span data-l="en" lang="en">My Certs</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">صحتي</span><span data-l="en" lang="en">MyHealth</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">قيد</span><span data-l="en" lang="en">Qayd</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">يومي</span><span data-l="en" lang="en">Yawmi</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">متابعة الدوام</span><span data-l="en" lang="en">Duty Tracker</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">حاسبة الزيت والغاز</span><span data-l="en" lang="en">Oil &amp; Gas Calculator</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">مصاريفي</span><span data-l="en" lang="en">Masarifi</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">شهاداتي</span><span data-l="en" lang="en">My Certs</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">صحتي</span><span data-l="en" lang="en">MyHealth</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg><span class="mq-item"><span data-l="ar">قيد</span><span data-l="en" lang="en">Qayd</span></span><svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5Z"/></svg></div></div>
+    <div class="wrap"><ul class="stats-row"><li><span class="sv" data-count="7"><bdi>7</bdi></span><span class="sl"><span data-l="ar">تطبيقات في المعرض</span><span data-l="en" lang="en">apps in the gallery</span></span></li><li><span class="sv" data-count="4"><bdi>4</bdi></span><span class="sl"><span data-l="ar">مجالات مختلفة</span><span data-l="en" lang="en">different fields</span></span></li><li><span class="sv" data-count="2"><bdi>2</bdi></span><span class="sl"><span data-l="ar">لغات مدعومة</span><span data-l="en" lang="en">supported languages</span></span></li></ul></div>
+  </section>
+
+  <section class="intro wrap" aria-labelledby="intro-h">
+    <svg class="intro-mark" viewBox="0 0 36 44" aria-hidden="true"><defs><linearGradient id="g-intro" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0D9488"/><stop offset=".45" stop-color="#2563EB"/><stop offset=".75" stop-color="#4F46E5"/><stop offset="1" stop-color="#B45309"/></linearGradient></defs><g fill="url(#g-intro)"><rect x="2.0" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="8.8" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="15.6" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="9.8" width="6.2" height="6.2" rx="1.6"/><rect x="22.4" y="9.8" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="16.6" width="6.2" height="6.2" rx="1.6"/><rect x="22.4" y="16.6" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="8.8" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="15.6" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="30.2" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="37.0" width="6.2" height="6.2" rx="1.6"/><rect x="30" y="0" width="4.5" height="4.5" rx="1.2" opacity=".9"/><rect x="33" y="6.5" width="3" height="3" rx=".9" opacity=".65"/></g></svg>
+    <h1 id="intro-h"><span class="ln"><span class="hl"><span data-l="ar">أحوّل الأفكار</span><span data-l="en" lang="en">I turn ideas</span></span></span><span class="ln"><span data-l="ar">إلى تطبيقات تصنع فرقًا</span><span data-l="en" lang="en">into apps that make a difference</span></span></h1>
+    <p><span data-l="ar">أصمم وأطوّر تطبيقات ذكية تجمع بين الحلول العملية، والتجربة المميزة، والتصميم العصري. اكتشف مجموعة من مشاريعي في الإنتاجية والمال والصحة والأدوات المهنية.</span><span data-l="en" lang="en">I design and build smart apps that pair practical solutions with a standout experience and modern design. Explore my projects in productivity, money, health and field tools.</span></p>
+    <div class="intro-actions">
+      <a class="pill-btn pill-btn--outline" href="#work"><span data-l="ar">اكتشف</span><span data-l="en" lang="en">Discover</span></a>
+      <div class="share">
+        <span><span data-l="ar">شارك Pixel Pros</span><span data-l="en" lang="en">Share Pixel Pros</span></span>
+        <button class="round-btn" type="button" data-copy-link aria-label="انسخ رابط الصفحة" data-ar-aria-label="انسخ رابط الصفحة" data-en-aria-label="Copy page link"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
+        <a class="round-btn" id="share-wa" href="https://wa.me/" target="_blank" rel="noopener" aria-label="شارك عبر واتساب" data-ar-aria-label="شارك عبر واتساب" data-en-aria-label="Share on WhatsApp"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg></a>
+        <a class="round-btn" id="share-x" href="https://x.com/intent/post" target="_blank" rel="noopener" aria-label="شارك على إكس" data-ar-aria-label="شارك على إكس" data-en-aria-label="Share on X"><svg class="ico" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77L17.75 3Zm-1.08 16.2h1.7L7.4 4.73H5.58l11.09 14.47Z"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="sec-title">
+        <h2 id="work-h"><span data-l="ar">أعمال مختارة</span><span data-l="en" lang="en">Selected Work</span></h2>
+        <p><span data-l="ar">تطبيقات مبنية حول احتياج حقيقي. سبعة تطبيقات عربية تنظّم يومك وشغلك ومصروفك وصحتك.</span><span data-l="en" lang="en">Apps built around a real need. Seven Arabic apps that organise your day, your work, your money and your health.</span></p>
+      </div>
+      <div class="chips" role="group" aria-label="تصفية التطبيقات" data-ar-aria-label="تصفية التطبيقات" data-en-aria-label="Filter apps"><button class="chip" type="button" data-filter="all" aria-pressed="true"><span data-l="ar">الكل</span><span data-l="en" lang="en">All</span><span class="chip-n">7</span></button><button class="chip" type="button" data-filter="field" aria-pressed="false"><span data-l="ar">العمل والحقل</span><span data-l="en" lang="en">Work &amp; Field</span><span class="chip-n">3</span></button><button class="chip" type="button" data-filter="money" aria-pressed="false"><span data-l="ar">المال</span><span data-l="en" lang="en">Money</span><span class="chip-n">2</span></button><button class="chip" type="button" data-filter="life" aria-pressed="false"><span data-l="ar">البيت والصحة</span><span data-l="en" lang="en">Home &amp; Health</span><span class="chip-n">2</span></button></div>
+      <p class="sr-only" aria-live="polite" id="filter-status"></p>
+      <div class="works" id="works">
+<article class="work tone" data-cat="life" style="--acc-l:#1460B8;--acc-d:#5CC8F5;--glow:#1C5FD0">
+  <img class="work-bg" src="posters/yawmi.jpg" alt="" width="1080" height="1350" loading="lazy" style="object-position:50% 64%">
+  <div class="work-top"><div class="lockup lockup--sm"><img class="lk-icon" src="icons/yawmi.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">يومي</span><span data-l="en" lang="en">Yawmi</span></span><span class="lk-en" lang="en" translate="no">YAWMI</span></span></div><span class="pill pill--glass"><span data-l="ar">البيت والصحة</span><span data-l="en" lang="en">Home &amp; Health</span></span></div>
+  <p class="work-line"><span data-l="ar">ضماناتك وصيانة سيارتك وبيتك وفواتيرك في مكان واحد، ويذكّرك قبل كل موعد.</span><span data-l="en" lang="en">Warranties, car and home upkeep, and bills in one place, with a reminder before every due date.</span></p>
+  <button class="pill-btn pill-btn--light" type="button" data-app="yawmi"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+</article>
+<article class="work tone" data-cat="field" style="--acc-l:#B8420B;--acc-d:#FF9D45;--glow:#C2410C">
+  <img class="work-bg" src="posters/duty.jpg" alt="" width="1080" height="1440" loading="lazy" style="object-position:50% 64%">
+  <div class="work-top"><div class="lockup lockup--sm"><img class="lk-icon" src="icons/duty.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">متابعة الدوام</span><span data-l="en" lang="en">Duty Tracker</span></span><span class="lk-en" lang="en" translate="no">DUTY TRACKER</span></span></div><span class="pill pill--glass"><span data-l="ar">العمل والحقل</span><span data-l="en" lang="en">Work &amp; Field</span></span></div>
+  <p class="work-line"><span data-l="ar">عداد يقول لك كم باقي على النزول، بأي نظام مناوبة.</span><span data-l="en" lang="en">A countdown to your days off, for any rotation pattern.</span></p>
+  <button class="pill-btn pill-btn--light" type="button" data-app="duty"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+</article>
+<article class="work tone" data-cat="field" style="--acc-l:#855406;--acc-d:#F5BC48;--glow:#A86A12">
+  <img class="work-bg" src="posters/calc.jpg" alt="" width="1080" height="1920" loading="lazy" style="object-position:50% 28%">
+  <div class="work-top"><div class="lockup lockup--sm"><img class="lk-icon" src="icons/calc.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">حاسبة الزيت والغاز</span><span data-l="en" lang="en">Oil &amp; Gas Calculator</span></span><span class="lk-en" lang="en" translate="no">OIL &amp; GAS CALCULATOR</span></span></div><span class="pill pill--glass"><span data-l="ar">العمل والحقل</span><span data-l="en" lang="en">Work &amp; Field</span></span></div>
+  <p class="work-line"><span data-l="ar">أكثر من 50 حاسبة لاختبار الآبار في جيبك، والمعادلة دايمًا قدامك.</span><span data-l="en" lang="en">Over 50 well-testing calculators in your pocket, with the formula always in view.</span></p>
+  <button class="pill-btn pill-btn--light" type="button" data-app="calc"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+</article>
+<article class="work tone" data-cat="money" style="--acc-l:#0B6E5C;--acc-d:#E8C872;--glow:#0D6B50">
+  <img class="work-bg" src="posters/masarifi.jpg" alt="" width="1080" height="1920" loading="lazy" style="object-position:50% 28%">
+  <div class="work-top"><div class="lockup lockup--sm"><img class="lk-icon" src="icons/masarifi.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">مصاريفي</span><span data-l="en" lang="en">Masarifi</span></span><span class="lk-en" lang="en" translate="no">MASARIFI</span></span></div><span class="pill pill--glass"><span data-l="ar">المال</span><span data-l="en" lang="en">Money</span></span></div>
+  <p class="work-line"><span data-l="ar">يقرأ رسائل 6 بنوك ومحافظ، وأرقامك ما تطلع من جهازك.</span><span data-l="en" lang="en">Reads SMS from 6 banks and wallets, and your figures never leave your phone.</span></p>
+  <button class="pill-btn pill-btn--light" type="button" data-app="masarifi"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+</article>
+<article class="work tone" data-cat="field" style="--acc-l:#A34F06;--acc-d:#F7AC45;--glow:#1D4F98">
+  <img class="work-bg" src="posters/certs.jpg" alt="" width="1080" height="1350" loading="lazy" style="object-position:50% 64%">
+  <div class="work-top"><div class="lockup lockup--sm"><img class="lk-icon" src="icons/certs.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">شهاداتي</span><span data-l="en" lang="en">My Certs</span></span><span class="lk-en" lang="en" translate="no">MY CERTS</span></span></div><span class="pill pill--glass"><span data-l="ar">العمل والحقل</span><span data-l="en" lang="en">Work &amp; Field</span></span></div>
+  <p class="work-line"><span data-l="ar">صوّر كرت الدورة، ويرتّب لك شهاداتك حسب الأقرب انتهاءً.</span><span data-l="en" lang="en">Snap a course card and it sorts your certificates by nearest expiry.</span></p>
+  <button class="pill-btn pill-btn--light" type="button" data-app="certs"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+</article>
+<article class="work tone" data-cat="life" style="--acc-l:#0B6F74;--acc-d:#43D6B6;--glow:#0B7A82">
+  <img class="work-bg" src="posters/sehati.jpg" alt="" width="1080" height="1350" loading="lazy" style="object-position:50% 64%">
+  <div class="work-top"><div class="lockup lockup--sm"><img class="lk-icon" src="icons/sehati.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">صحتي</span><span data-l="en" lang="en">MyHealth</span></span><span class="lk-en" lang="en" translate="no">MYHEALTH</span></span></div><span class="pill pill--glass"><span data-l="ar">البيت والصحة</span><span data-l="en" lang="en">Home &amp; Health</span></span></div>
+  <p class="work-line"><span data-l="ar">يذكّرك بجرعتك في وقتها، ويرتّب مواعيد المستشفى والزيارات.</span><span data-l="en" lang="en">Reminds you of every dose on time, and keeps hospital visits in order.</span></p>
+  <button class="pill-btn pill-btn--light" type="button" data-app="sehati"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+</article><article class="work tone" data-cat="money" style="--acc-l:#5B3FD0;--acc-d:#B3A6FF;--glow:#5B3FD0">
+  <img class="work-bg" src="posters/qayd.jpg" alt="" width="1080" height="1920" loading="lazy" style="object-position:50% 28%">
+  <div class="work-top"><div class="lockup lockup--sm"><img class="lk-icon" src="icons/qayd.png" alt="" width="256" height="256" loading="lazy"><span class="lk-text"><span class="lk-name"><span data-l="ar">قيد</span><span data-l="en" lang="en">Qayd</span></span><span class="lk-en" lang="en" translate="no">QAYD</span></span></div><span class="pill pill--glass"><span data-l="ar">المال</span><span data-l="en" lang="en">Money</span></span></div>
+  <p class="work-line"><span data-l="ar">يقرأ رسائل البنك بنفسه، ويجمع اشتراكاتك في صفحة وحدة.</span><span data-l="en" lang="en">Reads your bank SMS on its own and gathers your subscriptions on one page.</span></p>
+  <button class="pill-btn pill-btn--light" type="button" data-app="qayd"><span data-l="ar">اكتشف التطبيق</span><span data-l="en" lang="en">Discover the App</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+</article></div>
+    </div>
+  </section>
+
+
+
+  <section class="process" id="process" aria-labelledby="process-h">
+    <div class="sec-title">
+      <h2 id="process-h"><span data-l="ar">مسار واضح من ثلاث مراحل</span><span data-l="en" lang="en">A Clear Path in Three Steps</span></h2>
+      <p><span data-l="ar">من الفكرة إلى التطبيق: كل مشروع يمر بنفس الخطوات، عشان يطلع مرتب ويوثق فيه.</span><span data-l="en" lang="en">From idea to app: every project goes through the same steps, so it ships clean and dependable.</span></p>
+    </div>
+    <ol class="steps"><span class="steps-line" aria-hidden="true"><i></i></span><li class="step">
+  <span class="step-tile"><span class="step-n"><bdi>01</bdi></span><svg class="ico" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span>
+  <h3><span data-l="ar">الفكرة والتخطيط</span><span data-l="en" lang="en">Idea &amp; planning</span></h3><p><span data-l="ar">فهم المشكلة وتحديد الوظائف المطلوبة قبل كتابة أول سطر.</span><span data-l="en" lang="en">Understand the problem and define what the app must do before the first line of code.</span></p>
+</li><li class="step">
+  <span class="step-tile"><span class="step-n"><bdi>02</bdi></span><svg class="ico" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"/><path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"/><path d="m2.3 2.3 7.286 7.286"/><circle cx="11" cy="11" r="2"/></svg></span>
+  <h3><span data-l="ar">التصميم والتطوير</span><span data-l="en" lang="en">Design &amp; build</span></h3><p><span data-l="ar">بناء واجهة جذابة وتنفيذ الوظائف ضمن تجربة متماسكة.</span><span data-l="en" lang="en">Build an inviting interface and ship the features as one coherent experience.</span></p>
+</li><li class="step">
+  <span class="step-tile"><span class="step-n"><bdi>03</bdi></span><svg class="ico" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span>
+  <h3><span data-l="ar">الاختبار والتحسين</span><span data-l="en" lang="en">Test &amp; refine</span></h3><p><span data-l="ar">مراجعة الأداء وتجربة المستخدم وتجهيز الإصدار بثقة.</span><span data-l="en" lang="en">Review performance and the user experience, then ship the release with confidence.</span></p>
+</li></ol>
+  </section>
+</main>
+</div>
+
+<footer class="site-footer">
+  <div class="f-grid">
+    <div class="f-brand">
+      <a class="logo" href="#top" aria-label="Pixel Pros"><svg class="logo-mark" viewBox="0 0 36 44" aria-hidden="true"><defs><linearGradient id="g-foot" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0D9488"/><stop offset=".45" stop-color="#2563EB"/><stop offset=".75" stop-color="#4F46E5"/><stop offset="1" stop-color="#B45309"/></linearGradient></defs><g fill="url(#g-foot)"><rect x="2.0" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="8.8" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="15.6" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="9.8" width="6.2" height="6.2" rx="1.6"/><rect x="22.4" y="9.8" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="16.6" width="6.2" height="6.2" rx="1.6"/><rect x="22.4" y="16.6" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="8.8" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="15.6" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="30.2" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="37.0" width="6.2" height="6.2" rx="1.6"/><rect x="30" y="0" width="4.5" height="4.5" rx="1.2" opacity=".9"/><rect x="33" y="6.5" width="3" height="3" rx=".9" opacity=".65"/></g></svg><span class="wordmark" translate="no">PIXEL PROS</span></a>
+      <p><span data-l="ar">تصميم وتطوير التطبيقات العربية، من الفكرة إلى الإصدار.</span><span data-l="en" lang="en">Designing and building Arabic apps, from idea to release.</span></p>
+    </div>
+    <div class="f-col f-col--c"><h3><span data-l="ar">تابعنا</span><span data-l="en" lang="en">Follow us</span></h3><div class="f-social"><a href="https://wa.me/" target="_blank" rel="noopener" aria-label="واتساب" data-ar-aria-label="واتساب" data-en-aria-label="WhatsApp"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a><a href="https://www.instagram.com/pixelpros.26" target="_blank" rel="noopener" aria-label="إنستغرام" data-ar-aria-label="إنستغرام" data-en-aria-label="Instagram"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a href="https://www.tiktok.com/@pixelpros35" target="_blank" rel="noopener" aria-label="تيك توك" data-ar-aria-label="تيك توك" data-en-aria-label="TikTok"><svg class="ico" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></div></div>
+    <div class="f-col f-col--c"><h3><span data-l="ar">التطبيقات</span><span data-l="en" lang="en">The Apps</span></h3><div class="f-apps"><button type="button" data-app="yawmi" aria-label="يومي" data-ar-aria-label="يومي" data-en-aria-label="Yawmi"><img src="icons/yawmi.png" alt="" width="60" height="60" loading="lazy"></button><button type="button" data-app="duty" aria-label="متابعة الدوام" data-ar-aria-label="متابعة الدوام" data-en-aria-label="Duty Tracker"><img src="icons/duty.png" alt="" width="60" height="60" loading="lazy"></button><button type="button" data-app="calc" aria-label="حاسبة الزيت والغاز" data-ar-aria-label="حاسبة الزيت والغاز" data-en-aria-label="Oil &amp; Gas Calculator"><img src="icons/calc.png" alt="" width="60" height="60" loading="lazy"></button><button type="button" data-app="masarifi" aria-label="مصاريفي" data-ar-aria-label="مصاريفي" data-en-aria-label="Masarifi"><img src="icons/masarifi.png" alt="" width="60" height="60" loading="lazy"></button><button type="button" data-app="certs" aria-label="شهاداتي" data-ar-aria-label="شهاداتي" data-en-aria-label="My Certs"><img src="icons/certs.png" alt="" width="60" height="60" loading="lazy"></button><button type="button" data-app="sehati" aria-label="صحتي" data-ar-aria-label="صحتي" data-en-aria-label="MyHealth"><img src="icons/sehati.png" alt="" width="60" height="60" loading="lazy"></button><button type="button" data-app="qayd" aria-label="قيد" data-ar-aria-label="قيد" data-en-aria-label="Qayd"><img src="icons/qayd.png" alt="" width="60" height="60" loading="lazy"></button></div></div>
+  </div>
+  <div class="f-bottom">
+    <span>© <bdi>2026</bdi> Pixel Pros. <span data-l="ar">من بناء كميل.</span><span data-l="en" lang="en">Built by Komail.</span></span>
+    <button class="to-top" type="button" data-to-top><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg><span data-l="ar">للأعلى</span><span data-l="en" lang="en">Back to top</span></button>
+  </div>
+</footer>
+
+<dialog class="drawer" id="drawer" aria-label="القائمة" data-ar-aria-label="القائمة" data-en-aria-label="Menu">
+  <div class="drawer-top">
+    <span class="logo"><svg class="logo-mark" viewBox="0 0 36 44" aria-hidden="true"><defs><linearGradient id="g-drawer" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0D9488"/><stop offset=".45" stop-color="#2563EB"/><stop offset=".75" stop-color="#4F46E5"/><stop offset="1" stop-color="#B45309"/></linearGradient></defs><g fill="url(#g-drawer)"><rect x="2.0" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="8.8" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="15.6" y="3.0" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="9.8" width="6.2" height="6.2" rx="1.6"/><rect x="22.4" y="9.8" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="16.6" width="6.2" height="6.2" rx="1.6"/><rect x="22.4" y="16.6" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="8.8" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="15.6" y="23.4" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="30.2" width="6.2" height="6.2" rx="1.6"/><rect x="2.0" y="37.0" width="6.2" height="6.2" rx="1.6"/><rect x="30" y="0" width="4.5" height="4.5" rx="1.2" opacity=".9"/><rect x="33" y="6.5" width="3" height="3" rx=".9" opacity=".65"/></g></svg><span class="wordmark" translate="no">PIXEL PROS</span></span>
+    <button class="round-btn" type="button" data-close-drawer aria-label="إغلاق القائمة" data-ar-aria-label="إغلاق القائمة" data-en-aria-label="Close menu"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+  </div>
+  <nav class="d-nav" aria-label="أقسام الصفحة" data-ar-aria-label="أقسام الصفحة" data-en-aria-label="Page sections">
+    <a href="#top" data-sec="top" data-close-drawer><span data-l="ar">الرئيسية</span><span data-l="en" lang="en">Home</span><span class="idx"><bdi>01</bdi></span></a>
+    <a href="#work" data-sec="work" data-close-drawer><span data-l="ar">أعمال مختارة</span><span data-l="en" lang="en">Selected Work</span><span class="idx"><bdi>02</bdi></span></a>
+    <a href="#process" data-sec="process" data-close-drawer><span data-l="ar">المسار</span><span data-l="en" lang="en">Process</span><span class="idx"><bdi>03</bdi></span></a>
+  </nav>
+  <div class="d-group">
+    <span><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><span data-l="ar">اللغة</span><span data-l="en" lang="en">Language</span></span>
+    <div class="seg" role="group" aria-label="اللغة" data-ar-aria-label="اللغة" data-en-aria-label="Language">
+      <button type="button" data-set-lang="ar" aria-pressed="true" lang="ar">العربية</button>
+      <button type="button" data-set-lang="en" aria-pressed="false" lang="en">English</button>
+    </div>
+  </div>
+  <div class="d-group">
+    <span><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span data-l="ar">المظهر</span><span data-l="en" lang="en">Appearance</span></span>
+    <div class="seg" role="group" aria-label="المظهر" data-ar-aria-label="المظهر" data-en-aria-label="Appearance">
+      <button type="button" data-set-theme="light" aria-pressed="false"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span data-l="ar">فاتح</span><span data-l="en" lang="en">Light</span></button>
+      <button type="button" data-set-theme="dark" aria-pressed="false"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span data-l="ar">داكن</span><span data-l="en" lang="en">Dark</span></button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="app-modal tone" id="app-modal" aria-labelledby="am-title">
+  <div class="am-shell" id="am-shell">
+  <div class="am-poster"><img id="am-img" src="posters/yawmi.jpg" alt="" width="1080" height="1350"></div>
+  <div class="am-body">
+    <button class="round-btn am-close" type="button" data-close-app aria-label="إغلاق" data-ar-aria-label="إغلاق" data-en-aria-label="Close"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+    <div class="lockup lockup--lg" id="am-lockup"><img class="lk-icon" id="am-icon" src="icons/yawmi.png" alt="" width="256" height="256"><span class="lk-text"><span class="lk-name" id="am-name"></span><span class="lk-en" id="am-en" lang="en" translate="no"></span></span></div>
+    <h2 class="am-head" id="am-title"><span class="ln" id="am-h1"></span><span class="ln accent" id="am-h2"></span></h2>
+    <p class="am-lead"><strong id="am-problem"></strong> <span id="am-long"></span></p>
+    <p class="am-sub"><span data-l="ar">المميزات</span><span data-l="en" lang="en">Features</span></p>
+    <ul class="am-feat" id="am-feat"></ul>
+    <ul class="stats" id="am-stats"></ul>
+    <div class="am-actions">
+      <button class="pill-btn pill-btn--brand" type="button" data-close-app><span data-l="ar">رجوع للأعمال</span><span data-l="en" lang="en">Back to the Work</span><span class="pb-ico"><svg class="ico flip-ltr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+      <button class="pill-btn pill-btn--brand" type="button" data-download><span data-l="ar">تنزيل</span><span data-l="en" lang="en">Download</span><span class="pb-ico"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span></button>
+      <button class="pill-btn pill-btn--ghost" type="button" data-share-app><span data-l="ar">شارك رابط التطبيق</span><span data-l="en" lang="en">Share App Link</span><span class="pb-ico"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98"/><path d="m15.41 6.51-6.82 3.98"/></svg></span></button>
+    </div>
+  </div>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+  const root = document.documentElement, app = document.getElementById('app');
+  root.classList.add('js');
+  const APK = { yawmi: 1, duty: 1, masarifi: 1, certs: 1, sehati: 1, qayd: 1 }; // apps with a public APK in /downloads
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const DATA = {"apps": [{"id": "yawmi", "ar": "يومي", "en": "Yawmi", "enCap": "YAWMI", "cat": "life", "catAr": "البيت والصحة", "catEn": "Home & Health", "descAr": "ضمانات وصيانة وفواتير في مكان واحد", "descEn": "Warranties, upkeep and bills in one place", "kw": "ضمان ضمانات صيانة فواتير فاتورة سيارة بيت مهام عائلة warranty maintenance bills tasks family car", "space": ["#0B2350", "#5C9CF0", "#7CC4FF"], "poster": "posters/yawmi.jpg", "ratio": "4/5", "headAr": ["تفاصيل يومك كلها", "في مكان واحد"], "headEn": ["Every detail of your day", "in one place"], "problemAr": "الضمانات والصيانة والفواتير متفرقة، وتتذكرها متأخر", "problemEn": "Warranties, maintenance and bills are scattered, and you remember them too late", "longAr": "ضماناتك، صيانة سيارتك وبيتك، فواتيرك ومهامك في مكان واحد. يذكّرك قبل كل موعد، ومعه مساعد ذكي يرتّب لك يومك.", "longEn": "Your warranties, car and home maintenance, bills and tasks in one place. It reminds you before every due date, with a smart assistant that plans your day.", "feat": [["صوّر الفاتورة أو الضمان وبس", "Snap the receipt or warranty, that is it"], ["صيانة بالكيلو أو بالشهر، والأقرب يطلع أول", "Upkeep by km or by month, nearest first"], ["مهام وصلاحيات للعائلة كلها", "Tasks and roles for the whole family"], ["مساعد ذكي يرتّب لك يومك", "A smart assistant that plans your day"]], "accL": "#1460B8", "accD": "#5CC8F5", "stats": [["صوّر", "Snap", "الفاتورة وبس", "just the receipt"], ["بالكيلو", "By km", "أو بالشهر للصيانة", "or by month for upkeep"], ["العائلة", "Family", "مهام وصلاحيات", "tasks and roles"]]}, {"id": "duty", "ar": "متابعة الدوام", "en": "Duty Tracker", "enCap": "DUTY TRACKER", "cat": "field", "catAr": "العمل والحقل", "catEn": "Work & Field", "descAr": "عداد أيام الدوام والنزول", "descEn": "Countdown for your rotation", "kw": "دوام مناوبة نزول سايت روتيشن تقويم عداد rotation shift days off site calendar countdown", "space": ["#2A0F05", "#E07A2E", "#FFB070"], "poster": "posters/duty.jpg", "ratio": "3/4", "headAr": ["كم باقي", "على النزول؟"], "headEn": ["How many days", "until you are off?"], "problemAr": "دوامك بنظام مناوبات وتضيع بين الأيام", "problemEn": "You work a rotation and lose track of the days", "longAr": "عداد تنازلي يقول لك كم باقي على النزول أو على رجعتك للسايت، مع تقويم ملوّن للفترة، وتقسيم الأيام، وتنبيهات، وأوامر صوتية.", "longEn": "A countdown to your days off or your return to site, with a colour-coded calendar, a split of the days, alerts and voice commands.", "feat": [["عداد تنازلي للنزول والرجعة للسايت", "Countdown to your days off and back to site"], ["تقويم ملوّن للفترة وتقسيم الأيام", "Colour-coded calendar and day split"], ["تنبيهات وأوامر صوتية", "Alerts and voice commands"], ["يناسب أي نظام مناوبة مثل 21 / 42", "Fits any rotation, such as 21 / 42"]], "accL": "#B8420B", "accD": "#FF9D45", "stats": [["21 / 42", "21 / 42", "أي نظام مناوبة", "any rotation"], ["عداد", "Counter", "على الشاشة الرئيسية", "on your home screen"], ["صوت", "Voice", "أوامر صوتية", "voice commands"]]}, {"id": "calc", "ar": "حاسبة الزيت والغاز", "en": "Oil & Gas Calculator", "enCap": "OIL & GAS CALCULATOR", "cat": "field", "catAr": "العمل والحقل", "catEn": "Work & Field", "descAr": "أكثر من 50 حاسبة لاختبار الآبار", "descEn": "50+ well-testing calculators", "kw": "حاسبة زيت غاز آبار اختبار أورفس شوك تدفق تانك GOR well testing orifice choke flow tank oil gas", "space": ["#2B1D04", "#D7A43A", "#FFD27A"], "poster": "posters/calc.jpg", "ratio": "9/16", "headAr": ["حسابات الحقل", "بنتيجة فورية"], "headEn": ["Field calculations", "with instant results"], "problemAr": "حسبة هندسية تحتاجها الحين، والملف على اللابتوب", "problemEn": "You need an engineering calc now, and the file is on the laptop", "longAr": "كل حسابات اختبار الآبار في مكان واحد، بنتيجة فورية: نسب الإنتاج، الأورفس بليت، الشوك والتدفق، هندسة الغاز، تحويلات الغازات، وقراءة التانك. والمعادلة دائمًا قدامك.", "longEn": "Every well-testing calculation in one place, with instant results: production ratios, orifice plate, choke and flow, gas engineering, gas conversions and tank gauging. The formula is always in front of you.", "feat": [["أكثر من 50 حاسبة في 21 قسم", "Over 50 calculators across 21 sections"], ["نسب الإنتاج والأورفس بليت", "Production ratios and orifice plate"], ["الشوك والتدفق وهندسة الغاز", "Choke, flow and gas engineering"], ["تحويلات الغازات وقراءة التانك، بالعربي والإنجليزي", "Gas conversions and tank gauging, in Arabic and English"]], "accL": "#855406", "accD": "#F5BC48", "stats": [["+50", "50+", "حاسبة", "calculators"], ["21", "21", "قسم", "sections"], ["AR · EN", "AR · EN", "عربي وإنجليزي", "Arabic & English"]]}, {"id": "masarifi", "ar": "مصاريفي", "en": "Masarifi", "enCap": "MASARIFI", "cat": "money", "catAr": "المال", "catEn": "Money", "descAr": "اعرف وين يروح راتبك", "descEn": "See where your salary goes", "kw": "مصروف مصاريف راتب بنك رسائل ميزانية جمعية قرض حصالة salary bank sms budget spending loan savings", "space": ["#05231C", "#4FB58F", "#E8C872"], "poster": "posters/masarifi.jpg", "ratio": "9/16", "headAr": ["اعرف وين يروح", "كل ريال"], "headEn": ["Know where every", "riyal goes"], "problemAr": "الراتب خلص وما تدري وين راح", "problemEn": "Payday is gone and you do not know where it went", "longAr": "شهرك المالي يبدأ يوم ينزل الراتب. يقرأ رسائل البنك، ويعرض لك كم صرفت وكم باقي ووين يروح صرفك، مع حصّالة لأهدافك والجمعية والقرض في مكان واحد.", "longEn": "Your money month starts on payday. It reads your bank SMS and shows what you spent, what is left and where it goes, with a savings jar for goals, your jam’iya and loans in one place.", "feat": [["يقرأ رسائل 6 بنوك ومحافظ", "Reads SMS from 6 banks and wallets"], ["شهرك المالي يبدأ يوم ينزل الراتب", "Your money month starts on payday"], ["حصّالة لأهدافك، والجمعية والقرض في مكان واحد", "A savings jar for goals, plus jam’iya and loans"], ["أرقامك مشفّرة وما تطلع من جهازك", "Figures encrypted and kept on your phone"]], "accL": "#0B6E5C", "accD": "#E8C872", "stats": [["6", "6", "بنوك ومحافظ", "banks & wallets"], ["AR / EN", "AR / EN", "لغتان", "two languages"], ["0", "0", "بيانات تطلع من جهازك", "data leaves your phone"]]}, {"id": "certs", "ar": "شهاداتي", "en": "My Certs", "enCap": "MY CERTS", "cat": "field", "catAr": "العمل والحقل", "catEn": "Work & Field", "descAr": "صوّر الكرت ويتابع لك الانتهاء", "descEn": "Snap a card, track its expiry", "kw": "شهادات شهادة دورات دورة رخصة كورسات انتهاء تصوير OCR certificates courses licence expiry", "space": ["#0A2238", "#5FA6C9", "#F7AC45"], "poster": "posters/certs.jpg", "ratio": "4/5", "headAr": ["شهاداتك كلها", "ولا وحدة تفوتك"], "headEn": ["All your certificates", "none slip by"], "problemAr": "شهادتك أو دورتك تنتهي وأنت ناسي", "problemEn": "Your course or licence expires and you forget", "longAr": "صوّر كرت الدورة أو الرخصة، ويقرأ التطبيق البيانات بنفسه. يرتّب شهاداتك حسب الأقرب انتهاءً، ويقسّمها إلى سارية وقريبة ومنتهية.", "longEn": "Snap the course card or licence and the app reads the details itself. It sorts your certificates by nearest expiry into valid, expiring soon and expired.", "feat": [["صوّر الكرت ويقرأ البيانات بنفسه (OCR)", "Snap the card and it reads the details (OCR)"], ["ترتيب حسب الأقرب انتهاءً", "Sorted by nearest expiry"], ["ثلاث حالات واضحة: سارية وقريبة ومنتهية", "Three clear states: valid, soon, expired"], ["تنبيه قبل الانتهاء بـ 60 يوم", "An alert 60 days before expiry"]], "accL": "#A34F06", "accD": "#F7AC45", "stats": [["تصوير", "Snap", "بدل الكتابة (OCR)", "instead of typing (OCR)"], ["60 يوم", "60 days", "تنبيه مسبق", "early alert"], ["3", "3", "حالات واضحة", "clear states"]]}, {"id": "sehati", "ar": "صحتي", "en": "MyHealth", "enCap": "MYHEALTH", "cat": "life", "catAr": "البيت والصحة", "catEn": "Home & Health", "descAr": "تذكير بالجرعات والمواعيد", "descEn": "Dose and appointment reminders", "kw": "دواء أدوية جرعة جرعات مستشفى موعد زيارة medicine dose hospital appointment visit", "space": ["#04221F", "#47B6A6", "#8FF0E0"], "poster": "posters/sehati.jpg", "ratio": "4/5", "headAr": ["لا تنسَ جرعة", "ولا موعد"], "headEn": ["Never miss a dose", "or an appointment"], "problemAr": "تنسى جرعة الدوا أو موعد المستشفى", "problemEn": "You forget a dose or a hospital appointment", "longAr": "يذكّرك بأدويتك في وقتها، قبل الأكل أو بعده، ويرتّب مواعيد المستشفى وزيارات المرضى (الطابق، الغرفة، أوقات الزيارة)، وينبّهك قبل ما يخلص الدواء.", "longEn": "Reminds you of your medicines on time, before or after food, organises hospital appointments and patient visits (floor, room, visiting hours), and alerts you before a medicine runs out.", "feat": [["تذكير بكل جرعة في وقتها، قبل الأكل أو بعده", "Every dose on time, before or after food"], ["مواعيد المستشفى في مكان واحد", "Hospital appointments in one place"], ["زيارات المرضى: الطابق والغرفة وأوقات الزيارة", "Patient visits: floor, room and visiting hours"], ["تنبيه قبل ما يخلص الدواء", "An alert before a medicine runs out"]], "accL": "#0B6F74", "accD": "#43D6B6", "stats": [["كل جرعة", "Every dose", "تذكير في وقتها", "reminded on time"], ["مواعيد", "Visits", "وزيارات مرضى", "and appointments"], ["مخزون", "Stock", "ينبّهك قبل النفاد", "alert before it runs out"]]}, {"id": "qayd", "ar": "قيد", "en": "Qayd", "enCap": "QAYD", "cat": "money", "catAr": "المال", "catEn": "Money", "descAr": "اشتراكاتك ومصروفك من رسائل البنك", "descEn": "Subscriptions and spending from bank SMS", "kw": "قيد اشتراكات اشتراك مصروف مصاريف بنك رسائل نتفلكس شاهد subscriptions spending bank sms", "space": ["#120B38", "#6D4DE0", "#B9A8FF"], "poster": "posters/qayd.jpg", "ratio": "9/16", "headAr": ["اشتراكاتك كلها", "في صفحة وحدة"], "headEn": ["All your subscriptions", "on one page"], "problemAr": "اشتراكاتك تنسحب كل شهر وإنت ما تدري", "problemEn": "Subscriptions drain every month and you never notice", "longAr": "نسخة خفيفة ومبسّطة من مصاريفي. يقرأ رسائل البنك بنفسه بدون ما تختار بنك، ويعرض لك صرفك وتحليل مصاريفك، مع صفحة مخصصة لاشتراكاتك: كم تدفع شهريًا ووين يروح.", "longEn": "A light, simplified take on Masarifi. It reads your bank SMS on its own with no bank to pick, shows what you spend and analyses it, with a dedicated page for your subscriptions: what you pay each month and where it goes.", "feat": [["يقرأ رسائل البنك بنفسه، بدون اختيار بنك", "Reads bank SMS on its own, no bank to pick"], ["صفحة مخصصة للاشتراكات: كم تدفع شهريًا", "A dedicated subscriptions page: what you pay monthly"], ["تحليل واضح لمصروفك ووين يروح", "A clear analysis of where your money goes"], ["بسيط وخفيف: الرئيسية والتحليل والإعدادات", "Light and simple: home, analysis and settings"]], "accL": "#5B3FD0", "accD": "#B3A6FF", "stats": [["تلقائي", "Auto", "من رسائل البنك", "from bank SMS"], ["اشتراكات", "Subs", "صفحة مخصصة", "its own page"], ["3", "3", "شاشات بسيطة", "simple screens"]]}]};
+  const APPS = DATA.apps;
+  const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
+  const darkMQ = matchMedia('(prefers-color-scheme: dark)');
+  const store = { get(k) { try { return localStorage.getItem('pp-' + k); } catch (_) { return null; } }, set(k, v) { try { localStorage.setItem('pp-' + k, v); } catch (_) {} } };
+  const hasGSAP = !!window.gsap;
+  if (hasGSAP) gsap.registerPlugin(ScrollTrigger, Flip);
+  let lang = store.get('lang') === 'en' ? 'en' : 'ar';
+  const t = (ar, en) => (lang === 'ar' ? ar : en);
+  /* posters follow the language when an English version exists */
+  const POSTER_EN = { certs: 'posters/en/certs.jpg' };
+  const posterOf = (a) => (lang === 'en' && POSTER_EN[a.id]) || a.poster;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  const toastEl = $('#toast'); let toastTimer;
+  function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('is-on'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toastEl.classList.remove('is-on'), 2200); }
+
+  /* ---------- theme */
+  const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : darkMQ.matches;
+  function syncThemeUI() {
+    const d = isDark();
+    $$('[data-set-theme]').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.setTheme === 'dark') === d)));
+    $$('meta[name="theme-color"]').forEach((m) => { m.content = d ? '#05071A' : '#E7E3D9'; });
+    space.setDay(!d);
+  }
+  function setTheme(v, animate) {
+    const apply = () => { root.dataset.theme = v; store.set('theme', v); syncThemeUI(); };
+    if (animate && document.startViewTransition && !reduceMQ.matches) document.startViewTransition(apply); else apply();
+  }
+  const savedTheme = store.get('theme');
+  if (savedTheme === 'light' || savedTheme === 'dark') root.dataset.theme = savedTheme;
+  darkMQ.addEventListener('change', syncThemeUI);
+
+  /* ---------- language */
+  function shareLinks() {
+    const url = location.href.split('#')[0];
+    const msg = t('شوف أعمال Pixel Pros: تطبيقات عربية لتفاصيل يومك', 'See Pixel Pros: Arabic apps for your everyday');
+    $('#share-wa').href = 'https://wa.me/?text=' + encodeURIComponent(msg + ' ' + url);
+    $('#share-x').href = 'https://x.com/intent/post?text=' + encodeURIComponent(msg) + '&url=' + encodeURIComponent(url);
+  }
+  function setLang(l, persist) {
+    lang = l;
+    app.dataset.lang = l; app.lang = l; app.dir = l === 'ar' ? 'rtl' : 'ltr';
+    root.lang = l; root.dir = app.dir;
+    document.title = 'Pixel Pros';
+    for (const el of $$('[data-ar-alt],[data-ar-aria-label],[data-ar-placeholder]')) {
+      for (const attr of ['alt', 'aria-label', 'placeholder']) { const v = el.getAttribute(`data-${l}-${attr}`); if (v !== null) el.setAttribute(attr, v); }
+    }
+    $$('[data-set-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === l)));
+    if (persist) store.set('lang', l);
+    shareLinks();
+    slider && slider.refreshThumbs();
+    $$('.work').forEach((w) => { const a = APPS.find((x) => x.id === w.querySelector('[data-app]').dataset.app), img = w.querySelector('.work-bg'), src = posterOf(a); if (img.getAttribute('src') !== src) img.src = src; });
+    space.setDir(l === 'ar');
+    if (openApp) fillModal(openApp);
+    if (searchOpen()) renderResults(q.value);
+    if (hasGSAP) requestAnimationFrame(() => ScrollTrigger.refresh());
+  }
+
+  /* ---------- space scene (three.js): planet + stars */
+  const space = (() => {
+    const card = $('#hero'), canvas = $('#space');
+    let renderer, scene, camera, planet, pmat, smat, ok = false, day = 0;
+    let running = false, inView = true, needs = true, rtl = true;
+    const life = { v: 1 }, target = { x: 0, y: 0 }, cur = { x: 0, y: 0 }, scroll = { p: 0 }, t0 = performance.now();
+    function webgl() { try { const c = document.createElement('canvas'); return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl'))); } catch (_) { return false; } }
+    const NOISE = `
+      vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;} vec4 mod289(vec4 x){return x-floor(x*(1.0/289.0))*289.0;}
+      vec4 permute(vec4 x){return mod289(((x*34.0)+1.0)*x);} vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}
+      float snoise(vec3 v){const vec2 C=vec2(1.0/6.0,1.0/3.0);const vec4 D=vec4(0.0,0.5,1.0,2.0);
+        vec3 i=floor(v+dot(v,C.yyy));vec3 x0=v-i+dot(i,C.xxx);vec3 g=step(x0.yzx,x0.xyz);vec3 l=1.0-g;vec3 i1=min(g.xyz,l.zxy);vec3 i2=max(g.xyz,l.zxy);
+        vec3 x1=x0-i1+C.xxx;vec3 x2=x0-i2+C.yyy;vec3 x3=x0-D.yyy;i=mod289(i);
+        vec4 p=permute(permute(permute(i.z+vec4(0.0,i1.z,i2.z,1.0))+i.y+vec4(0.0,i1.y,i2.y,1.0))+i.x+vec4(0.0,i1.x,i2.x,1.0));
+        float n_=0.142857142857;vec3 ns=n_*D.wyz-D.xzx;vec4 j=p-49.0*floor(p*ns.z*ns.z);vec4 x_=floor(j*ns.z);vec4 y_=floor(j-7.0*x_);
+        vec4 x=x_*ns.x+ns.yyyy;vec4 y=y_*ns.x+ns.yyyy;vec4 h=1.0-abs(x)-abs(y);vec4 b0=vec4(x.xy,y.xy);vec4 b1=vec4(x.zw,y.zw);
+        vec4 s0=floor(b0)*2.0+1.0;vec4 s1=floor(b1)*2.0+1.0;vec4 sh=-step(h,vec4(0.0));vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+        vec3 p0=vec3(a0.xy,h.x);vec3 p1=vec3(a0.zw,h.y);vec3 p2=vec3(a1.xy,h.z);vec3 p3=vec3(a1.zw,h.w);
+        vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));p0*=norm.x;p1*=norm.y;p2*=norm.z;p3*=norm.w;
+        vec4 m=max(0.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.0);m=m*m;
+        return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));}
+      float fbm(vec3 p){float f=0.0;float a=0.5;for(int i=0;i<5;i++){f+=a*snoise(p);p*=2.03;a*=0.5;}return f;}`;
+    function build() {
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); renderer.outputEncoding = THREE.sRGBEncoding; renderer.setClearColor(0x000000, 0);
+      scene = new THREE.Scene(); camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100); camera.position.set(0, 0, 10);
+      const N = 1800, pos = new Float32Array(N * 3), seed = new Float32Array(N);
+      for (let i = 0; i < N; i++) { pos[i * 3] = (Math.random() - 0.5) * 40; pos[i * 3 + 1] = (Math.random() - 0.5) * 24; pos[i * 3 + 2] = -6 - Math.random() * 20; seed[i] = Math.random(); }
+      const sg = new THREE.BufferGeometry(); sg.setAttribute('position', new THREE.BufferAttribute(pos, 3)); sg.setAttribute('seed', new THREE.BufferAttribute(seed, 1));
+      smat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, uniforms: { uTime: { value: 0 }, uPR: { value: renderer.getPixelRatio() }, uFade: { value: 1 - 0.92 * day } },
+        vertexShader: 'attribute float seed; uniform float uTime; uniform float uPR; varying float vA; varying float vS; void main(){ vec4 mv = modelViewMatrix*vec4(position,1.0); gl_Position = projectionMatrix*mv; float tw = 0.55+0.45*sin(uTime*(0.6+seed*1.8)+seed*40.0); vA = tw*(0.35+0.65*seed); vS = seed; gl_PointSize = (1.0+seed*2.2)*uPR*(18.0/-mv.z); }',
+        fragmentShader: 'uniform float uFade; varying float vA; varying float vS; void main(){ float d = length(gl_PointCoord-0.5); float a = smoothstep(0.5,0.0,d)*vA*uFade; vec3 c = mix(vec3(0.75,0.85,1.0), vec3(1.0,0.8,0.95), step(0.85, vS)); gl_FragColor = vec4(c, a); }' });
+      scene.add(new THREE.Points(sg, smat));
+      pmat = new THREE.ShaderMaterial({
+        uniforms: { cA: { value: new THREE.Color('#0B2350') }, cB: { value: new THREE.Color('#5C9CF0') }, cRim: { value: new THREE.Color('#7CC4FF') }, uSpin: { value: 0 }, uDay: { value: day } },
+        vertexShader: 'uniform float uSpin; varying vec3 vN; varying vec3 vV; varying vec3 vP; void main(){ float c=cos(uSpin), s=sin(uSpin); vP = vec3(c*position.x+s*position.z, position.y, -s*position.x+c*position.z); vN = normalize(normalMatrix*normal); vec4 mv = modelViewMatrix*vec4(position,1.0); vV = normalize(-mv.xyz); gl_Position = projectionMatrix*mv; }',
+        fragmentShader: `uniform vec3 cA; uniform vec3 cB; uniform vec3 cRim; uniform float uDay; varying vec3 vN; varying vec3 vV; varying vec3 vP; ${NOISE}
+          void main(){ vec3 p = normalize(vP); float n = fbm(p*1.8)*0.5+0.5; float cr = smoothstep(0.62, 0.7, fbm(p*5.0+3.1)*0.5+0.5); float fine = snoise(p*22.0)*0.06;
+            vec3 base = mix(cA, cB, clamp(n*1.15+fine,0.0,1.0)); base = mix(base, cA*0.8, cr*0.55);
+            vec3 L = normalize(vec3(-0.55, 0.45, 0.7)); float lit = smoothstep(-0.25, 0.85, dot(vN, L)); float rim = pow(1.0 - max(dot(vN, vV), 0.0), 3.0);
+            vec3 night = base*(0.05 + 1.15*lit) + cRim*rim*(0.25+0.75*lit)*1.1;
+            vec3 dayc = mix(base, vec3(1.0), 0.1)*(0.34 + 0.9*lit) + mix(cRim, vec3(1.0), 0.5)*rim*0.75;
+            gl_FragColor = vec4(mix(night, dayc, uDay), 1.0); }` });
+      planet = new THREE.Mesh(new THREE.SphereGeometry(4.6, 128, 96), pmat); scene.add(planet);
+      resize();
+    }
+    function layout() { const narrow = camera.aspect < 0.9, s = rtl ? 1 : -1; planet.position.set(narrow ? s * 0.9 : s * 2.6, narrow ? 2.6 : 1.9, -4); planet.scale.setScalar(narrow ? 0.95 : 1.08); }
+    function resize() { if (!renderer) return; const r = card.getBoundingClientRect(); renderer.setSize(Math.max(1, r.width), Math.max(1, r.height), false); camera.aspect = r.width / Math.max(1, r.height); camera.updateProjectionMatrix(); layout(); needs = true; kick(); }
+    function frame(now) {
+      running = false; if (!renderer) return;
+      const time = (now - t0) / 1000, lv = reduceMQ.matches ? 0 : life.v;
+      smat.uniforms.uTime.value = time * lv + 1.0; pmat.uniforms.uSpin.value += 0.0012 * lv;
+      cur.x += (target.x - cur.x) * 0.05; cur.y += (target.y - cur.y) * 0.05;
+      camera.position.x = cur.x * 0.45; camera.position.y = -cur.y * 0.3 - scroll.p * 0.8; camera.lookAt(0, -scroll.p * 0.8, 0);
+      renderer.render(scene, camera);
+      const settling = Math.abs(target.x - cur.x) + Math.abs(target.y - cur.y) > 0.0008;
+      if ((lv > 0.001 || settling || needs) && inView && !document.hidden) { needs = false; kick(); }
+    }
+    function kick() { if (!running && renderer) { running = true; requestAnimationFrame(frame); } }
+    function apply(i, instant) {
+      if (!ok) return;
+      const [cA, cB, cR] = APPS[i].space, to = { a: new THREE.Color(cA), b: new THREE.Color(cB), r: new THREE.Color(cR) }, u = pmat.uniforms;
+      if (instant || !hasGSAP || reduceMQ.matches) { u.cA.value.copy(to.a); u.cB.value.copy(to.b); u.cRim.value.copy(to.r); needs = true; kick(); return; }
+      const from = { a: u.cA.value.clone(), b: u.cB.value.clone(), r: u.cRim.value.clone() }, mix = { k: 0 };
+      gsap.to(mix, { k: 1, duration: 0.8, ease: 'power2.inOut', onUpdate: () => { u.cA.value.copy(from.a).lerp(to.a, mix.k); u.cB.value.copy(from.b).lerp(to.b, mix.k); u.cRim.value.copy(from.r).lerp(to.r, mix.k); kick(); } });
+      gsap.to(u.uSpin, { value: '+=0.7', duration: 1, ease: 'power3.inOut' });
+    }
+    function init(i) {
+      if (!window.THREE || !webgl()) return;
+      day = isDark() ? 0 : 1;
+      try { build(); ok = true; } catch (_) { return; }
+      apply(i, true);
+      new ResizeObserver(resize).observe(card);
+      new IntersectionObserver(([en]) => { inView = en.isIntersecting; if (inView) kick(); }).observe(card);
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) kick(); });
+      reduceMQ.addEventListener('change', kick);
+      if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        card.addEventListener('pointermove', (ev) => { const r = card.getBoundingClientRect(); target.x = ((ev.clientX - r.left) / r.width - 0.5) * 2; target.y = ((ev.clientY - r.top) / r.height - 0.5) * 2; kick(); });
+        card.addEventListener('pointerleave', () => { target.x = 0; target.y = 0; kick(); });
+      }
+      kick();
+    }
+    /* day theme: sunlit planet, stars fade out */
+    function setDay(on, instant) {
+      const v = on ? 1 : 0; day = v; if (!ok) return;
+      const u = pmat.uniforms, su = smat.uniforms;
+      if (instant || !hasGSAP || reduceMQ.matches) { u.uDay.value = v; su.uFade.value = 1 - 0.92 * v; needs = true; kick(); return; }
+      gsap.to(u.uDay, { value: v, duration: 0.8, ease: 'power2.inOut', onUpdate: kick });
+      gsap.to(su.uFade, { value: 1 - 0.92 * v, duration: 0.8, ease: 'power2.inOut' });
+    }
+    return { init, apply, life, setDay, kick() { kick(); }, setDir(isRtl) { rtl = isRtl; if (ok) { layout(); needs = true; kick(); } }, setScroll(p) { scroll.p = p; kick(); } };
+  })();
+
+  /* ---------- hero slider (3 s per app) */
+  const slider = (() => {
+    const slides = $$('.slide'), nums = $$('.num'), thumbs = $$('.thumb'), playBtn = $('#play');
+    let i = 0, playing = false, timer = null, prog = null;
+    const DUR = 3;
+    function go(n) {
+      const next = (n + APPS.length) % APPS.length; if (next === i) return;
+      const prev = slides[i]; i = next; const cur = slides[i];
+      nums.forEach((b, k) => { b.classList.toggle('is-active', k === i); b.setAttribute('aria-current', String(k === i)); if (hasGSAP) gsap.set(b.querySelector('.num-fill'), { scaleY: 0 }); });
+      slides.forEach((s) => { if (s !== cur && s !== prev) s.hidden = true; });
+      if (hasGSAP && !reduceMQ.matches) {
+        gsap.to(prev, { autoAlpha: 0, y: -12, duration: 0.22, ease: 'power2.in', onComplete: () => { prev.hidden = true; gsap.set(prev, { clearProps: 'all' }); } });
+        cur.hidden = false;
+        gsap.fromTo(cur.children, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.05, delay: 0.18 });
+      } else { prev.hidden = true; cur.hidden = false; }
+      refreshThumbs(); space.apply(i);
+      if (playing) schedule();
+    }
+    function refreshThumbs() {
+      thumbs.forEach((b, k) => {
+        const n = (i + k + 1) % APPS.length, a = APPS[n]; b.dataset.go = String(n);
+        const img = b.querySelector('img');
+        const src = posterOf(a);
+        if (img.getAttribute('src') !== src) { if (hasGSAP && !reduceMQ.matches) gsap.fromTo(img, { autoAlpha: 0, scale: 1.12 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power3.out' }); img.src = src; }
+        b.querySelector('.thumb-label').textContent = t(a.ar, a.en);
+        b.setAttribute('aria-label', t('انتقل إلى ', 'Go to ') + t(a.ar, a.en));
+      });
+    }
+    function schedule() {
+      if (!hasGSAP) return; timer && timer.kill(); prog && prog.kill();
+      prog = gsap.fromTo(nums[i].querySelector('.num-fill'), { scaleY: 0 }, { scaleY: 1, duration: DUR, ease: 'none' });
+      timer = gsap.delayedCall(DUR, () => go(i + 1));
+    }
+    function setPlaying(on) {
+      playing = on; playBtn.setAttribute('aria-pressed', String(on));
+      playBtn.setAttribute('aria-label', on ? t('إيقاف العرض التلقائي', 'Pause slides') : t('تشغيل العرض التلقائي', 'Autoplay slides'));
+      $('#strip').classList.toggle('is-paused', !on);
+      if (hasGSAP) { gsap.to(space.life, { v: on ? 1 : 0, duration: on ? 0.6 : 1.4, ease: 'power2.out', onUpdate: space.kick }); badgeSpin && (on ? badgeSpin.play() : badgeSpin.pause()); }
+      if (on) schedule(); else { timer && timer.kill(); prog && prog.pause(); }
+    }
+    playBtn.addEventListener('click', () => setPlaying(!playing));
+    nums.forEach((b) => b.addEventListener('click', () => go(+b.dataset.slide)));
+    thumbs.forEach((b) => b.addEventListener('click', () => go(+b.dataset.go)));
+    const card = $('#hero'); let sx = null, sy = null;
+    card.addEventListener('pointerdown', (e) => { if (e.target.closest('button, a, input, .results')) return; sx = e.clientX; sy = e.clientY; });
+    card.addEventListener('pointerup', (e) => { if (sx === null) return; const dx = e.clientX - sx, dy = e.clientY - sy; sx = null; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) go(i + ((dx < 0) === (app.dir === 'rtl') ? -1 : 1)); });
+    card.addEventListener('keydown', (e) => { if (e.target.closest('input')) return; const fwd = app.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight', back = app.dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft'; if (e.key === fwd) { go(i + 1); e.preventDefault(); } else if (e.key === back) { go(i - 1); e.preventDefault(); } });
+    card.addEventListener('focusin', () => { if (playing) { timer && timer.pause(); prog && prog.pause(); } });
+    card.addEventListener('focusout', () => { if (playing && !card.contains(document.activeElement)) { timer && timer.resume(); prog && prog.resume(); } });
+    card.addEventListener('pointerenter', () => { if (playing && matchMedia('(pointer: fine)').matches) { timer && timer.pause(); prog && prog.pause(); } });
+    card.addEventListener('pointerleave', () => { if (playing && !card.contains(document.activeElement)) { timer && timer.resume(); prog && prog.resume(); } });
+    document.addEventListener('visibilitychange', () => { if (!playing) return; if (document.hidden) { timer && timer.pause(); prog && prog.pause(); } else { timer && timer.resume(); prog && prog.resume(); } });
+    return { go, refreshThumbs, setPlaying, get i() { return i; } };
+  })();
+
+  /* ---------- floating app window */
+  const modal = $('#app-modal'), shell = $('#am-shell'); let openApp = null, openerEl = null;
+  function fillModal(id) {
+    const a = APPS.find((x) => x.id === id);
+    modal.style.setProperty('--acc-l', a.accL); modal.style.setProperty('--acc-d', a.accD);
+    modal.style.setProperty('--ratio', a.ratio.replace('/', ' / '));
+    $('#am-img').src = posterOf(a); $('#am-img').alt = t('بوستر ' + a.ar, a.en + ' poster');
+    $('#am-icon').src = `icons/${a.id}.png`; $('#am-name').textContent = t(a.ar, a.en); $('#am-en').textContent = a.enCap;
+    $('#am-h1').textContent = t(a.headAr[0], a.headEn[0]); $('#am-h2').textContent = t(a.headAr[1], a.headEn[1]);
+    $('#am-problem').textContent = t(a.problemAr, a.problemEn) + '.'; $('#am-long').textContent = t(a.longAr, a.longEn);
+    $('#am-feat').innerHTML = a.feat.map((f) => `<li><span class="ck"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span><span>${esc(t(f[0], f[1]))}</span></li>`).join('');
+    const dl = $('[data-download]', modal), live = !!APK[a.id];
+    dl.disabled = !live; dl.classList.toggle('is-soon', !live);
+    $$('[data-l]', dl).forEach((n) => { const ar = n.dataset.l === 'ar'; n.textContent = live ? (ar ? 'تنزيل' : 'Download') : (ar ? 'قريبًا' : 'Coming Soon'); });
+    $('#am-stats').innerHTML = a.stats.map((s) => `<li><span class="st-v">${esc(t(s[0], s[1]))}</span><span class="st-l">${esc(t(s[2], s[3]))}</span></li>`).join('');
+  }
+  function openModal(id, from) {
+    openApp = id; openerEl = from || null; fillModal(id);
+    $('#am-img').classList.remove('is-zoomed');
+    modal.showModal(); modal.querySelector('.am-body').scrollTop = 0; shell.scrollTop = 0;
+    if (hasGSAP && !reduceMQ.matches) {
+      // the window grows out of the card that opened it
+      const card = from && from.closest('.work, .slide');
+      let fromVars = { autoAlpha: 0, scale: 0.92, y: 24 };
+      if (card) {
+        const c = card.getBoundingClientRect(), m = shell.getBoundingClientRect();
+        fromVars = { autoAlpha: 0, x: (c.left + c.width / 2) - (m.left + m.width / 2), y: (c.top + c.height / 2) - (m.top + m.height / 2), scale: Math.max(0.35, Math.min(c.width / m.width, 0.8)) };
+      }
+      gsap.fromTo(shell, fromVars, { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: 'power3.out', clearProps: 'transform,opacity,visibility' });
+      gsap.from(modal.querySelectorAll('.am-body > *:not(.am-close)'), { y: 16, autoAlpha: 0, stagger: 0.04, duration: 0.45, delay: 0.18, ease: 'power3.out' });
+      gsap.from('#am-feat li', { y: 12, autoAlpha: 0, stagger: 0.05, duration: 0.4, delay: 0.35, ease: 'power3.out' });
+    }
+  }
+  function closeModal() {
+    if (!modal.open) return;
+    const done = () => { modal.close(); openApp = null; if (openerEl && document.contains(openerEl)) openerEl.focus({ preventScroll: true }); };
+    if (hasGSAP && !reduceMQ.matches) gsap.to(shell, { autoAlpha: 0, scale: 0.96, y: 12, duration: 0.2, ease: 'power2.in', onComplete: () => { done(); gsap.set(shell, { clearProps: 'all' }); } });
+    else done();
+  }
+  modal.addEventListener('cancel', (e) => { e.preventDefault(); closeModal(); });
+
+  /* share one app: native share sheet when available, otherwise copy its link */
+  async function shareApp(id) {
+    const a = APPS.find((x) => x.id === id); if (!a) return;
+    const url = location.href.split('#')[0] + '#app=' + a.id;
+    const title = t(a.ar, a.en) + ' | Pixel Pros', text = t(a.headAr.join(' '), a.headEn.join(' '));
+    if (navigator.share) { try { await navigator.share({ title, text, url }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+    try { await navigator.clipboard.writeText(url); toast(t('نسخنا رابط ' + a.ar + '. شاركه مع أي أحد.', a.en + ' link copied. Share it anywhere.')); }
+    catch (_) { toast(t('ما قدرنا ننسخ الرابط. انسخه من شريط العنوان.', 'Could not copy the link. Copy it from the address bar.')); }
+  }
+  /* a shared link like #app=certs opens that app's window */
+  function openFromHash() {
+    const m = location.hash.match(/^#app=([a-z]+)$/); if (!m) return;
+    const k = APPS.findIndex((a) => a.id === m[1]); if (k < 0) return;
+    slider.go(k); openModal(m[1]);
+  }
+  addEventListener('hashchange', openFromHash);
+  $('#am-img').addEventListener('click', (e) => e.currentTarget.classList.toggle('is-zoomed'));
+
+  /* ---------- search */
+  const q = $('#q'), results = $('#results'), searchEl = $('#search');
+  let active = -1, hits = [];
+  const norm = (s) => s.toLowerCase().replace(/[ًٌٍَُِّْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
+  const searchOpen = () => !results.hidden;
+  function renderResults(v) {
+    const s = norm(v.trim());
+    hits = !s ? APPS.slice() : APPS.filter((a) => norm([a.ar, a.en, a.catAr, a.catEn, a.descAr, a.descEn, a.kw].join(' ')).includes(s));
+    active = hits.length ? 0 : -1;
+    results.innerHTML = hits.length ? hits.map((a, k) => `<li role="option" id="opt-${a.id}" data-id="${a.id}" aria-selected="${k === active}"><img src="icons/${a.id}.png" alt="" width="40" height="40"><span><b>${esc(t(a.ar, a.en))}</b><small>${esc(t(a.descAr, a.descEn))}</small></span></li>`).join('')
+      : `<li class="empty">${t('ما لقينا تطبيق بهالكلمة. جرّب: راتب، دوام، دواء، شهادة.', 'No app matches that. Try: salary, rotation, dose, certificate.')}</li>`;
+    results.hidden = false; q.setAttribute('aria-expanded', 'true'); q.setAttribute('aria-activedescendant', active >= 0 ? `opt-${hits[active].id}` : '');
+  }
+  function closeResults() { results.hidden = true; q.setAttribute('aria-expanded', 'false'); q.removeAttribute('aria-activedescendant'); searchEl.classList.remove('is-open'); }
+  function pick(id) { closeResults(); q.value = ''; q.blur(); slider.go(APPS.findIndex((a) => a.id === id)); openModal(id); }
+  q.addEventListener('focus', () => renderResults(q.value));
+  q.addEventListener('input', () => renderResults(q.value));
+  q.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { if (!hits.length) return; e.preventDefault(); active = (active + (e.key === 'ArrowDown' ? 1 : -1) + hits.length) % hits.length; $$('[role="option"]', results).forEach((o, k) => o.setAttribute('aria-selected', String(k === active))); q.setAttribute('aria-activedescendant', `opt-${hits[active].id}`); $(`#opt-${hits[active].id}`).scrollIntoView({ block: 'nearest' }); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (active >= 0) pick(hits[active].id); }
+    else if (e.key === 'Escape') closeResults();
+  });
+  results.addEventListener('pointerdown', (e) => { const o = e.target.closest('[role="option"]'); if (o) { e.preventDefault(); pick(o.dataset.id); } });
+  document.addEventListener('pointerdown', (e) => { if (searchOpen() && !e.target.closest('#search')) closeResults(); });
+
+  /* ---------- coming-soon badges (only Qayd has a public APK so far) */
+  $$('.work').forEach((w) => {
+    const b = w.querySelector('[data-app]'); const top = w.querySelector('.work-top');
+    if (!b || !top || APK[b.dataset.app]) return;
+    const p = document.createElement('span'); p.className = 'pill pill--glass pill--soon';
+    p.innerHTML = '<span data-l="ar">قريبًا</span><span data-l="en" lang="en">Coming Soon</span>';
+    top.appendChild(p);
+  });
+  /* ---------- clicks */
+  const drawer = $('#drawer');
+  function closeDrawer() { drawer.close(); $$('[data-open-drawer]').forEach((b) => b.setAttribute('aria-expanded', 'false')); }
+  document.addEventListener('click', async (ev) => {
+    const el = ev.target.closest('[data-app],[data-download],[data-share-app],[data-close-app],[data-set-lang],[data-toggle-lang],[data-set-theme],[data-toggle-theme],[data-open-drawer],[data-close-drawer],[data-filter],[data-copy-link],[data-to-top],[data-open-search],[data-search-go]');
+    if (!el) { if (ev.target === drawer) closeDrawer(); if (ev.target === modal) closeModal(); return; }
+    const d = el.dataset;
+    if (d.app) openModal(d.app, el);
+    else if ('closeApp' in d) closeModal();
+    else if ('download' in d) { if (APK[openApp]) { const a = document.createElement('a'); a.href = 'downloads/' + openApp + '.apk'; a.download = openApp + '.apk'; document.body.appendChild(a); a.click(); a.remove(); toast(t('بدأ التنزيل — فعّل التثبيت من مصدر غير معروف', 'Downloading — allow install from unknown sources')); } else toast(t('قريبًا على المتاجر', 'Coming soon to the stores')); }
+    else if ('shareApp' in d) await shareApp(openApp);
+    else if (d.setLang) setLang(d.setLang, true);
+    else if ('toggleLang' in d) setLang(lang === 'ar' ? 'en' : 'ar', true);
+    else if (d.setTheme) setTheme(d.setTheme, true);
+    else if ('toggleTheme' in d) setTheme(isDark() ? 'light' : 'dark', true);
+    else if ('openDrawer' in d) { drawer.showModal(); el.setAttribute('aria-expanded', 'true'); }
+    else if ('closeDrawer' in d) closeDrawer();
+    else if (d.filter) filterApps(d.filter);
+    else if ('toTop' in d) { scrollTo({ top: 0, behavior: reduceMQ.matches ? 'auto' : 'smooth' }); $('#hero').focus({ preventScroll: true }); }
+    else if ('openSearch' in d) { searchEl.classList.add('is-open'); q.focus(); }
+    else if ('searchGo' in d) { if (!searchOpen()) renderResults(q.value); else if (active >= 0) pick(hits[active].id); q.focus(); }
+    else if ('copyLink' in d) {
+      try { await navigator.clipboard.writeText(location.href.split('#')[0]); toast(t('انسخ الرابط. شاركه مع أي أحد.', 'Link copied. Share it with anyone.')); }
+      catch (_) { toast(t('ما قدرنا ننسخ. انسخ الرابط من شريط العنوان.', 'Could not copy. Copy the link from the address bar.')); }
+    }
+  });
+
+  /* ---------- filter (GSAP Flip) */
+  const works = $$('.work');
+  function filterApps(cat) {
+    $$('[data-filter]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === cat)));
+    const state = hasGSAP ? Flip.getState(works) : null; let shown = 0;
+    works.forEach((c) => { const on = cat === 'all' || c.dataset.cat === cat; c.classList.toggle('is-hidden', !on); if (on) shown++; });
+    $('#filter-status').textContent = t(`يظهر ${shown} من ${works.length} تطبيقات`, `Showing ${shown} of ${works.length} apps`);
+    if (state && !reduceMQ.matches) Flip.from(state, { duration: 0.55, ease: 'power3.inOut', absolute: true, scale: true,
+      onEnter: (els) => gsap.fromTo(els, { autoAlpha: 0, scale: 0.92 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power3.out', delay: 0.08 }),
+      onLeave: (els) => gsap.to(els, { autoAlpha: 0, scale: 0.92, duration: 0.25, ease: 'power2.in' }), onComplete: () => ScrollTrigger.refresh() });
+    else if (hasGSAP) ScrollTrigger.refresh();
+  }
+
+
+  /* ---------- boot */
+  let badgeSpin = null;
+  setLang(lang, false); syncThemeUI(); space.init(0); openFromHash();
+  if (!hasGSAP) return;
+  ['work', 'process'].forEach((id) => ScrollTrigger.create({ trigger: '#' + id, start: 'top 45%', end: 'bottom 45%', onToggle: (s) => { if (s.isActive) $$('[data-sec]').forEach((a) => a.classList.toggle('is-current', a.dataset.sec === id)); } }));
+  const dock = $('#dock');
+  ScrollTrigger.create({ trigger: '#hero', start: 'bottom 80px', onEnter: () => dock.classList.add('is-on'), onLeaveBack: () => dock.classList.remove('is-on') });
+  ScrollTrigger.create({ trigger: '#hero', start: 'top top', end: 'bottom top', onUpdate: (s) => space.setScroll(s.progress) });
+  // stats count up once they are seen
+  $$('[data-count]').forEach((el) => {
+    const n = +el.dataset.count, b = el.querySelector('bdi');
+    ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: () => { if (reduceMQ.matches) return; const o = { v: 0 }; gsap.to(o, { v: n, duration: 1.2, ease: 'power2.out', onUpdate: () => { b.textContent = Math.round(o.v); } }); } });
+  });
+
+  const mm = gsap.matchMedia();
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
+    badgeSpin = gsap.to('.badge .ring', { rotation: -360, duration: 18, ease: 'none', repeat: -1, paused: true });
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.from('#hero', { clipPath: 'inset(6% 4% 6% 4% round 40px)', duration: 1.1, ease: 'power4.out' })
+      .from('.hero-bar > *', { y: -16, autoAlpha: 0, stagger: 0.05, duration: 0.5 }, 0.3)
+      .from('.num', { x: () => 16 * (app.dir === 'rtl' ? 1 : -1), autoAlpha: 0, stagger: 0.04, duration: 0.45 }, 0.45)
+      .from('.thumb', { x: () => -20 * (app.dir === 'rtl' ? 1 : -1), autoAlpha: 0, stagger: 0.08, duration: 0.5 }, 0.5)
+      .from('.slide.is-active > *', { y: 22, autoAlpha: 0, stagger: 0.07, duration: 0.6 }, 0.55)
+      .from('.badge', { scale: 0.6, rotation: -60, autoAlpha: 0, duration: 0.7, ease: 'back.out(1.7)' }, 0.7);
+    gsap.delayedCall(1.6, () => slider.setPlaying(true));
+    gsap.from('.intro > *', { y: 26, autoAlpha: 0, stagger: 0.08, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: '.intro', start: 'top 85%', once: true } });
+    gsap.from('.stats-row li', { y: 20, autoAlpha: 0, stagger: 0.08, duration: 0.6, ease: 'power3.out', scrollTrigger: { trigger: '.stats-row', start: 'top 92%', once: true } });
+    const vh = innerHeight;
+    const reveal = $$('.work, .f-col, .f-brand').filter((el) => el.getBoundingClientRect().top > vh);
+    gsap.set(reveal, { autoAlpha: 0, y: 28 });
+    ScrollTrigger.batch(reveal, { start: 'top 90%', once: true, interval: 0.08, batchMax: 4, onEnter: (b) => gsap.to(b, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.08, overwrite: true }) });
+    $$('.sec-title h2').forEach((h) => gsap.from(h, { y: 30, autoAlpha: 0.2, ease: 'none', scrollTrigger: { trigger: h, start: 'top 95%', end: 'top 65%', scrub: 0.6 } }));
+    // the process line draws as you scroll through the steps, and each step lands in turn
+    gsap.fromTo('.steps-line i', { scale: 0 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.steps', start: 'top 75%', end: 'bottom 60%', scrub: 0.6 } });
+    gsap.set('.steps-line i', { transformOrigin: () => matchMedia('(max-width: 760px)').matches ? 'top' : (app.dir === 'rtl' ? 'right' : 'left') });
+    gsap.from('.step', { y: 30, autoAlpha: 0, stagger: 0.15, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: '.steps', start: 'top 80%', once: true } });
+    return () => slider.setPlaying(false);
+  });
+  mm.add('(prefers-reduced-motion: reduce)', () => { space.life.v = 0; $('#strip').classList.add('is-paused'); });
+  ScrollTrigger.refresh();
+})();
+</script>
+
+</body></html>
