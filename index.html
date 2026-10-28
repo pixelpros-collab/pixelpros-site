@@ -316,7 +316,42 @@ section[id], article[id] { scroll-margin-top: 96px; }
 .work-line { font: 600 clamp(1.125rem, 1.7vw, 1.375rem)/1.55 var(--f-display); max-width: 30ch; text-shadow: var(--work-text-shadow); }
 .work .pill-btn { align-self: flex-start; }
 .pill { display: inline-flex; align-items: center; height: 30px; padding-inline: 12px; border-radius: 999px; font: 600 0.8125rem/1 var(--f-display); }
+
+/* ---------- testers signup */
+.testers { padding-block: clamp(40px, 5vw, 72px) clamp(64px, 8vw, 112px); padding-inline: clamp(4px, 2vw, 28px); }
+.t-card { margin-top: clamp(28px, 4vw, 48px); max-width: 880px; margin-inline: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--card-shadow); padding: clamp(20px, 3.4vw, 40px); display: grid; gap: 22px; }
+.t-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) { .t-row { grid-template-columns: 1fr; } }
+.t-field { display: grid; gap: 8px; }
+.t-field > label, .t-legend { font: 700 0.9375rem/1.3 var(--f-display); color: var(--ink); }
+.t-field input[type="text"], .t-field input[type="email"] { width: 100%; box-sizing: border-box; min-height: 52px; padding: 0 16px; border-radius: 16px; border: 1.5px solid var(--line-strong); background: var(--board); color: var(--ink); font: 500 1rem/1.2 var(--f-body); }
+.t-field input::placeholder { color: var(--fg-3); }
+.t-field input:focus-visible { outline: 2px solid var(--brand-text); outline-offset: 2px; border-color: var(--brand-text); }
+.t-legend { padding: 0; margin-bottom: 12px; float: none; width: 100%; }
+.t-apps { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
+.t-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 640px) { .t-list { grid-template-columns: 1fr; } }
+.t-opt { position: relative; }
+.t-opt input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; z-index: 1; }
+.t-opt label { display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 8px 14px; border-radius: 18px; border: 1.5px solid var(--line-strong); background: var(--board); transition: border-color .2s, background .2s, transform .2s; }
+.t-opt img { width: 40px; height: 40px; border-radius: 11px; flex: none; }
+.t-opt .t-name { font: 700 1rem/1.2 var(--f-display); flex: 1; }
+.t-box { width: 24px; height: 24px; border-radius: 8px; border: 2px solid var(--line-strong); display: grid; place-items: center; flex: none; background: var(--surface); transition: background .2s, border-color .2s; }
+.t-box svg { width: 16px; height: 16px; opacity: 0; transform: scale(.6); transition: opacity .2s, transform .2s; color: #fff; }
+.t-opt input:checked + label { border-color: var(--brand-text); background: var(--soft); }
+.t-opt input:checked + label .t-box { background: var(--brand); border-color: var(--brand); }
+.t-opt input:checked + label .t-box svg { opacity: 1; transform: none; }
+.t-opt input:focus-visible + label { outline: 2px solid var(--brand-text); outline-offset: 2px; }
+@media (hover: hover) { .t-opt:hover label { transform: translateY(-1px); border-color: var(--brand-text); } }
+.t-hp { position: absolute; inset-inline-start: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.t-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; justify-content: space-between; }
+.t-note { color: var(--fg-3); font-size: 0.9375rem; margin: 0; max-width: 46ch; }
+.t-msg { margin: 0; font: 600 1rem/1.5 var(--f-body); min-height: 1.5em; }
+.t-msg.is-err { color: #B91C1C; } .t-msg.is-ok { color: #0F766E; }
+:root[data-theme="dark"] .t-msg.is-err { color: #FCA5A5; } :root[data-theme="dark"] .t-msg.is-ok { color: #5EEAD4; }
+.t-submit[disabled] { opacity: .6; cursor: progress; }
 .pill--soon { margin-inline-start: 6px; }
+
 .pill-btn.is-soon { opacity: .55; cursor: not-allowed; }
 .pill--glass { background: var(--glass-bg); color: var(--glass-fg); border: 1px solid var(--glass-line); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 @media (hover: hover) and (pointer: fine) { .work:hover .work-bg { transform: scale(1.12); filter: blur(0) saturate(1.15); } }
@@ -523,6 +558,7 @@ section[id], article[id] { scroll-margin-top: 96px; }
   <nav aria-label="أقسام الصفحة" data-ar-aria-label="أقسام الصفحة" data-en-aria-label="Page sections">
     <a href="#work" data-sec="work"><span data-l="ar">أعمال مختارة</span><span data-l="en" lang="en">Selected Work</span></a>
     <a href="#process" data-sec="process"><span data-l="ar">المسار</span><span data-l="en" lang="en">Process</span></a>
+    <a href="#testers" data-sec="testers"><span data-l="ar">كن مجرّبًا</span><span data-l="en" lang="en">Join the Beta</span></a>
   </nav>
   <button class="round-btn dock-lang" type="button" data-toggle-lang aria-label="English" data-ar-aria-label="English" data-en-aria-label="العربية"><span data-l="ar" lang="en">EN</span><span data-l="en" lang="ar">ع</span></button>
   <button class="round-btn" type="button" data-toggle-theme aria-label="تبديل المظهر" data-ar-aria-label="تبديل المظهر" data-en-aria-label="Toggle theme"><span class="only-light"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span><span class="only-dark"><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></span></button>
@@ -716,6 +752,28 @@ section[id], article[id] { scroll-margin-top: 96px; }
   <h3><span data-l="ar">الاختبار والتحسين</span><span data-l="en" lang="en">Test &amp; refine</span></h3><p><span data-l="ar">مراجعة الأداء وتجربة المستخدم وتجهيز الإصدار بثقة.</span><span data-l="en" lang="en">Review performance and the user experience, then ship the release with confidence.</span></p>
 </li></ol>
   </section>
+
+  <section class="testers" id="testers" aria-labelledby="testers-h">
+    <div class="sec-title">
+      <h2 id="testers-h"><span data-l="ar">كن من أوائل المجرّبين</span><span data-l="en" lang="en">Become One of the First Testers</span></h2>
+      <p><span data-l="ar">التطبيقات قريبًا. سجّل اسمك واختر التطبيقات اللي تبي تجربها، ونرسل لك النسخة التجريبية أول ما تجهز.</span><span data-l="en" lang="en">The apps are coming soon. Leave your name, pick the apps you want to try, and we will send you the beta as soon as it is ready.</span></p>
+    </div>
+    <form class="t-card" id="t-form" novalidate>
+      <div class="t-row">
+        <div class="t-field"><label for="t-name"><span data-l="ar">الاسم</span><span data-l="en" lang="en">Name</span></label><input id="t-name" name="name" type="text" autocomplete="name" maxlength="80" required></div>
+        <div class="t-field"><label for="t-email"><span data-l="ar">الإيميل</span><span data-l="en" lang="en">Email</span></label><input id="t-email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" maxlength="120" required></div>
+      </div>
+      <fieldset class="t-apps"><legend class="t-legend"><span data-l="ar">وش التطبيق اللي تبي تجربه؟ (تقدر تختار أكثر من واحد)</span><span data-l="en" lang="en">Which apps do you want to try? (pick as many as you like)</span></legend>
+        <ul class="t-list" id="t-list"></ul>
+      </fieldset>
+      <div class="t-hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <div class="t-foot">
+        <p class="t-note"><span data-l="ar">نستخدم بياناتك فقط للتواصل معك بخصوص التجربة.</span><span data-l="en" lang="en">We only use your details to contact you about the beta.</span></p>
+        <button class="pill-btn pill-btn--brand t-submit" type="submit"><span data-l="ar">سجّلني كمجرّب</span><span data-l="en" lang="en">Sign me up</span><span class="pb-ico"><svg class="ico flip-rtl" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
+      </div>
+      <p class="t-msg" id="t-msg" role="status" aria-live="polite"></p>
+    </form>
+  </section>
 </main>
 </div>
 
@@ -743,6 +801,7 @@ section[id], article[id] { scroll-margin-top: 96px; }
     <a href="#top" data-sec="top" data-close-drawer><span data-l="ar">الرئيسية</span><span data-l="en" lang="en">Home</span><span class="idx"><bdi>01</bdi></span></a>
     <a href="#work" data-sec="work" data-close-drawer><span data-l="ar">أعمال مختارة</span><span data-l="en" lang="en">Selected Work</span><span class="idx"><bdi>02</bdi></span></a>
     <a href="#process" data-sec="process" data-close-drawer><span data-l="ar">المسار</span><span data-l="en" lang="en">Process</span><span class="idx"><bdi>03</bdi></span></a>
+    <a href="#testers" data-sec="testers" data-close-drawer><span data-l="ar">كن مجرّبًا</span><span data-l="en" lang="en">Join the Beta</span><span class="idx"><bdi>04</bdi></span></a>
   </nav>
   <div class="d-group">
     <span><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><span data-l="ar">اللغة</span><span data-l="en" lang="en">Language</span></span>
@@ -774,6 +833,7 @@ section[id], article[id] { scroll-margin-top: 96px; }
     <div class="am-actions">
       <button class="pill-btn pill-btn--brand" type="button" data-close-app><span data-l="ar">رجوع للأعمال</span><span data-l="en" lang="en">Back to the Work</span><span class="pb-ico"><svg class="ico flip-ltr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></button>
       <button class="pill-btn pill-btn--brand" type="button" data-download><span data-l="ar">تنزيل</span><span data-l="en" lang="en">Download</span><span class="pb-ico"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span></button>
+      <button class="pill-btn pill-btn--ghost" type="button" data-join-testers><span data-l="ar">سجّل كمجرّب</span><span data-l="en" lang="en">Join the beta</span></button>
       <button class="pill-btn pill-btn--ghost" type="button" data-share-app><span data-l="ar">شارك رابط التطبيق</span><span data-l="en" lang="en">Share App Link</span><span class="pb-ico"><svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98"/><path d="m15.41 6.51-6.82 3.98"/></svg></span></button>
     </div>
   </div>
@@ -790,7 +850,7 @@ section[id], article[id] { scroll-margin-top: 96px; }
 (() => {
   const root = document.documentElement, app = document.getElementById('app');
   root.classList.add('js');
-  const APK = { yawmi: 1, duty: 1, masarifi: 1, certs: 1, sehati: 1, qayd: 1 }; // apps with a public APK in /downloads
+  const APK = {}; // no public downloads yet: everything is 'coming soon'
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const DATA = {"apps": [{"id": "yawmi", "ar": "يومي", "en": "Yawmi", "enCap": "YAWMI", "cat": "life", "catAr": "البيت والصحة", "catEn": "Home & Health", "descAr": "ضمانات وصيانة وفواتير في مكان واحد", "descEn": "Warranties, upkeep and bills in one place", "kw": "ضمان ضمانات صيانة فواتير فاتورة سيارة بيت مهام عائلة warranty maintenance bills tasks family car", "space": ["#0B2350", "#5C9CF0", "#7CC4FF"], "poster": "posters/yawmi.jpg", "ratio": "4/5", "headAr": ["تفاصيل يومك كلها", "في مكان واحد"], "headEn": ["Every detail of your day", "in one place"], "problemAr": "الضمانات والصيانة والفواتير متفرقة، وتتذكرها متأخر", "problemEn": "Warranties, maintenance and bills are scattered, and you remember them too late", "longAr": "ضماناتك، صيانة سيارتك وبيتك، فواتيرك ومهامك في مكان واحد. يذكّرك قبل كل موعد، ومعه مساعد ذكي يرتّب لك يومك.", "longEn": "Your warranties, car and home maintenance, bills and tasks in one place. It reminds you before every due date, with a smart assistant that plans your day.", "feat": [["صوّر الفاتورة أو الضمان وبس", "Snap the receipt or warranty, that is it"], ["صيانة بالكيلو أو بالشهر، والأقرب يطلع أول", "Upkeep by km or by month, nearest first"], ["مهام وصلاحيات للعائلة كلها", "Tasks and roles for the whole family"], ["مساعد ذكي يرتّب لك يومك", "A smart assistant that plans your day"]], "accL": "#1460B8", "accD": "#5CC8F5", "stats": [["صوّر", "Snap", "الفاتورة وبس", "just the receipt"], ["بالكيلو", "By km", "أو بالشهر للصيانة", "or by month for upkeep"], ["العائلة", "Family", "مهام وصلاحيات", "tasks and roles"]]}, {"id": "duty", "ar": "متابعة الدوام", "en": "Duty Tracker", "enCap": "DUTY TRACKER", "cat": "field", "catAr": "العمل والحقل", "catEn": "Work & Field", "descAr": "عداد أيام الدوام والنزول", "descEn": "Countdown for your rotation", "kw": "دوام مناوبة نزول سايت روتيشن تقويم عداد rotation shift days off site calendar countdown", "space": ["#2A0F05", "#E07A2E", "#FFB070"], "poster": "posters/duty.jpg", "ratio": "3/4", "headAr": ["كم باقي", "على النزول؟"], "headEn": ["How many days", "until you are off?"], "problemAr": "دوامك بنظام مناوبات وتضيع بين الأيام", "problemEn": "You work a rotation and lose track of the days", "longAr": "عداد تنازلي يقول لك كم باقي على النزول أو على رجعتك للسايت، مع تقويم ملوّن للفترة، وتقسيم الأيام، وتنبيهات، وأوامر صوتية.", "longEn": "A countdown to your days off or your return to site, with a colour-coded calendar, a split of the days, alerts and voice commands.", "feat": [["عداد تنازلي للنزول والرجعة للسايت", "Countdown to your days off and back to site"], ["تقويم ملوّن للفترة وتقسيم الأيام", "Colour-coded calendar and day split"], ["تنبيهات وأوامر صوتية", "Alerts and voice commands"], ["يناسب أي نظام مناوبة مثل 21 / 42", "Fits any rotation, such as 21 / 42"]], "accL": "#B8420B", "accD": "#FF9D45", "stats": [["21 / 42", "21 / 42", "أي نظام مناوبة", "any rotation"], ["عداد", "Counter", "على الشاشة الرئيسية", "on your home screen"], ["صوت", "Voice", "أوامر صوتية", "voice commands"]]}, {"id": "calc", "ar": "حاسبة الزيت والغاز", "en": "Oil & Gas Calculator", "enCap": "OIL & GAS CALCULATOR", "cat": "field", "catAr": "العمل والحقل", "catEn": "Work & Field", "descAr": "أكثر من 50 حاسبة لاختبار الآبار", "descEn": "50+ well-testing calculators", "kw": "حاسبة زيت غاز آبار اختبار أورفس شوك تدفق تانك GOR well testing orifice choke flow tank oil gas", "space": ["#2B1D04", "#D7A43A", "#FFD27A"], "poster": "posters/calc.jpg", "ratio": "9/16", "headAr": ["حسابات الحقل", "بنتيجة فورية"], "headEn": ["Field calculations", "with instant results"], "problemAr": "حسبة هندسية تحتاجها الحين، والملف على اللابتوب", "problemEn": "You need an engineering calc now, and the file is on the laptop", "longAr": "كل حسابات اختبار الآبار في مكان واحد، بنتيجة فورية: نسب الإنتاج، الأورفس بليت، الشوك والتدفق، هندسة الغاز، تحويلات الغازات، وقراءة التانك. والمعادلة دائمًا قدامك.", "longEn": "Every well-testing calculation in one place, with instant results: production ratios, orifice plate, choke and flow, gas engineering, gas conversions and tank gauging. The formula is always in front of you.", "feat": [["أكثر من 50 حاسبة في 21 قسم", "Over 50 calculators across 21 sections"], ["نسب الإنتاج والأورفس بليت", "Production ratios and orifice plate"], ["الشوك والتدفق وهندسة الغاز", "Choke, flow and gas engineering"], ["تحويلات الغازات وقراءة التانك، بالعربي والإنجليزي", "Gas conversions and tank gauging, in Arabic and English"]], "accL": "#855406", "accD": "#F5BC48", "stats": [["+50", "50+", "حاسبة", "calculators"], ["21", "21", "قسم", "sections"], ["AR · EN", "AR · EN", "عربي وإنجليزي", "Arabic & English"]]}, {"id": "masarifi", "ar": "مصاريفي", "en": "Masarifi", "enCap": "MASARIFI", "cat": "money", "catAr": "المال", "catEn": "Money", "descAr": "اعرف وين يروح راتبك", "descEn": "See where your salary goes", "kw": "مصروف مصاريف راتب بنك رسائل ميزانية جمعية قرض حصالة salary bank sms budget spending loan savings", "space": ["#05231C", "#4FB58F", "#E8C872"], "poster": "posters/masarifi.jpg", "ratio": "9/16", "headAr": ["اعرف وين يروح", "كل ريال"], "headEn": ["Know where every", "riyal goes"], "problemAr": "الراتب خلص وما تدري وين راح", "problemEn": "Payday is gone and you do not know where it went", "longAr": "شهرك المالي يبدأ يوم ينزل الراتب. يقرأ رسائل البنك، ويعرض لك كم صرفت وكم باقي ووين يروح صرفك، مع حصّالة لأهدافك والجمعية والقرض في مكان واحد.", "longEn": "Your money month starts on payday. It reads your bank SMS and shows what you spent, what is left and where it goes, with a savings jar for goals, your jam’iya and loans in one place.", "feat": [["يقرأ رسائل 6 بنوك ومحافظ", "Reads SMS from 6 banks and wallets"], ["شهرك المالي يبدأ يوم ينزل الراتب", "Your money month starts on payday"], ["حصّالة لأهدافك، والجمعية والقرض في مكان واحد", "A savings jar for goals, plus jam’iya and loans"], ["أرقامك مشفّرة وما تطلع من جهازك", "Figures encrypted and kept on your phone"]], "accL": "#0B6E5C", "accD": "#E8C872", "stats": [["6", "6", "بنوك ومحافظ", "banks & wallets"], ["AR / EN", "AR / EN", "لغتان", "two languages"], ["0", "0", "بيانات تطلع من جهازك", "data leaves your phone"]]}, {"id": "certs", "ar": "شهاداتي", "en": "My Certs", "enCap": "MY CERTS", "cat": "field", "catAr": "العمل والحقل", "catEn": "Work & Field", "descAr": "صوّر الكرت ويتابع لك الانتهاء", "descEn": "Snap a card, track its expiry", "kw": "شهادات شهادة دورات دورة رخصة كورسات انتهاء تصوير OCR certificates courses licence expiry", "space": ["#0A2238", "#5FA6C9", "#F7AC45"], "poster": "posters/certs.jpg", "ratio": "4/5", "headAr": ["شهاداتك كلها", "ولا وحدة تفوتك"], "headEn": ["All your certificates", "none slip by"], "problemAr": "شهادتك أو دورتك تنتهي وأنت ناسي", "problemEn": "Your course or licence expires and you forget", "longAr": "صوّر كرت الدورة أو الرخصة، ويقرأ التطبيق البيانات بنفسه. يرتّب شهاداتك حسب الأقرب انتهاءً، ويقسّمها إلى سارية وقريبة ومنتهية.", "longEn": "Snap the course card or licence and the app reads the details itself. It sorts your certificates by nearest expiry into valid, expiring soon and expired.", "feat": [["صوّر الكرت ويقرأ البيانات بنفسه (OCR)", "Snap the card and it reads the details (OCR)"], ["ترتيب حسب الأقرب انتهاءً", "Sorted by nearest expiry"], ["ثلاث حالات واضحة: سارية وقريبة ومنتهية", "Three clear states: valid, soon, expired"], ["تنبيه قبل الانتهاء بـ 60 يوم", "An alert 60 days before expiry"]], "accL": "#A34F06", "accD": "#F7AC45", "stats": [["تصوير", "Snap", "بدل الكتابة (OCR)", "instead of typing (OCR)"], ["60 يوم", "60 days", "تنبيه مسبق", "early alert"], ["3", "3", "حالات واضحة", "clear states"]]}, {"id": "sehati", "ar": "صحتي", "en": "MyHealth", "enCap": "MYHEALTH", "cat": "life", "catAr": "البيت والصحة", "catEn": "Home & Health", "descAr": "تذكير بالجرعات والمواعيد", "descEn": "Dose and appointment reminders", "kw": "دواء أدوية جرعة جرعات مستشفى موعد زيارة medicine dose hospital appointment visit", "space": ["#04221F", "#47B6A6", "#8FF0E0"], "poster": "posters/sehati.jpg", "ratio": "4/5", "headAr": ["لا تنسَ جرعة", "ولا موعد"], "headEn": ["Never miss a dose", "or an appointment"], "problemAr": "تنسى جرعة الدوا أو موعد المستشفى", "problemEn": "You forget a dose or a hospital appointment", "longAr": "يذكّرك بأدويتك في وقتها، قبل الأكل أو بعده، ويرتّب مواعيد المستشفى وزيارات المرضى (الطابق، الغرفة، أوقات الزيارة)، وينبّهك قبل ما يخلص الدواء.", "longEn": "Reminds you of your medicines on time, before or after food, organises hospital appointments and patient visits (floor, room, visiting hours), and alerts you before a medicine runs out.", "feat": [["تذكير بكل جرعة في وقتها، قبل الأكل أو بعده", "Every dose on time, before or after food"], ["مواعيد المستشفى في مكان واحد", "Hospital appointments in one place"], ["زيارات المرضى: الطابق والغرفة وأوقات الزيارة", "Patient visits: floor, room and visiting hours"], ["تنبيه قبل ما يخلص الدواء", "An alert before a medicine runs out"]], "accL": "#0B6F74", "accD": "#43D6B6", "stats": [["كل جرعة", "Every dose", "تذكير في وقتها", "reminded on time"], ["مواعيد", "Visits", "وزيارات مرضى", "and appointments"], ["مخزون", "Stock", "ينبّهك قبل النفاد", "alert before it runs out"]]}, {"id": "qayd", "ar": "قيد", "en": "Qayd", "enCap": "QAYD", "cat": "money", "catAr": "المال", "catEn": "Money", "descAr": "اشتراكاتك ومصروفك من رسائل البنك", "descEn": "Subscriptions and spending from bank SMS", "kw": "قيد اشتراكات اشتراك مصروف مصاريف بنك رسائل نتفلكس شاهد subscriptions spending bank sms", "space": ["#120B38", "#6D4DE0", "#B9A8FF"], "poster": "posters/qayd.jpg", "ratio": "9/16", "headAr": ["اشتراكاتك كلها", "في صفحة وحدة"], "headEn": ["All your subscriptions", "on one page"], "problemAr": "اشتراكاتك تنسحب كل شهر وإنت ما تدري", "problemEn": "Subscriptions drain every month and you never notice", "longAr": "نسخة خفيفة ومبسّطة من مصاريفي. يقرأ رسائل البنك بنفسه بدون ما تختار بنك، ويعرض لك صرفك وتحليل مصاريفك، مع صفحة مخصصة لاشتراكاتك: كم تدفع شهريًا ووين يروح.", "longEn": "A light, simplified take on Masarifi. It reads your bank SMS on its own with no bank to pick, shows what you spend and analyses it, with a dedicated page for your subscriptions: what you pay each month and where it goes.", "feat": [["يقرأ رسائل البنك بنفسه، بدون اختيار بنك", "Reads bank SMS on its own, no bank to pick"], ["صفحة مخصصة للاشتراكات: كم تدفع شهريًا", "A dedicated subscriptions page: what you pay monthly"], ["تحليل واضح لمصروفك ووين يروح", "A clear analysis of where your money goes"], ["بسيط وخفيف: الرئيسية والتحليل والإعدادات", "Light and simple: home, analysis and settings"]], "accL": "#5B3FD0", "accD": "#B3A6FF", "stats": [["تلقائي", "Auto", "من رسائل البنك", "from bank SMS"], ["اشتراكات", "Subs", "صفحة مخصصة", "its own page"], ["3", "3", "شاشات بسيطة", "simple screens"]]}]};
@@ -848,6 +908,7 @@ section[id], article[id] { scroll-margin-top: 96px; }
     $$('.work').forEach((w) => { const a = APPS.find((x) => x.id === w.querySelector('[data-app]').dataset.app), img = w.querySelector('.work-bg'), src = posterOf(a); if (img.getAttribute('src') !== src) img.src = src; });
     space.setDir(l === 'ar');
     if (openApp) fillModal(openApp);
+    try { const ck = APPS.filter((a) => { const e = document.getElementById('t-opt-' + a.id); return e && e.checked; }).map((a) => a.id); buildTesterList(); ck.forEach((id) => { document.getElementById('t-opt-' + id).checked = true; }); } catch (e) { /* tester list not built yet */ }
     if (searchOpen()) renderResults(q.value);
     if (hasGSAP) requestAnimationFrame(() => ScrollTrigger.refresh());
   }
@@ -1084,6 +1145,36 @@ section[id], article[id] { scroll-margin-top: 96px; }
   results.addEventListener('pointerdown', (e) => { const o = e.target.closest('[role="option"]'); if (o) { e.preventDefault(); pick(o.dataset.id); } });
   document.addEventListener('pointerdown', (e) => { if (searchOpen() && !e.target.closest('#search')) closeResults(); });
 
+
+  /* ---------- testers signup */
+  const SIGNUP_URL = 'https://script.google.com/macros/s/AKfycbw7tOmsQsqE09SKC5ErN3DIHYdYMo18x7cnT87iHnpGsLfv6yPFIfc3pBHkk99gPaZt/exec'; // Google Apps Script web-app URL (writes to the Sheet and emails the owner)
+  const tList = $('#t-list');
+  const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5 10 17.5 19 7"/></svg>';
+  function buildTesterList() {
+    tList.innerHTML = APPS.map((a) => `<li class="t-opt"><input type="checkbox" id="t-opt-${a.id}" name="apps" value="${a.id}"><label for="t-opt-${a.id}"><img src="icons/${a.id}.png" alt="" width="40" height="40" loading="lazy"><span class="t-name">${esc(t(a.ar, a.en))}</span><span class="t-box">${CHECK}</span></label></li>`).join('');
+  }
+  buildTesterList();
+  const tForm = $('#t-form'), tMsg = $('#t-msg');
+  function tSay(ar, en, kind) { tMsg.textContent = t(ar, en); tMsg.className = 't-msg ' + (kind ? 'is-' + kind : ''); }
+  tForm.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    const fd = new FormData(tForm);
+    if (fd.get('website')) return; // honeypot
+    const name = String(fd.get('name') || '').trim(), email = String(fd.get('email') || '').trim();
+    const picked = APPS.filter((a) => tForm.querySelector('#t-opt-' + a.id).checked);
+    if (name.length < 2) return tSay('اكتب اسمك.', 'Please enter your name.', 'err');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return tSay('اكتب إيميل صحيح.', 'Please enter a valid email.', 'err');
+    if (!picked.length) return tSay('اختر تطبيق واحد على الأقل.', 'Pick at least one app.', 'err');
+    if (!SIGNUP_URL) return tSay('التسجيل غير متاح الحين، جرّب بعد شوي.', 'Sign-up is not available right now. Please try again soon.', 'err');
+    const btn = tForm.querySelector('.t-submit'); btn.disabled = true; tSay('جاري الإرسال…', 'Sending…');
+    try {
+      await fetch(SIGNUP_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ name, email, apps: picked.map((a) => a.ar + ' / ' + a.en), lang }) });
+      tForm.reset(); tSay('تم التسجيل. شكرًا لك، بنتواصل معك على إيميلك.', 'You are in. Thank you, we will email you soon.', 'ok');
+    } catch (e) { tSay('ما وصل الطلب. تأكد من الاتصال وجرّب مرة ثانية.', 'Could not send. Check your connection and try again.', 'err'); }
+    btn.disabled = false;
+  });
+
   /* ---------- coming-soon badges (only Qayd has a public APK so far) */
   $$('.work').forEach((w) => {
     const b = w.querySelector('[data-app]'); const top = w.querySelector('.work-top');
@@ -1096,12 +1187,13 @@ section[id], article[id] { scroll-margin-top: 96px; }
   const drawer = $('#drawer');
   function closeDrawer() { drawer.close(); $$('[data-open-drawer]').forEach((b) => b.setAttribute('aria-expanded', 'false')); }
   document.addEventListener('click', async (ev) => {
-    const el = ev.target.closest('[data-app],[data-download],[data-share-app],[data-close-app],[data-set-lang],[data-toggle-lang],[data-set-theme],[data-toggle-theme],[data-open-drawer],[data-close-drawer],[data-filter],[data-copy-link],[data-to-top],[data-open-search],[data-search-go]');
+    const el = ev.target.closest('[data-app],[data-download],[data-join-testers],[data-share-app],[data-close-app],[data-set-lang],[data-toggle-lang],[data-set-theme],[data-toggle-theme],[data-open-drawer],[data-close-drawer],[data-filter],[data-copy-link],[data-to-top],[data-open-search],[data-search-go]');
     if (!el) { if (ev.target === drawer) closeDrawer(); if (ev.target === modal) closeModal(); return; }
     const d = el.dataset;
     if (d.app) openModal(d.app, el);
     else if ('closeApp' in d) closeModal();
     else if ('download' in d) { if (APK[openApp]) { const a = document.createElement('a'); a.href = 'downloads/' + openApp + '.apk'; a.download = openApp + '.apk'; document.body.appendChild(a); a.click(); a.remove(); toast(t('بدأ التنزيل — فعّل التثبيت من مصدر غير معروف', 'Downloading — allow install from unknown sources')); } else toast(t('قريبًا على المتاجر', 'Coming soon to the stores')); }
+    else if ('joinTesters' in d) { const id = openApp; closeModal(); setTimeout(() => { const c = document.querySelector('#t-opt-' + id); if (c) c.checked = true; document.getElementById('testers').scrollIntoView({ behavior: reduceMQ.matches ? 'auto' : 'smooth', block: 'start' }); }, 350); }
     else if ('shareApp' in d) await shareApp(openApp);
     else if (d.setLang) setLang(d.setLang, true);
     else if ('toggleLang' in d) setLang(lang === 'ar' ? 'en' : 'ar', true);
@@ -1137,7 +1229,7 @@ section[id], article[id] { scroll-margin-top: 96px; }
   let badgeSpin = null;
   setLang(lang, false); syncThemeUI(); space.init(0); openFromHash();
   if (!hasGSAP) return;
-  ['work', 'process'].forEach((id) => ScrollTrigger.create({ trigger: '#' + id, start: 'top 45%', end: 'bottom 45%', onToggle: (s) => { if (s.isActive) $$('[data-sec]').forEach((a) => a.classList.toggle('is-current', a.dataset.sec === id)); } }));
+  ['work', 'process', 'testers'].forEach((id) => ScrollTrigger.create({ trigger: '#' + id, start: 'top 45%', end: 'bottom 45%', onToggle: (s) => { if (s.isActive) $$('[data-sec]').forEach((a) => a.classList.toggle('is-current', a.dataset.sec === id)); } }));
   const dock = $('#dock');
   ScrollTrigger.create({ trigger: '#hero', start: 'bottom 80px', onEnter: () => dock.classList.add('is-on'), onLeaveBack: () => dock.classList.remove('is-on') });
   ScrollTrigger.create({ trigger: '#hero', start: 'top top', end: 'bottom top', onUpdate: (s) => space.setScroll(s.progress) });
