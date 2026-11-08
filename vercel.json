@@ -1,5 +1,10 @@
 {
+ "cleanUrls": true,
  "rewrites": [
+  {
+   "source": "/apps/:id",
+   "destination": "/apps__:id.html"
+  },
   {
    "source": "/posters/en/:f",
    "destination": "/posters__en__:f"
@@ -19,6 +24,17 @@
   {
    "source": "/shots/:f",
    "destination": "/shots__:f"
+  }
+ ],
+ "headers": [
+  {
+   "source": "/(.*)\\.(png|jpg|webp)",
+   "headers": [
+    {
+     "key": "Cache-Control",
+     "value": "public, max-age=2592000, immutable"
+    }
+   ]
   }
  ]
 }

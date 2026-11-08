@@ -1,0 +1,17 @@
+{
+ "name": "Pixel Pros",
+ "short_name": "Pixel Pros",
+ "lang": "ar",
+ "dir": "rtl",
+ "start_url": "/",
+ "display": "standalone",
+ "background_color": "#0F1530",
+ "theme_color": "#141A3F",
+ "icons": [
+  {
+   "src": "/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ]
+}
