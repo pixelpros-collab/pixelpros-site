@@ -1127,7 +1127,7 @@ dialog { color: var(--ink); }
   const form = $('#tester-form'), msg = $('#form-msg'), note = $('#form-note');
   let db = null, uid = null, viaWA = false;
   const WA = '966576989000';
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx2-bnnCBmaztpL0Lc_5esmy3oeirzYnjme9g9bTA9_rz8ovLq7ptaxu5tejbBYOXYbKA/exec';   // Google Apps Script web-app URL: every sign-up lands in the Google Sheet and emails the owner
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw7tOmsQsqE09SKC5ErN3DIHYdYMo18x7cnT87iHnpGsLfv6yPFIfc3pBHkk99gPaZt/exec';   // Google Apps Script web-app URL: every sign-up lands in the Google Sheet and emails the owner
   const useWhatsApp = () => { viaWA = true; if (SHEET_URL) return; $('#t-submit').querySelector('[data-l="ar"]').textContent = 'أرسل تسجيلي واتساب'; $('#t-submit').querySelector('[data-l="en"]').textContent = 'Send my sign-up on WhatsApp'; };
   const say = (m, kind) => { msg.textContent = m; msg.className = 'form-msg' + (kind ? ' ' + kind : ''); };
   const showNote = (ar, en) => { note.innerHTML = bi(ar, en); note.hidden = false; };
@@ -1176,7 +1176,11 @@ dialog { color: var(--ink); }
       const btn = $('#t-submit'); btn.disabled = true;
       const names = apps.map((id) => { const a = APPS.find((x) => x.id === id); return a ? a.ar : id; }).join('، ');
       try {
-        await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({ name, email: contact.toLowerCase(), apps: names, lang, website: $('#t-hp').value }) });
+        if (!$('#t-hp').value) {   // the hidden field stays empty for people; bots fill it
+          const picked = apps.map((id) => { const x = APPS.find((y) => y.id === id); return x ? x.ar + ' / ' + x.en : id; });
+          await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ name, email: contact.toLowerCase(), apps: picked, lang }) });
+        }
         say(tr('تم تسجيلك. بنرسل لك النسخة التجريبية على Gmail أول ما تجهز.', 'You’re signed up. We’ll send the test build to your Gmail as soon as it’s ready.'), 'ok');
         toast(tr('تم التسجيل', 'Signed up'));
         form.reset();
