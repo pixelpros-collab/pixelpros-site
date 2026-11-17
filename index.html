@@ -1128,7 +1128,7 @@ dialog { color: var(--ink); }
   let db = null, uid = null, viaWA = false;
   const WA = '966576989000';
   const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw7tOmsQsqE09SKC5ErN3DIHYdYMo18x7cnT87iHnpGsLfv6yPFIfc3pBHkk99gPaZt/exec';   // Google Apps Script web-app URL: every sign-up lands in the Google Sheet and emails the owner
-  const useWhatsApp = () => { viaWA = true; if (SHEET_URL) return; $('#t-submit').querySelector('[data-l="ar"]').textContent = 'أرسل تسجيلي واتساب'; $('#t-submit').querySelector('[data-l="en"]').textContent = 'Send my sign-up on WhatsApp'; };
+  const useWhatsApp = () => { viaWA = true; };
   const say = (m, kind) => { msg.textContent = m; msg.className = 'form-msg' + (kind ? ' ' + kind : ''); };
   const showNote = (ar, en) => { note.innerHTML = bi(ar, en); note.hidden = false; };
   const setDisabled = (on) => { $$('#tester-form input, #t-submit').forEach((el) => { el.disabled = on; }); };
@@ -1190,12 +1190,7 @@ dialog { color: var(--ink); }
       return;
     }
     if (viaWA || !db || !uid) {
-      const names = apps.map((id) => { const a = APPS.find((x) => x.id === id); return a ? a.ar : id; }).join('، ');
-      const text = `تسجيل مجرّب في Pixel Pros\nالاسم: ${name}\nGmail: ${contact.toLowerCase()}\nالتطبيقات: ${names}`;
-      const url = `https://wa.me/${WA}?text=${encodeURIComponent(text)}`;
-      const w = window.open(url, '_blank');
-      if (w) { try { w.opener = null; } catch (_) {} } else location.href = url;
-      say(tr('فتحنا واتساب برسالة جاهزة فيها بياناتك. اضغط إرسال عشان يكتمل تسجيلك.', 'We opened WhatsApp with your details filled in. Press send to finish signing up.'), 'ok');
+      say(tr('التسجيل متوقف مؤقتًا. جرّب بعد شوي.', 'Sign-up is paused for a moment. Please try again soon.'), 'err');
       return;
     }
     const btn = $('#t-submit'); btn.disabled = true;
