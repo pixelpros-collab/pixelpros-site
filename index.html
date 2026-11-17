@@ -334,6 +334,7 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
 .tapps label:has(input:checked) .box { background: var(--accent-fill); border-color: var(--accent-fill); }
 .tapps label:has(input:checked) .box svg { opacity: 1; transform: none; }
 .tapps label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .tfoot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; }
 .tfoot p { color: var(--fg-2); font-size: 0.9375rem; }
 .t-submit { display: inline-flex; align-items: center; gap: 14px; height: 60px; padding-inline: 28px 8px; border-radius: 999px; border: 0; cursor: pointer; background: var(--accent-fill); color: #fff; font: 700 1.0625rem/1 var(--f-display); box-shadow: 0 16px 30px -16px rgba(232, 89, 12, 0.9); transition: background-color 160ms ease, transform 120ms var(--ease); }
@@ -626,6 +627,7 @@ dialog { color: var(--ink); }
               <span id="t-apps-l"><span data-l="ar">وش التطبيق اللي تبي تجربه؟ (تقدر تختار أكثر من واحد)</span><span data-l="en" lang="en">Which app do you want to try? (pick as many as you like)</span></span>
               <div class="tapps" id="t-apps"></div>
             </div>
+            <input class="hp" id="t-hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="form-note" id="form-note" hidden></div>
             <div class="tfoot">
               <p><span data-l="ar">نستخدم بياناتك فقط للتواصل معك بخصوص التجربة.</span><span data-l="en" lang="en">We only use your details to contact you about testing.</span></p>
@@ -729,7 +731,7 @@ dialog { color: var(--ink); }
       <ul>
         <li>نستخدم بيانات التسجيل بس عشان نرسل لك النسخ التجريبية ونسمع ملاحظاتك.</li>
         <li>ما نبيعها ولا نشاركها مع أي جهة.</li>
-        <li>صاحب الصفحة بس يقدر يشوف قائمة المسجلين.</li>
+        <li>التسجيلات تنحفظ في ملف Google Sheets خاص بفريق Pixel Pros، ويوصلنا إيميل بكل تسجيل. محد غيرنا يشوف القائمة.</li>
       </ul>
       <h3>عن التطبيقات</h3>
       <ul>
@@ -737,7 +739,7 @@ dialog { color: var(--ink); }
         <li>قوة يشتغل بدون إنترنت، بدون حساب ولا إعلانات ولا تتبّع.</li>
       </ul>
       <h3>حذف بياناتك</h3>
-      <p>تقدر تحذف تسجيلك في أي وقت من زر «احذف تسجيلي» في نموذج المجرّبين، أو تراسلنا على واتساب ‎+966 57 698 9000‎.</p>
+      <p>تقدر تطلب حذف تسجيلك في أي وقت برسالة على واتساب ‎+966 57 698 9000‎، ونحذفه من الشيت.</p>
       <small>آخر تحديث: نوفمبر 2026</small>
     </div>
     <div data-l="en" lang="en">
@@ -752,7 +754,7 @@ dialog { color: var(--ink); }
       <ul>
         <li>We use sign-up details only to send you test builds and hear your feedback.</li>
         <li>We don't sell or share them with anyone.</li>
-        <li>Only the page owner can see the list of testers.</li>
+        <li>Sign-ups are kept in a private Google Sheet owned by the Pixel Pros team, and we get an email for each one. Nobody else can see the list.</li>
       </ul>
       <h3>About the apps</h3>
       <ul>
@@ -760,7 +762,7 @@ dialog { color: var(--ink); }
         <li>Qowa works offline, with no account, no ads and no tracking.</li>
       </ul>
       <h3>Deleting your data</h3>
-      <p>You can delete your sign-up any time with the "Delete my sign-up" button in the testers form, or message us on WhatsApp at +966 57 698 9000.</p>
+      <p>You can ask us to delete your sign-up any time with a WhatsApp message to +966 57 698 9000, and we’ll remove it from the sheet.</p>
       <small>Last updated: November 2026</small>
     </div>
   </div>
@@ -1125,7 +1127,8 @@ dialog { color: var(--ink); }
   const form = $('#tester-form'), msg = $('#form-msg'), note = $('#form-note');
   let db = null, uid = null, viaWA = false;
   const WA = '966576989000';
-  const useWhatsApp = () => { viaWA = true; $('#t-submit').querySelector('[data-l="ar"]').textContent = 'أرسل تسجيلي واتساب'; $('#t-submit').querySelector('[data-l="en"]').textContent = 'Send my sign-up on WhatsApp'; };
+  const SHEET_URL = '';   // Google Apps Script web-app URL: every sign-up lands in the Google Sheet and emails the owner
+  const useWhatsApp = () => { viaWA = true; if (SHEET_URL) return; $('#t-submit').querySelector('[data-l="ar"]').textContent = 'أرسل تسجيلي واتساب'; $('#t-submit').querySelector('[data-l="en"]').textContent = 'Send my sign-up on WhatsApp'; };
   const say = (m, kind) => { msg.textContent = m; msg.className = 'form-msg' + (kind ? ' ' + kind : ''); };
   const showNote = (ar, en) => { note.innerHTML = bi(ar, en); note.hidden = false; };
   const setDisabled = (on) => { $$('#tester-form input, #t-submit').forEach((el) => { el.disabled = on; }); };
@@ -1169,6 +1172,19 @@ dialog { color: var(--ink); }
     if (!name) { say(tr('اكتب اسمك.', 'Enter your name.'), 'err'); $('#t-name').focus(); return; }
     if (!/^[a-z0-9._%+-]+@(gmail|googlemail)\.com$/i.test(contact)) { say(tr('اكتب إيميل Gmail صحيح، مثل name@gmail.com. اختبار متجر Play يحتاج حساب Google.', 'Enter a valid Gmail address, like name@gmail.com. Play Store testing needs a Google account.'), 'err'); $('#t-contact').focus(); return; }
     if (!apps.length) { say(tr('اختر تطبيق واحد على الأقل.', 'Pick at least one app.'), 'err'); return; }
+    if ((viaWA || !db || !uid) && SHEET_URL) {
+      const btn = $('#t-submit'); btn.disabled = true;
+      const names = apps.map((id) => { const a = APPS.find((x) => x.id === id); return a ? a.ar : id; }).join('، ');
+      try {
+        await fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({ name, email: contact.toLowerCase(), apps: names, lang, website: $('#t-hp').value }) });
+        say(tr('تم تسجيلك. بنرسل لك النسخة التجريبية على Gmail أول ما تجهز.', 'You’re signed up. We’ll send the test build to your Gmail as soon as it’s ready.'), 'ok');
+        toast(tr('تم التسجيل', 'Signed up'));
+        form.reset();
+      } catch (_) {
+        say(tr('ما قدرنا نوصل للسيرفر. تأكد من الإنترنت وجرّب مرة ثانية.', 'We couldn’t reach the server. Check your connection and try again.'), 'err');
+      } finally { btn.disabled = false; }
+      return;
+    }
     if (viaWA || !db || !uid) {
       const names = apps.map((id) => { const a = APPS.find((x) => x.id === id); return a ? a.ar : id; }).join('، ');
       const text = `تسجيل مجرّب في Pixel Pros\nالاسم: ${name}\nGmail: ${contact.toLowerCase()}\nالتطبيقات: ${names}`;
