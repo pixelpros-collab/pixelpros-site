@@ -1127,7 +1127,7 @@ dialog { color: var(--ink); }
   const form = $('#tester-form'), msg = $('#form-msg'), note = $('#form-note');
   let db = null, uid = null, viaWA = false;
   const WA = '966576989000';
-  const SHEET_URL = '';   // Google Apps Script web-app URL: every sign-up lands in the Google Sheet and emails the owner
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx2-bnnCBmaztpL0Lc_5esmy3oeirzYnjme9g9bTA9_rz8ovLq7ptaxu5tejbBYOXYbKA/exec';   // Google Apps Script web-app URL: every sign-up lands in the Google Sheet and emails the owner
   const useWhatsApp = () => { viaWA = true; if (SHEET_URL) return; $('#t-submit').querySelector('[data-l="ar"]').textContent = 'أرسل تسجيلي واتساب'; $('#t-submit').querySelector('[data-l="en"]').textContent = 'Send my sign-up on WhatsApp'; };
   const say = (m, kind) => { msg.textContent = m; msg.className = 'form-msg' + (kind ? ' ' + kind : ''); };
   const showNote = (ar, en) => { note.innerHTML = bi(ar, en); note.hidden = false; };
