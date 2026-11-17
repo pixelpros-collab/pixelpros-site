@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>دورك | معاينة المنيو الرقمي والبيجر الافتراضي</title>
+<title>دورك</title>
 <meta name="theme-color" content="#3B2416">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,79 +15,87 @@
   --ink:#2A1B12; --muted:#6F5A4A; --brand:#3B2416; --brand-ink:#FFF6E8;
   --accent:#E09A2B; --accent-ink:#2A1B12;
   --new:#B5541C; --prep:#9A6A06; --ready:#1F7A4D; --ready-bg:#E4F3EB;
-  --danger:#B3261E;
+  --danger:#B3261E; --chart:#C9811A; --chart-2:#3B2416;
   --r:16px; --shadow:0 8px 30px rgba(59,36,22,.12);
   --f-d:'Kufam','Tajawal',system-ui,sans-serif; --f-b:'Tajawal',system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){
-  :root{ --bg:#17100B; --surface:#241811; --surface-2:#2E2017; --line:#43301F;
+  :root:not([data-theme="light"]){ --bg:#17100B; --surface:#241811; --surface-2:#2E2017; --line:#43301F;
     --ink:#F6EBDD; --muted:#C2AA94; --brand:#F0C47A; --brand-ink:#2A1B12;
-    --ready:#5FD39A; --ready-bg:#143324; --new:#F0A66B; --prep:#F0C47A; --shadow:0 8px 30px rgba(0,0,0,.45); }
+    --ready:#5FD39A; --ready-bg:#143324; --new:#F0A66B; --prep:#F0C47A; --chart:#F0C47A; --chart-2:#C2AA94; --shadow:0 8px 30px rgba(0,0,0,.45); }
 }
 *{box-sizing:border-box;margin:0}
 html{-webkit-text-size-adjust:100%}
+html,body{overflow-x:hidden}
 body{font-family:var(--f-b);background:var(--bg);color:var(--ink);min-height:100dvh;line-height:1.55;font-size:16px}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
-input,textarea{font:inherit;color:inherit}
+button:disabled{opacity:.5;cursor:not-allowed}
+input,textarea,select{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
 .ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .num{font-family:var(--f-d);font-variant-numeric:tabular-nums}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.hint{color:var(--muted);font-size:14px}
 
-/* ---------- demo shell ---------- */
-.shell{max-width:1240px;margin:0 auto;padding:16px 16px 40px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+/* ---------- shell ---------- */
+.shell{max-width:1260px;margin:0 auto;padding:16px 16px 40px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .logo{display:flex;align-items:center;gap:10px;font-family:var(--f-d);font-weight:800;font-size:22px}
 .logo i{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--brand);color:var(--brand-ink);font-style:normal}
-.tag{font-size:13px;color:var(--muted);font-weight:500}
-.btn{min-height:44px;padding:0 16px;border-radius:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,background .15s}
+.tag{font-size:13px;color:var(--muted);font-weight:500;font-family:var(--f-b)}
+.btn{min-height:44px;padding:0 16px;border-radius:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s;text-decoration:none;color:inherit}
 .btn:active{transform:scale(.97)}
 .btn-p{background:var(--brand);color:var(--brand-ink)}
 .btn-a{background:var(--accent);color:var(--accent-ink)}
 .btn-g{background:var(--surface);border:1px solid var(--line)}
-.seg{display:none;gap:6px;background:var(--surface-2);padding:5px;border-radius:14px;margin-bottom:14px}
-.seg button{flex:1;min-height:44px;border-radius:10px;font-weight:700;color:var(--muted)}
+.btn-d{background:var(--surface);border:1px solid var(--danger);color:var(--danger)}
+.seg{display:flex;gap:6px;background:var(--surface-2);padding:5px;border-radius:14px;margin-bottom:16px;max-width:560px}
+.seg button{flex:1;min-height:44px;border-radius:10px;font-weight:700;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px}
 .seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.12)}
-.grid{display:grid;grid-template-columns:420px 1fr;gap:24px;align-items:start}
-.pane-title{font-family:var(--f-d);font-weight:700;font-size:15px;color:var(--muted);margin:0 4px 10px;display:flex;align-items:center;gap:8px}
+.seg .m-only{display:none}
+.grid{display:grid;grid-template-columns:410px minmax(0,1fr);gap:24px;align-items:start}
+.grid>*{min-width:0}
+.pane-title{font-family:var(--f-d);font-weight:700;font-size:15px;color:var(--muted);margin:0 4px 10px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
 .road{margin-top:24px}
 .road ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .road li{background:var(--surface-2);border-radius:999px;padding:6px 14px;font-size:14px}
+[data-pane]{display:none}
+[data-pane].on{display:block}
+@media (min-width:1001px){ [data-pane=customer]{display:block} }
 @media (max-width:1000px){
   .grid{grid-template-columns:1fr}
-  .seg{display:flex}
-  [data-pane]{display:none}
-  [data-pane].on{display:block}
+  .seg{max-width:none}
+  .seg .m-only{display:flex}
   .phone-wrap{display:flex;justify-content:center}
   .phone-wrap>div{min-width:0}
-  .phone{position:relative;top:0}
+  .phone{position:relative!important;top:0!important}
 }
 @media (max-width:520px){
   .shell{padding:12px 12px 32px}
-  .phone{padding:6px;border-radius:34px;min-height:600px}
-  .screen{border-radius:28px}
+  .phone{padding:6px!important;border-radius:34px!important;min-height:600px}
+  .screen{border-radius:28px!important}
   .top .btn{flex:1}
+  .seg button{font-size:14px;padding:0 4px}
 }
-.grid>*,.phone,.screen,.p-main{min-width:0}
-html,body{overflow-x:hidden}
 
 /* ---------- phone (customer) ---------- */
-.phone{width:390px;max-width:100%;height:800px;max-height:calc(100dvh - 120px);min-height:620px;background:#120C08;border-radius:46px;padding:10px;box-shadow:var(--shadow);position:sticky;top:12px}
-.screen{height:100%;background:var(--bg);border-radius:36px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.phone{width:390px;max-width:100%;height:800px;max-height:calc(100dvh - 120px);min-height:620px;background:#120C08;border-radius:46px;padding:10px;box-shadow:var(--shadow);position:sticky;top:12px;min-width:0}
+.screen{height:100%;background:var(--bg);border-radius:36px;overflow:hidden;position:relative;display:flex;flex-direction:column;min-width:0}
 .p-head{padding:18px 20px 12px;background:var(--brand);color:var(--brand-ink);display:flex;align-items:center;justify-content:space-between;gap:10px}
-@media (prefers-color-scheme:dark){.p-head{background:#2E2017;color:#F6EBDD}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .p-head{background:#2E2017;color:#F6EBDD}}
 .p-head h1{font-family:var(--f-d);font-size:19px;font-weight:800;line-height:1.2}
 .p-head small{opacity:.8;font-size:13px;display:block}
 .open{background:rgba(255,255,255,.16);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:700;display:flex;gap:6px;align-items:center;white-space:nowrap}
 .open::before{content:"";width:8px;height:8px;border-radius:50%;background:#5FD39A}
-.p-main{flex:1;overflow:auto;padding:14px 16px 96px;scroll-behavior:smooth}
+.open.closed::before{background:#F07A6B}
+.p-main{flex:1;overflow:auto;padding:14px 16px 96px;min-width:0}
+.banner{background:var(--surface-2);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-weight:700;text-align:center}
 .chips{display:flex;gap:8px;overflow:auto;padding-bottom:10px;margin:0 -16px;padding-inline:16px;scrollbar-width:none}
 .chip{flex:none;min-height:44px;padding:0 18px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-weight:700;color:var(--muted)}
 .chip[aria-pressed=true]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
 .item{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-bottom:10px}
 .item.off{opacity:.5}
-.glyph{width:60px;height:60px;border-radius:14px;display:grid;place-items:center;flex:none;background:var(--surface-2);color:var(--brand)}
+.glyph{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;flex:none;background:var(--surface-2);color:var(--brand);object-fit:cover}
 .glyph .ico{width:28px;height:28px}
 .item h3{font-size:16px;font-weight:700;line-height:1.3}
 .item p{font-size:13px;color:var(--muted);line-height:1.4}
@@ -100,9 +108,8 @@ html,body{overflow-x:hidden}
 .step b{min-width:22px;text-align:center;font-family:var(--f-d)}
 .soldout{font-size:12px;font-weight:700;color:var(--danger);padding:0 6px}
 .cartbar{position:absolute;inset-inline:14px;bottom:78px;background:var(--brand);color:var(--brand-ink);border-radius:16px;min-height:56px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);width:calc(100% - 28px);font-weight:700}
-@media (prefers-color-scheme:dark){.cartbar{background:var(--accent);color:var(--accent-ink)}}
 .cartbar span{display:flex;align-items:center;gap:10px}
-.nav{position:absolute;inset-inline:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 8px calc(6px + env(safe-area-inset-bottom))}
+.nav{position:absolute;inset-inline:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 8px}
 .nav button{flex:1;min-height:56px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:700;color:var(--muted);position:relative}
 .nav button[aria-current=page]{color:var(--brand);background:var(--surface-2)}
 .dot{position:absolute;top:6px;inset-inline-start:calc(50% + 8px);width:10px;height:10px;border-radius:50%;background:var(--new);border:2px solid var(--surface)}
@@ -112,12 +119,12 @@ html,body{overflow-x:hidden}
 .sheet h2{font-family:var(--f-d);font-size:19px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
 .line{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px dashed var(--line)}
 .field{width:100%;min-height:48px;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:10px 14px;margin-top:8px}
+textarea.field{min-height:80px;resize:vertical}
 .two{display:flex;gap:8px;margin-top:10px}
 .two button{flex:1;min-height:48px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-weight:700;color:var(--muted)}
 .two button[aria-pressed=true]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
 .total{display:flex;justify-content:space-between;font-weight:800;font-size:18px;margin:14px 0}
 .big{width:100%;min-height:54px;font-size:17px;border-radius:14px}
-/* tracking */
 .track{text-align:center;padding:22px 16px;border-radius:24px;background:var(--surface);border:1px solid var(--line)}
 .track.ready{background:var(--ready-bg);border-color:var(--ready)}
 .track .lbl{color:var(--muted);font-weight:500}
@@ -140,7 +147,7 @@ html,body{overflow-x:hidden}
 .switch::after{content:"";position:absolute;top:4px;inset-inline-start:4px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
 .switch[aria-checked=true]{background:var(--ready)}
 .switch[aria-checked=true]::after{transform:translateX(-24px)}
-.toast{position:absolute;top:12px;inset-inline:12px;z-index:40;background:var(--surface);color:var(--ink);border-radius:18px;padding:12px 14px;box-shadow:var(--shadow);border:1px solid var(--line);display:flex;gap:10px;align-items:flex-start;animation:down .35s ease-out}
+.toast{position:absolute;top:12px;inset-inline:12px;z-index:40;background:var(--surface);border-radius:18px;padding:12px 14px;box-shadow:var(--shadow);border:1px solid var(--line);display:flex;gap:10px;align-items:flex-start;animation:down .35s ease-out}
 .toast .ic{width:36px;height:36px;border-radius:10px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;flex:none}
 .toast b{display:block;font-size:14px}.toast span{font-size:13px;color:var(--muted)}
 @keyframes down{from{transform:translateY(-30px);opacity:0}to{transform:none;opacity:1}}
@@ -152,8 +159,16 @@ html,body{overflow-x:hidden}
 .alert button{background:#fff;color:#14583A;min-height:54px;padding:0 32px;border-radius:14px;font-weight:800;font-size:17px;margin-top:10px}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 
+/* ---------- auth gate ---------- */
+.gate{max-width:420px;margin:20px auto;text-align:center}
+.gate h2{font-family:var(--f-d);margin:6px 0 4px}
+.gate form{text-align:start}
+.gate .two{margin:14px 0}
+.err{color:var(--danger);font-weight:700;font-size:14px;margin-top:8px}
+.lbl2{font-weight:700;display:block;margin-top:12px}
+
 /* ---------- staff ---------- */
-.board{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .col h3{font-family:var(--f-d);font-size:15px;display:flex;justify-content:space-between;align-items:center;margin:0 2px 8px}
 .col h3 em{font-style:normal;background:var(--surface-2);border-radius:999px;min-width:28px;text-align:center;padding:1px 8px;font-size:13px}
 .ord{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
@@ -161,45 +176,114 @@ html,body{overflow-x:hidden}
 .ord .no{font-family:var(--f-d);font-size:28px;font-weight:800}
 .ord small{color:var(--muted)}
 .ord ul{list-style:none;padding:0;margin:6px 0 10px;font-size:14px}
-.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--surface-2);color:var(--muted)}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.pill.s-new{background:#F7E0D0;color:#8A3A0C}.pill.s-prep{background:#F6E8B8;color:#6B4A00}.pill.s-ready{background:var(--ready-bg);color:var(--ready)}.pill.s-done{background:var(--surface-2);color:var(--muted)}
 .late{color:var(--danger);font-weight:700}
 .ord .btn{width:100%;min-height:46px}
 .ready-strip{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
 .ready-strip .num{background:var(--ready);color:#fff;border-radius:10px;padding:2px 12px;font-weight:800}
 @media (max-width:640px){.board{grid-template-columns:1fr}}
 
-/* ---------- owner ---------- */
-.tabs{display:flex;gap:6px;margin-bottom:14px;overflow:auto}
-.tabs button{min-height:44px;padding:0 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-weight:700;color:var(--muted);flex:none}
-.tabs button[aria-pressed=true]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
-.mrow{display:grid;grid-template-columns:1fr 96px 56px;gap:10px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
-.mrow input{min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--bg);padding:0 10px;width:100%;text-align:center}
-.mrow b{display:block;line-height:1.3}.mrow small{color:var(--muted)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
-.stat{background:var(--surface-2);border-radius:14px;padding:14px}
-.stat b{display:block;font-family:var(--f-d);font-size:28px;line-height:1.1}
-.stat span{color:var(--muted);font-size:14px}
+/* ---------- display screen ---------- */
+.disp{background:#17100B;color:#F6EBDD;border-radius:var(--r);padding:24px;min-height:560px;display:flex;flex-direction:column;gap:20px;position:relative}
+.disp-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.disp-top h2{font-family:var(--f-d);font-size:clamp(22px,3vw,36px)}
+.disp-top .clock{font-family:var(--f-d);font-size:clamp(22px,3vw,32px);color:#C2AA94}
+.disp-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;flex:1}
+.disp-col{background:#241811;border-radius:20px;padding:18px}
+.disp-col h3{font-size:clamp(18px,2.2vw,26px);margin-bottom:14px;color:#C2AA94}
+.disp-col.rd{background:#123D29;border:2px solid #2FA36B}
+.disp-col.rd h3{color:#8FE5BA}
+.dn{display:flex;flex-wrap:wrap;gap:12px}
+.dn span{font-family:var(--f-d);font-weight:800;font-size:clamp(34px,5vw,64px);line-height:1;padding:10px 18px;border-radius:16px;background:#33241A;min-width:1.8em;text-align:center}
+.rd .dn span{font-size:clamp(52px,8vw,110px);background:#2FA36B;color:#fff}
+.dn span.flash{animation:flash 1s ease-out 3}
+@keyframes flash{0%,100%{transform:scale(1)}50%{transform:scale(1.15);box-shadow:0 0 0 12px rgba(143,229,186,.35)}}
+.disp-empty{color:#8E7A68;font-size:20px}
+.disp-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.disp-foot .q{background:#fff;padding:8px;border-radius:12px;width:96px;height:96px}
+.disp-foot .q svg{width:100%;height:100%;display:block}
+.disp-foot p{font-size:18px;color:#C2AA94}
+.disp .btn{background:#33241A;color:#F6EBDD}
+@media (max-width:640px){.disp-cols{grid-template-columns:1fr}}
+body.solo .disp{border-radius:0;min-height:100dvh}
+
+/* ---------- dashboard ---------- */
+.dash{display:grid;grid-template-columns:190px minmax(0,1fr);gap:18px;align-items:start}
+.dnav{display:flex;flex-direction:column;gap:4px;position:sticky;top:12px}
+.dnav button{min-height:46px;border-radius:12px;padding:0 14px;display:flex;align-items:center;gap:10px;font-weight:700;color:var(--muted);text-align:start}
+.dnav button[aria-pressed=true]{background:var(--brand);color:var(--brand-ink)}
+.dmain{min-width:0}
+.dhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.dhead h2{font-family:var(--f-d);font-size:22px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi span{color:var(--muted);font-size:14px}
+.kpi b{display:block;font-family:var(--f-d);font-size:28px;line-height:1.2;margin:2px 0}
+.delta{font-size:13px;font-weight:700}.delta.up{color:var(--ready)}.delta.dn2{color:var(--danger)}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.panel h3{font-size:15px;font-family:var(--f-d);margin-bottom:10px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.panel h3 small{font-family:var(--f-b);font-weight:500;color:var(--muted)}
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font-family:var(--f-b);font-size:11px}
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .bar{fill:var(--chart)}
+.chart .bar.cur{fill:var(--chart-2)}
+.chart .ln{fill:none;stroke:var(--chart-2);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.chart .ar{fill:var(--chart);opacity:.22}
+.chart .pt{fill:var(--chart-2);stroke:var(--surface);stroke-width:2}
+.hb{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;margin-bottom:10px;align-items:center}
+.hb .tr{grid-column:1/-1;height:8px;border-radius:8px;background:var(--surface-2);overflow:hidden}
+.hb .tr i{display:block;height:100%;background:var(--chart);border-radius:8px}
+.tblwrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px}
+th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:start;font-size:14px;vertical-align:middle}
+th{color:var(--muted);font-weight:500;font-size:13px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+.filters .chip{min-height:38px;padding:0 14px;font-size:14px}
+.filters input{min-height:38px;border-radius:999px;border:1px solid var(--line);background:var(--surface);padding:0 14px;min-width:0;flex:1;max-width:180px}
+.catrow{display:flex;gap:6px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
+.catrow input{flex:1;min-width:0;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--bg);padding:0 10px}
+.ib{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:var(--surface-2);flex:none}
+.ib.dng{color:var(--danger)}
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:8px}
+.icard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);display:flex;flex-direction:column}
+.icard .im{aspect-ratio:4/3;background:var(--surface-2);display:grid;place-items:center;color:var(--muted);object-fit:cover;width:100%}
+.icard .im .ico{width:34px;height:34px}
+.icard .bd{padding:10px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
+.icard .ft{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:0 12px 12px}
+.sec-h{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:18px 0 4px;font-family:var(--f-d);font-weight:700}
+.modal-bg{position:fixed;inset:0;background:rgba(20,12,7,.6);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{background:var(--bg);border-radius:20px;padding:20px;width:100%;max-width:460px;max-height:92dvh;overflow:auto;box-shadow:var(--shadow)}
+.modal h2{font-family:var(--f-d);font-size:19px;margin-bottom:6px}
+.upl{display:flex;gap:12px;align-items:center;margin-top:10px}
+.upl .pv{width:88px;height:88px;border-radius:14px;background:var(--surface-2);display:grid;place-items:center;object-fit:cover;color:var(--muted);flex:none}
+.upl label.btn{cursor:pointer}
+.row-r{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.status-line{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .qrbox{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 .qrbox .q{background:#fff;padding:14px;border-radius:16px;border:1px solid var(--line);width:200px;height:200px;display:grid;place-items:center}
 .qrbox .q svg{width:100%;height:100%}
-.lbl2{font-weight:700;display:block;margin-top:12px}
 .tpl{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
 .tpl button{background:var(--surface-2);border-radius:999px;padding:8px 14px;font-size:14px;min-height:40px}
-.hist{margin-top:14px}
 .hist div{padding:10px 0;border-bottom:1px dashed var(--line)}
-.hint{color:var(--muted);font-size:14px}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:760px){
+  .dash{grid-template-columns:1fr}
+  .dnav{flex-direction:row;overflow-x:auto;position:static;padding-bottom:4px}
+  .dnav button{flex:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* ---------- single-view modes (?view=customer|staff|owner) ---------- */
-body.solo .top,body.solo .seg,body.solo .road{display:none}
+/* ---------- solo (#customer | #staff | #display | #dashboard) ---------- */
+body.solo .top,body.solo .seg,body.solo .road,body.solo .pane-title{display:none}
 body.solo .shell{padding:0;max-width:none}
 body.solo .grid{display:block}
-body.solo [data-pane]{display:none}
-body.solo [data-pane].on{display:block}
-body.solo.v-customer .phone{width:100%;height:100dvh;max-height:none;min-height:0;border-radius:0;padding:0;position:static;box-shadow:none}
-body.solo.v-customer .screen{border-radius:0}
-body.solo:not(.v-customer) .shell{padding:16px}
-body.solo .pane-title{display:none}
+body.solo [data-pane]{display:none!important}
+body.solo [data-pane].on{display:block!important}
+body.solo.v-customer .phone{width:100%;height:100dvh;max-height:none;min-height:0;border-radius:0;padding:0!important;position:static;box-shadow:none}
+body.solo.v-customer .screen{border-radius:0!important}
+body.solo:not(.v-customer):not(.v-display) .shell{padding:16px}
 </style>
 </head>
 <body>
@@ -207,27 +291,25 @@ body.solo .pane-title{display:none}
   <div class="top">
     <div class="logo"><i><svg class="ico" viewBox="0 0 24 24"><path d="M10 2v2M14 2v2M6 2v2M16 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/></svg></i>دورك <span class="tag">معاينة قابلة للتجربة</span></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-g" data-act="open-customer">افتح واجهة الزبون بصفحة مستقلة</button>
+      <a class="btn btn-g" id="lnkCustomer" target="_blank" rel="noopener">واجهة الزبون بصفحة مستقلة</a>
+      <a class="btn btn-g" id="lnkDisplay" target="_blank" rel="noopener">شاشة العرض بصفحة مستقلة</a>
       <button class="btn btn-g" data-act="reset">إعادة ضبط التجربة</button>
     </div>
   </div>
-  <div class="seg" role="group" aria-label="اختر الواجهة">
-    <button data-act="pane" data-v="customer" aria-pressed="true">الزبون</button>
-    <button data-act="pane" data-v="staff" aria-pressed="false">الكاشير</button>
-    <button data-act="pane" data-v="owner" aria-pressed="false">صاحب المحل</button>
-  </div>
+  <div class="seg" role="group" aria-label="اختر الواجهة" id="seg"></div>
   <div class="grid">
-    <section data-pane="customer" class="on phone-wrap" aria-label="واجهة الزبون">
+    <section data-pane="customer" class="phone-wrap" aria-label="واجهة الزبون">
       <div style="width:100%;display:flex;flex-direction:column;align-items:center">
         <div class="pane-title" style="align-self:flex-start">واجهة الزبون: تظهر بعد مسح الـ QR</div>
         <div class="phone"><div class="screen" id="screen"></div></div>
       </div>
     </section>
     <div>
-      <section data-pane="staff" aria-label="شاشة الكاشير"><div class="pane-title">شاشة الكاشير: الطلبات الواردة</div><div id="staff"></div></section>
-      <section data-pane="owner" style="margin-top:22px" aria-label="لوحة صاحب المحل"><div class="pane-title">لوحة صاحب المحل</div><div id="owner"></div></section>
-      <div class="card road"><b>خطة التطوير القادمة</b>
-        <ul><li>شاشة عرض بأرقام الطلبات الجاهزة</li><li>إشعارات حقيقية (Web Push)</li><li>حسابات للمحلات وتسجيل دخول</li><li>قاعدة بيانات وسحابة</li><li>ختم الولاء وعروض أعياد الميلاد</li><li>تحويلها لتطبيق جوال</li></ul></div>
+      <section data-pane="staff" aria-label="شاشة الكاشير"><div class="pane-title">شاشة الكاشير</div><div id="staff"></div></section>
+      <section data-pane="display" aria-label="شاشة العرض"><div class="pane-title">شاشة عرض الأرقام الجاهزة (للتلفزيون أو التابلت عند الكاونتر)</div><div id="display"></div></section>
+      <section data-pane="dash" aria-label="لوحة التحكم"><div class="pane-title">لوحة تحكم صاحب المحل</div><div id="dash"></div></section>
+      <div class="card road"><b>الخطوة القادمة: النسخة الحقيقية</b>
+        <ul><li>خادم وقاعدة بيانات (الآن البيانات في متصفحك فقط)</li><li>حسابات حقيقية وتسجيل دخول آمن</li><li>إشعارات Web Push تصل والصفحة مغلقة</li><li>ختم الولاء وعروض أعياد الميلاد</li><li>تحويلها لتطبيق جوال</li></ul></div>
     </div>
   </div>
 </div>
@@ -247,84 +329,146 @@ const P = {
   bag:'M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0',
   tag:'M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8ZM7 7h.01',
   clock:'M12 6v6l4 2M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z',
-  menu:'M4 6h16M4 12h16M4 18h16'
+  menu:'M4 6h16M4 12h16M4 18h16',
+  dash:'M3 3v18h18M7 14l4-4 3 3 5-6', list:'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',
+  set:'M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6',
+  img:'M21 15l-5-5L5 21M3 3h18v18H3zM8.5 8.5h.01', upload:'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12',
+  trash:'M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6', edit:'M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z',
+  up:'M18 15l-6-6-6 6', down:'M6 9l6 6 6-6', tv:'M2 7h20v13H2zM17 2l-5 5-5-5',
+  user:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8',
+  logout:'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9',
+  expand:'M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3',
+  vol:'M11 5 6 9H2v6h4l5 4ZM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14',
+  qr:'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h3v3h-3zM20 14v3M14 20h3M20 20v1',
+  home:'M3 11 12 3l9 8v10H3Z'
 };
 const ico = n => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="${P[n]||''}"/></svg>`;
-const CATS = [{id:'hot',name:'قهوة ساخنة',ic:'hot'},{id:'cold',name:'باردة',ic:'cold'},{id:'bake',name:'مخبوزات',ic:'bake'}];
 const SAR = 'ر.س';
-const STATUS = {new:'جديد', prep:'يُحضّر', ready:'جاهز', done:'تم'};
+const STATUS = {new:'جديد', prep:'يُحضّر', ready:'جاهز', done:'تم التسليم'};
+const tfmt = t => new Date(t).toLocaleTimeString('ar-SA-u-nu-latn',{hour:'2-digit',minute:'2-digit'});
 
 /* ================= state ================= */
-const KEY = 'dawrak_v1';
-const shop = {name:'قهوة الزاوية', sub:'عربة قهوة مختصة'};
+const KEY = 'dawrak_v2', AKEY = 'dawrak_acct';
 function seed(){
-  const now = Date.now();
+  const now = Date.now(), M = 60000;
+  const menu = [
+    {id:'m1',cat:'hot',name:'قهوة مختصة V60',desc:'إثيوبي، حمضية خفيفة',price:18,on:true,img:''},
+    {id:'m2',cat:'hot',name:'لاتيه',desc:'إسبريسو مع حليب مبخّر',price:16,on:true,img:''},
+    {id:'m3',cat:'hot',name:'كابتشينو',desc:'رغوة كثيفة وكاكاو',price:15,on:true,img:''},
+    {id:'m4',cat:'hot',name:'قهوة سعودية',desc:'دلّة مع هيل وزعفران',price:20,on:true,img:''},
+    {id:'m5',cat:'hot',name:'شاي كرك',desc:'حليب وهيل',price:8,on:true,img:''},
+    {id:'m6',cat:'cold',name:'آيس لاتيه',desc:'بارد ومنعش',price:18,on:true,img:''},
+    {id:'m7',cat:'cold',name:'موهيتو ليمون',desc:'ليمون ونعناع وصودا',price:17,on:true,img:''},
+    {id:'m8',cat:'cold',name:'كولد برو',desc:'منقوع 18 ساعة',price:19,on:false,img:''},
+    {id:'m9',cat:'bake',name:'كرواسون زبدة',desc:'طازج كل صباح',price:10,on:true,img:''},
+    {id:'m10',cat:'bake',name:'كيك التمر',desc:'مع صوص الكراميل',price:14,on:true,img:''}
+  ];
+  const orders = []; let r = 11; const rnd = () => (r = (r*9301+49297)%233280)/233280;
+  const live = menu.filter(m=>m.on);
+  for(let k=0;k<26;k++){
+    const t = now - (20 + (25-k)*24)*M;
+    const items = [], n = 1 + (rnd()*2|0);
+    for(let j=0;j<n;j++){ const m = live[(rnd()*live.length)|0]; if(!items.find(i=>i.id===m.id)) items.push({id:m.id,q:1+(rnd()*1.6|0)}); }
+    orders.push({id:'s'+k,no:k+1,name:'',serve:rnd()>.5?'سفري':'هنا',items,total:items.reduce((a,i)=>a+menu.find(m=>m.id===i.id).price*i.q,0),note:'',status:'done',t,tReady:t+(4+(rnd()*5|0))*M,callAt:0});
+  }
+  orders.push({id:'o1',no:27,name:'سلمان',serve:'سفري',items:[{id:'m2',q:2}],total:32,note:'',status:'ready',t:now-9*M,tReady:now-2*M,callAt:0});
+  orders.push({id:'o2',no:28,name:'',serve:'هنا',items:[{id:'m1',q:1},{id:'m9',q:1}],total:28,note:'بدون سكر',status:'prep',t:now-5*M,callAt:0});
+  orders.push({id:'o3',no:29,name:'ريم',serve:'سفري',items:[{id:'m6',q:1}],total:18,note:'',status:'new',t:now-M,callAt:0});
   return {
-    seq: 12, subs: 38, optIn:false, my:null,
-    menu:[
-      {id:'m1',cat:'hot',name:'قهوة مختصة V60',desc:'إثيوبي، حمضية خفيفة',price:18,on:true},
-      {id:'m2',cat:'hot',name:'لاتيه',desc:'إسبريسو مع حليب مبخّر',price:16,on:true},
-      {id:'m3',cat:'hot',name:'كابتشينو',desc:'رغوة كثيفة وكاكاو',price:15,on:true},
-      {id:'m4',cat:'hot',name:'قهوة سعودية',desc:'دلّة مع هيل وزعفران',price:20,on:true},
-      {id:'m5',cat:'hot',name:'شاي كرك',desc:'حليب وهيل',price:8,on:true},
-      {id:'m6',cat:'cold',name:'آيس لاتيه',desc:'بارد ومنعش',price:18,on:true},
-      {id:'m7',cat:'cold',name:'موهيتو ليمون',desc:'ليمون ونعناع وصودا',price:17,on:true},
-      {id:'m8',cat:'cold',name:'كولد برو',desc:'منقوع 18 ساعة',price:19,on:false},
-      {id:'m9',cat:'bake',name:'كرواسون زبدة',desc:'طازج كل صباح',price:10,on:true},
-      {id:'m10',cat:'bake',name:'كيك التمر',desc:'مع صوص الكراميل',price:14,on:true}
-    ],
-    orders:[
-      {id:'o1',no:10,name:'سلمان',serve:'سفري',items:[{id:'m2',q:2}],total:32,note:'',status:'ready',t:now-9*60000,tReady:now-2*60000,callAt:0},
-      {id:'o2',no:11,name:'',serve:'هنا',items:[{id:'m1',q:1},{id:'m9',q:1}],total:28,note:'بدون سكر',status:'prep',t:now-5*60000,callAt:0},
-      {id:'o3',no:12,name:'ريم',serve:'سفري',items:[{id:'m6',q:1}],total:18,note:'',status:'new',t:now-60000,callAt:0}
-    ],
+    seq:29, subs:38, optIn:false, my:null, menuUrl:'',
+    shop:{name:'قهوة الزاوية', sub:'عربة قهوة مختصة', open:true},
+    cats:[{id:'hot',name:'قهوة ساخنة',ic:'hot'},{id:'cold',name:'باردة',ic:'cold'},{id:'bake',name:'مخبوزات',ic:'bake'}],
+    menu, orders,
+    prevDays:[540,620,590,710,780,700],
     offers:[{id:'f1',title:'خصم 20% على المشروبات الباردة',body:'اليوم فقط من 4 إلى 7 مساءً',t:now-86400000}]
   };
 }
 function load(){ try{ const r = localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return seed(); }
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+let saveFail = false;
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); saveFail=false; }catch(e){ saveFail=true; } }
 let S = load();
-window.addEventListener('storage', e => { if(e.key === KEY){ S = load(); renderAll(); } });
+window.addEventListener('storage', e => { if(e.key === KEY){ const n = S.orders.length; S = load(); if(ui.signed && S.orders.length > n) chime(); renderAll(); } });
 
-const ui = {tab:'menu', cat:'hot', cart:{}, sheet:false, serve:'هنا', name:'', note:'', alert:false, toast:null, ownerTab:'menu', alerted:'', draft:{title:'',body:''}};
+const ui = {tab:'menu', cat:null, cart:{}, sheet:false, serve:'هنا', name:'', note:'', alert:false, toast:null, alerted:'',
+  view:'dash', dtab:'ov', ofilter:'all', osearch:'', edit:null, draft:{title:'',body:''}, authTab:'in', authErr:'', notif:'',
+  signed:false, prevReady:null, dispSound:false, newCat:'', imgErr:''};
+try{ ui.signed = sessionStorage.getItem('dawrak_sess')==='1'; }catch(e){}
 const item = id => S.menu.find(m => m.id === id);
+const catOf = id => S.cats.find(c => c.id === id);
 const myOrder = () => S.orders.find(o => o.id === S.my);
 const cartCount = () => Object.values(ui.cart).reduce((a,b)=>a+b,0);
 const cartTotal = () => Object.entries(ui.cart).reduce((a,[id,q]) => a + (item(id)?.price||0)*q, 0);
 const mins = t => Math.max(0, Math.floor((Date.now()-t)/60000));
+function curCat(){ if(!S.cats.find(c=>c.id===ui.cat)) ui.cat = S.cats[0]?.id || null; return ui.cat; }
+
+/* ================= sound, vibration, system notification ================= */
+let _ac = null;
+function tones(freqs, step=.22, gain=.2){
+  try{ _ac = _ac || new (window.AudioContext||window.webkitAudioContext)(); const a=_ac; if(a.state==='suspended') a.resume();
+    freqs.forEach((f,i)=>{ const o=a.createOscillator(), g=a.createGain(), d=i*step; o.frequency.value=f; o.connect(g); g.connect(a.destination);
+      g.gain.setValueAtTime(gain,a.currentTime+d); g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d+.2); o.start(a.currentTime+d); o.stop(a.currentTime+d+.22); }); }catch(e){}
+}
+function beep(){ tones([880,1100,1320]); try{ navigator.vibrate && navigator.vibrate([300,150,300,150,300]); }catch(e){} }
+function chime(){ tones([660,880],.18,.12); }
+function sysNotify(title, body){
+  try{ if('Notification' in window && Notification.permission==='granted' && document.hidden) new Notification(title,{body, dir:'rtl', lang:'ar'}); }catch(e){}
+}
+async function askNotif(){
+  if(!('Notification' in window)) return 'unsupported';
+  try{ return await Notification.requestPermission(); }catch(e){ return 'denied'; }
+}
+
+/* ================= images ================= */
+function fileToDataURL(file, max=520){
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onerror = rej;
+    r.onload = () => { const img = new Image(); img.onerror = rej;
+      img.onload = () => { const k = Math.min(1, max/Math.max(img.width,img.height)), c = document.createElement('canvas');
+        c.width = Math.round(img.width*k); c.height = Math.round(img.height*k); c.getContext('2d').drawImage(img,0,0,c.width,c.height); res(c.toDataURL('image/jpeg',.78)); };
+      img.src = r.result; };
+    r.readAsDataURL(file);
+  });
+}
+
+/* ================= QR ================= */
+function baseUrl(){ const u = new URL(location.href); u.search=''; u.hash=''; return u.toString(); }
+function customerUrl(){ return S.menuUrl || (baseUrl() + '#customer'); }
+function qrSvg(text){
+  try{ const q = qrcode(0,'M'); q.addData(text); q.make(); return q.createSvgTag({cellSize:4,margin:0,scalable:true}); }catch(e){ return ''; }
+}
 
 /* ================= customer ================= */
 function renderPhone(){
   const mo = myOrder();
-  const unreadOffer = S.optIn && ui.tab !== 'offers' && ui.newOffer;
-  let body = '';
-  if(ui.tab === 'menu') body = menuView();
-  else if(ui.tab === 'track') body = trackView(mo);
-  else body = offersView();
+  const unread = S.optIn && ui.tab !== 'offers' && ui.newOffer;
+  let body = ui.tab==='menu' ? menuView() : ui.tab==='track' ? trackView(mo) : offersView();
   const n = cartCount();
   $('#screen').innerHTML = `
-    <header class="p-head"><div><h1>${esc(shop.name)}</h1><small>${esc(shop.sub)}</small></div><span class="open">مفتوح الآن</span></header>
+    <header class="p-head"><div><h1>${esc(S.shop.name)}</h1><small>${esc(S.shop.sub)}</small></div><span class="open ${S.shop.open?'':'closed'}">${S.shop.open?'مفتوح الآن':'مغلق'}</span></header>
     <main class="p-main" id="pmain">${body}</main>
     ${ui.tab==='menu' && n ? `<button class="cartbar" data-act="sheet"><span>${ico('bag')} عرض السلة (<b class="num">${n}</b>)</span><b class="num">${cartTotal()} ${SAR}</b></button>` : ''}
     <nav class="nav" aria-label="التنقل">
       <button data-act="tab" data-t="menu" ${ui.tab==='menu'?'aria-current="page"':''}>${ico('menu')}القائمة</button>
       <button data-act="tab" data-t="track" ${ui.tab==='track'?'aria-current="page"':''}>${ico('clock')}طلبي${mo && mo.status==='ready' ? '<i class="dot"></i>':''}</button>
-      <button data-act="tab" data-t="offers" ${ui.tab==='offers'?'aria-current="page"':''}>${ico('tag')}العروض${unreadOffer?'<i class="dot"></i>':''}</button>
+      <button data-act="tab" data-t="offers" ${ui.tab==='offers'?'aria-current="page"':''}>${ico('tag')}العروض${unread?'<i class="dot"></i>':''}</button>
     </nav>
     ${ui.sheet ? sheetView() : ''}
     ${ui.toast ? `<div class="toast" role="status"><div class="ic">${ico('bell')}</div><div><b>${esc(ui.toast.title)}</b><span>${esc(ui.toast.body)}</span></div></div>` : ''}
     ${ui.alert && mo ? `<div class="alert" role="alertdialog" aria-label="طلبك جاهز"><div class="ring">${ico('bell')}</div><h2>طلبك جاهز!</h2><div class="no">${mo.no}</div><p>تفضّل استلمه من الكاونتر</p><button data-act="dismiss">تمام، جاي</button></div>` : ''}`;
 }
 function menuView(){
-  const chips = CATS.map(c => `<button class="chip" data-act="cat" data-c="${c.id}" aria-pressed="${ui.cat===c.id}">${c.name}</button>`).join('');
-  const list = S.menu.filter(m => m.cat === ui.cat).map(m => {
-    const q = ui.cart[m.id] || 0, c = CATS.find(c=>c.id===m.cat);
-    const ctl = !m.on ? '<span class="soldout">نفدت</span>' : q
+  const cc = curCat();
+  const chips = S.cats.map(c => `<button class="chip" data-act="cat" data-c="${c.id}" aria-pressed="${cc===c.id}">${esc(c.name)}</button>`).join('');
+  const list = S.menu.filter(m => m.cat === cc).map(m => {
+    const q = ui.cart[m.id] || 0, c = catOf(m.cat);
+    const ctl = !m.on ? '<span class="soldout">نفدت</span>' : !S.shop.open ? '' : q
       ? `<div class="step"><button data-act="dec" data-id="${m.id}" aria-label="إنقاص ${esc(m.name)}">${ico('minus')}</button><b>${q}</b><button data-act="inc" data-id="${m.id}" aria-label="زيادة ${esc(m.name)}">${ico('plus')}</button></div>`
       : `<button class="add" data-act="inc" data-id="${m.id}" aria-label="أضف ${esc(m.name)}">${ico('plus')}</button>`;
-    return `<article class="item ${m.on?'':'off'}"><div class="glyph">${ico(c.ic)}</div><div class="meta"><h3>${esc(m.name)}</h3><p>${esc(m.desc)}</p><div class="price">${m.price} <small>${SAR}</small></div></div>${ctl}</article>`;
+    const pic = m.img ? `<img class="glyph" src="${m.img}" alt="${esc(m.name)}">` : `<div class="glyph">${ico(c?.ic||'bag')}</div>`;
+    return `<article class="item ${m.on?'':'off'}">${pic}<div class="meta"><h3>${esc(m.name)}</h3><p>${esc(m.desc)}</p><div class="price">${m.price} <small>${SAR}</small></div></div>${ctl}</article>`;
   }).join('');
-  return `<div class="chips" role="group" aria-label="الأقسام">${chips}</div>${list}`;
+  return `${S.shop.open ? '' : '<div class="banner">المحل مغلق حالياً. تقدر تتصفح المنيو فقط.</div>'}<div class="chips" role="group" aria-label="الأقسام">${chips}</div>${list || '<div class="empty">لا توجد أصناف في هذا القسم</div>'}`;
 }
 function sheetView(){
   const rows = Object.entries(ui.cart).map(([id,q]) => { const m = item(id); return m ? `<div class="line"><span>${esc(m.name)}</span><div class="step"><button data-act="dec" data-id="${id}" aria-label="إنقاص">${ico('minus')}</button><b>${q}</b><button data-act="inc" data-id="${id}" aria-label="زيادة">${ico('plus')}</button></div></div>` : ''; }).join('');
@@ -346,7 +490,7 @@ function trackView(o){
   const lines = o.items.map(i => `<div class="line"><span>${i.q}× ${esc(item(i.id)?.name||'')}</span></div>`).join('');
   const eta = o.status==='new' ? `<p class="hint">الوقت المتوقع: حوالي <b class="num">${3+ahead*2}</b> دقائق</p>` : '';
   return `<div class="track ${o.status==='ready'?'ready':''}"><div class="lbl">رقم طلبك</div><div class="no">${o.no}</div>
-    <div class="st" aria-hidden="true"><div class="${idx>=0?'on':''}">استُلم</div><div class="${idx>=1?'on':''}">يُحضّر</div><div class="${idx>=2?'on':''}">جاهز</div></div>
+    <div class="st" aria-hidden="true"><div class="on">استُلم</div><div class="${idx>=1?'on':''}">يُحضّر</div><div class="${idx>=2?'on':''}">جاهز</div></div>
     <p class="msg" role="status">${msgs[o.status]}</p>${eta}</div>
     <div class="card" style="margin-top:12px">${lines}<div class="total" style="margin:10px 0 0"><span>الإجمالي</span><span class="num">${o.total} ${SAR}</span></div></div>
     <p class="hint" style="text-align:center;margin-top:12px">اترك هذه الصفحة مفتوحة. يهتز جوالك ويصدر صوتاً لما يجهز طلبك.</p>
@@ -354,9 +498,52 @@ function trackView(o){
 }
 function offersView(){
   const list = S.offers.slice().reverse().map(f => `<article class="offer"><h3>${esc(f.title)}</h3><p>${esc(f.body)}</p><small>${mins(f.t)<60?`قبل ${mins(f.t)} دقيقة`:mins(f.t)<1440?`قبل ${Math.floor(mins(f.t)/60)} ساعة`:'قبل يوم أو أكثر'}</small></article>`).join('');
+  const nmsg = {granted:'إشعارات النظام مفعّلة لهذه الصفحة.', denied:'المتصفح رفض الإشعارات. فعّلها من إعدادات الموقع.', unsupported:'هذا المتصفح لا يدعم إشعارات النظام.'}[ui.notif] || '';
   return `<div class="opt"><div style="flex:1"><b>وصّلني عروض المحل</b><p class="hint">بدون رقم جوال وبدون تسجيل. تقدر توقفها بأي وقت.</p></div>
-    <button class="switch" role="switch" aria-checked="${S.optIn}" aria-label="استقبال العروض" data-act="optin"></button></div>${list || '<div class="empty">لا توجد عروض الآن</div>'}`;
+    <button class="switch" role="switch" aria-checked="${S.optIn}" aria-label="استقبال العروض" data-act="optin"></button></div>
+    ${nmsg ? `<p class="hint" style="margin:-6px 4px 12px">${nmsg} وصولها والصفحة مغلقة يحتاج Web Push من الخادم في النسخة الحقيقية.</p>`:''}
+    ${list || '<div class="empty">لا توجد عروض الآن</div>'}`;
 }
+
+/* ================= auth ================= */
+async function sha(s){
+  try{ const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+  catch(e){ let h=5381; for(const c of s) h=((h<<5)+h+c.charCodeAt(0))|0; return 'x'+h; }
+}
+const getAcct = () => { try{ return JSON.parse(localStorage.getItem(AKEY)); }catch(e){ return null; } };
+const setAcct = a => { try{ localStorage.setItem(AKEY, JSON.stringify(a)); }catch(e){} };
+function signIn(){ ui.signed = true; ui.authErr=''; try{ sessionStorage.setItem('dawrak_sess','1'); }catch(e){} }
+function gate(p){
+  const a = getAcct(), up = ui.authTab==='up' || !a;
+  return `<div class="card gate"><div class="logo" style="justify-content:center"><i>${ico('user')}</i></div>
+    <h2>${up?'إنشاء حساب للمحل':'تسجيل دخول صاحب المحل'}</h2>
+    <p class="hint">النسخة التجريبية تحفظ الحساب في هذا المتصفح فقط. في النسخة الحقيقية يكون الحساب على الخادم.</p>
+    ${a ? `<div class="two" role="group"><button data-act="auth-tab" data-t="in" aria-pressed="${!up}">دخول</button><button data-act="auth-tab" data-t="up" aria-pressed="${up}">حساب جديد</button></div>` : ''}
+    <form data-form="${up?'up':'in'}" novalidate>
+      ${up?`<label class="lbl2" for="${p}Shop">اسم المحل</label><input class="field f-shop" id="${p}Shop" value="${esc(S.shop.name)}" autocomplete="organization">`:''}
+      <label class="lbl2" for="${p}Email">البريد الإلكتروني</label><input class="field" id="${p}Email" type="email" dir="ltr" autocomplete="email" placeholder="you@shop.com">
+      <label class="lbl2" for="${p}Pass">كلمة المرور</label><input class="field" id="${p}Pass" type="password" dir="ltr" autocomplete="${up?'new-password':'current-password'}" placeholder="6 أحرف على الأقل">
+      ${ui.authErr?`<p class="err" role="alert">${esc(ui.authErr)}</p>`:''}
+      <button class="btn btn-p big" style="margin-top:14px" type="submit">${up?'إنشاء الحساب':'دخول'}</button>
+    </form>
+    <button class="btn btn-g big" style="margin-top:10px" data-act="demo-login">جرّب بحساب تجريبي جاهز</button></div>`;
+}
+document.addEventListener('submit', async e => {
+  const f = e.target.closest('form[data-form]'); if(!f) return; e.preventDefault();
+  const email = f.querySelector('input[type=email]').value.trim().toLowerCase(), pass = f.querySelector('input[type=password]').value;
+  if(!/^\S+@\S+\.\S+$/.test(email)){ ui.authErr='اكتب بريداً إلكترونياً صحيحاً'; return renderAll(); }
+  if(pass.length < 6){ ui.authErr='كلمة المرور 6 أحرف على الأقل'; return renderAll(); }
+  const h = await sha(pass);
+  if(f.dataset.form==='up'){
+    const name = (f.querySelector('.f-shop').value.trim() || S.shop.name).slice(0,40);
+    S.shop.name = name; save(); setAcct({email, pw:h}); signIn();
+  } else {
+    const a = getAcct();
+    if(!a || a.email!==email || a.pw!==h){ ui.authErr='البريد أو كلمة المرور غير صحيحة'; return renderAll(); }
+    signIn();
+  }
+  renderAll();
+});
 
 /* ================= staff ================= */
 function ordCard(o){
@@ -369,124 +556,278 @@ function ordCard(o){
     <div style="display:flex;gap:8px"><button class="btn ${act[2]}" data-act="adv" data-id="${o.id}" data-to="${act[0]}">${act[1]}</button>${o.status==='ready'?`<button class="btn btn-g" style="width:auto" data-act="recall" data-id="${o.id}" aria-label="نداء مرة أخرى">${ico('bell')}</button>`:''}</div></article>`;
 }
 function renderStaff(){
+  if(!ui.signed){ $('#staff').innerHTML = gate('s'); return; }
   const col = (s,t) => { const l = S.orders.filter(o=>o.status===s).sort((a,b)=>a.no-b.no); return `<section class="col" aria-label="${t}"><h3>${t}<em class="num">${l.length}</em></h3>${l.map(ordCard).join('') || '<p class="hint" style="padding:6px 2px">لا شيء</p>'}</section>`; };
   const ready = S.orders.filter(o=>o.status==='ready').map(o=>`<span class="num">${o.no}</span>`).join('');
   $('#staff').innerHTML = `<div class="card"><div class="ready-strip"><b>جاهز للاستلام:</b>${ready||'<span class="hint">لا يوجد</span>'}</div>
     <div class="board">${col('new','جديد')}${col('prep','يُحضّر')}${col('ready','جاهز')}</div></div>`;
 }
 
-/* ================= owner ================= */
-function renderOwner(){
-  const tabs = [['menu','المنيو'],['offers','العروض'],['qr','رمز QR'],['stats','الأرقام']];
-  const t = `<div class="tabs" role="group" aria-label="أقسام اللوحة">${tabs.map(([k,n])=>`<button data-act="otab" data-t="${k}" aria-pressed="${ui.ownerTab===k}">${n}</button>`).join('')}</div>`;
-  let b = '';
-  if(ui.ownerTab==='menu'){
-    b = `<p class="hint">عدّل الأسعار أو أوقف صنفاً نفد، ويتحدّث المنيو عند الزبائن فوراً بدون طباعة.</p>` +
-      S.menu.map(m => `<div class="mrow"><div><b>${esc(m.name)}</b><small>${esc(CATS.find(c=>c.id===m.cat).name)}</small></div>
-        <input type="number" min="0" inputmode="numeric" value="${m.price}" data-act="price" data-id="${m.id}" aria-label="سعر ${esc(m.name)}">
-        <button class="switch" role="switch" aria-checked="${m.on}" aria-label="${esc(m.name)} متوفر" data-act="avail" data-id="${m.id}"></button></div>`).join('');
-  } else if(ui.ownerTab==='offers'){
-    const tpl = [['خصم 20% على المشروبات الباردة','اليوم فقط من 4 إلى 7 مساءً'],['اشترِ قهوتين والثالثة علينا','العرض ساري حتى نهاية الأسبوع'],['صباحك سكر','كرواسون مع أي قهوة بـ 20 ر.س قبل 10 صباحاً']];
-    b = `<p class="hint">يوصل العرض مباشرة لكل زبون وافق على العروض، بدون ما تجمع أرقام جوالات. المشتركون الآن: <b class="num">${S.subs}</b></p>
-      <div class="tpl">${tpl.map((x,i)=>`<button data-act="tpl" data-i="${i}">${esc(x[0])}</button>`).join('')}</div>
-      <label class="lbl2" for="oT">عنوان العرض</label><input class="field" id="oT" maxlength="50" value="${esc(ui.draft.title)}">
-      <label class="lbl2" for="oB">التفاصيل</label><input class="field" id="oB" maxlength="90" value="${esc(ui.draft.body)}">
-      <button class="btn btn-a" style="margin-top:12px" data-act="send-offer">أرسل العرض الآن</button>
-      <div class="hist"><b>العروض السابقة</b>${S.offers.slice().reverse().map(f=>`<div>${esc(f.title)}<br><small class="hint">${esc(f.body)}</small></div>`).join('')}</div>`;
-  } else if(ui.ownerTab==='qr'){
-    b = `<div class="qrbox"><div class="q" id="qr"></div><div style="flex:1;min-width:200px"><b>ارفعه على العربة أو الطاولة</b>
-      <p class="hint">الزبون يمسحه بالكاميرا فيفتح المنيو مباشرة بدون تحميل تطبيق. اطبعه مرة واحدة وكفاية.</p>
-      <p class="hint" style="word-break:break-all" dir="ltr">${esc(customerUrl())}</p></div></div>`;
-  } else {
-    const d = S.orders.filter(o=>o.tReady), avg = d.length ? Math.round(d.reduce((a,o)=>a+(o.tReady-o.t),0)/d.length/60000) : 0;
-    const sales = S.orders.reduce((a,o)=>a+o.total,0);
-    b = `<div class="stats"><div class="stat"><b>${S.orders.length}</b><span>طلب اليوم</span></div><div class="stat"><b>${sales}</b><span>مبيعات (${SAR})</span></div><div class="stat"><b>${avg}</b><span>متوسط التحضير (د)</span></div><div class="stat"><b>${S.subs}</b><span>مشتركو العروض</span></div></div>`;
-  }
-  $('#owner').innerHTML = `<div class="card">${t}${b}</div>`;
-  if(ui.ownerTab==='qr') drawQR();
+/* ================= display screen ================= */
+function renderDisplay(){
+  const prep = S.orders.filter(o=>o.status==='prep'||o.status==='new').sort((a,b)=>a.no-b.no);
+  const ready = S.orders.filter(o=>o.status==='ready').sort((a,b)=>a.no-b.no);
+  const cur = new Set(ready.map(o=>o.no)), prev = ui.prevReady;
+  const fresh = prev ? ready.filter(o => !prev.has(o.no)).map(o=>o.no) : [];
+  ui.prevReady = cur;
+  if(fresh.length && ui.dispSound) beep();
+  const dn = (l, cls='') => l.length ? `<div class="dn">${l.map(o=>`<span class="${fresh.includes(o.no)?'flash':''}">${o.no}</span>`).join('')}</div>` : `<p class="disp-empty">${cls==='rd'?'لا توجد طلبات جاهزة الآن':'لا توجد طلبات قيد التحضير'}</p>`;
+  const clock = new Date().toLocaleTimeString('ar-SA-u-nu-latn',{hour:'2-digit',minute:'2-digit'});
+  $('#display').innerHTML = `<div class="disp">
+    <div class="disp-top"><h2>${esc(S.shop.name)}</h2><span class="clock num">${clock}</span></div>
+    <div class="disp-cols"><section class="disp-col" aria-label="قيد التحضير"><h3>قيد التحضير</h3>${dn(prep)}</section>
+      <section class="disp-col rd" aria-label="جاهز" aria-live="polite"><h3>جاهز، تفضّل</h3>${dn(ready,'rd')}</section></div>
+    <div class="disp-foot"><div style="display:flex;gap:14px;align-items:center"><div class="q">${qrSvg(customerUrl())}</div><p>امسح الرمز، اطلب من جوالك،<br>وننبّهك لما يجهز طلبك</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="disp-sound">${ico('vol')} ${ui.dispSound?'إيقاف صوت النداء':'تفعيل صوت النداء'}</button><button class="btn" data-act="disp-full">${ico('expand')} ملء الشاشة</button></div></div></div>`;
 }
-function customerUrl(){ const u = new URL(location.href); u.search = '?view=customer'; u.hash=''; return u.toString(); }
-function drawQR(){
-  const el = $('#qr'); if(!el) return;
-  try{ const q = qrcode(0,'M'); q.addData(customerUrl()); q.make(); el.innerHTML = q.createSvgTag({cellSize:4,margin:0,scalable:true}); }
-  catch(e){ el.innerHTML = '<span class="hint">تعذّر توليد الرمز بدون اتصال</span>'; }
+
+/* ================= dashboard ================= */
+const DTABS = [['ov','نظرة عامة','dash'],['ord','الطلبات','list'],['menu','المنيو','menu'],['offers','العروض','tag'],['qr','QR والشاشة','qr'],['set','الإعدادات','set']];
+function stats(){
+  const now = Date.now(), H = 3600000, day = S.orders.filter(o => now-o.t < 24*H);
+  const sales = day.reduce((a,o)=>a+o.total,0), n = day.length;
+  const hours = Array(12).fill(0); day.forEach(o => { const k = Math.floor((now-o.t)/H); if(k<12) hours[11-k]++; });
+  const withReady = day.filter(o=>o.tReady), prep = withReady.length ? withReady.reduce((a,o)=>a+(o.tReady-o.t),0)/withReady.length/60000 : 0;
+  const sold = {}; day.forEach(o=>o.items.forEach(i=>sold[i.id]=(sold[i.id]||0)+i.q));
+  const top = Object.entries(sold).map(([id,q])=>({id,q,m:item(id)})).filter(x=>x.m).sort((a,b)=>b.q-a.q).slice(0,5);
+  const days = [...S.prevDays, sales], yesterday = S.prevDays[S.prevDays.length-1];
+  return {sales, n, hours, prep, top, days, avg:n?sales/n:0, delta:yesterday?Math.round((sales-yesterday)/yesterday*100):0};
+}
+function barChart(vals){
+  const W=520,Hh=170,pl=26,pb=22,pt=10,max=Math.max(4,...vals), bw=(W-pl)/vals.length, now=new Date().getHours();
+  let g='';
+  [0,.5,1].forEach(f=>{ const y=pt+(Hh-pt-pb)*(1-f); g+=`<line class="gl" x1="${pl}" x2="${W}" y1="${y}" y2="${y}"/><text x="${pl-6}" y="${y+4}" text-anchor="end">${Math.round(max*f)}</text>`; });
+  vals.forEach((v,i)=>{ const h=(Hh-pt-pb)*v/max, x=pl+i*bw+bw*.18, y=Hh-pb-h, hr=(now-(11-i)+48)%24;
+    g+=`<rect class="bar ${i===11?'cur':''}" x="${x}" y="${y}" width="${bw*.64}" height="${Math.max(h,0)}" rx="4"/>`;
+    if(i%2===1||i===11) g+=`<text x="${x+bw*.32}" y="${Hh-6}" text-anchor="middle">${hr}:00</text>`; });
+  return `<svg class="chart" viewBox="0 0 ${W} ${Hh}" role="img" aria-label="الطلبات لكل ساعة خلال آخر 12 ساعة">${g}</svg>`;
+}
+function lineChart(vals){
+  const W=520,Hh=170,pl=34,pb=22,pt=14,max=Math.max(100,...vals)*1.1, step=(W-pl-14)/(vals.length-1);
+  const xy = vals.map((v,i)=>[pl+i*step, Hh-pb-(Hh-pt-pb)*v/max]);
+  let g=''; [0,.5,1].forEach(f=>{ const y=pt+(Hh-pt-pb)*(1-f); g+=`<line class="gl" x1="${pl}" x2="${W}" y1="${y}" y2="${y}"/><text x="${pl-6}" y="${y+4}" text-anchor="end">${Math.round(max*f)}</text>`; });
+  const d = xy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  g+=`<path class="ar" d="${d} L${xy[xy.length-1][0]} ${Hh-pb} L${xy[0][0]} ${Hh-pb}Z"/><path class="ln" d="${d}"/>`;
+  xy.forEach((p,i)=>{ const dt=new Date(Date.now()-(vals.length-1-i)*86400000); g+=`<text x="${p[0]}" y="${Hh-6}" text-anchor="middle">${dt.toLocaleDateString('ar-SA-u-nu-latn',{weekday:'short'})}</text>`; if(i===vals.length-1) g+=`<circle class="pt" cx="${p[0]}" cy="${p[1]}" r="5"/>`; });
+  return `<svg class="chart" viewBox="0 0 ${W} ${Hh}" role="img" aria-label="مبيعات آخر 7 أيام">${g}</svg>`;
+}
+function ovView(){
+  const s = stats(), mx = Math.max(1,...s.top.map(t=>t.q));
+  const live = {new:0,prep:0,ready:0}; S.orders.forEach(o=>{ if(live[o.status]!==undefined) live[o.status]++; });
+  return `<div class="kpis">
+    <div class="kpi"><span>مبيعات آخر 24 ساعة</span><b>${s.sales} <small style="font-size:14px">${SAR}</small></b><span class="delta ${s.delta>=0?'up':'dn2'}">${s.delta>=0?'▲':'▼'} ${Math.abs(s.delta)}% عن أمس</span></div>
+    <div class="kpi"><span>عدد الطلبات</span><b>${s.n}</b><span class="hint">${live.new+live.prep} قيد العمل الآن</span></div>
+    <div class="kpi"><span>متوسط قيمة الطلب</span><b>${s.avg.toFixed(1)} <small style="font-size:14px">${SAR}</small></b><span class="hint">لكل زبون</span></div>
+    <div class="kpi"><span>متوسط وقت التحضير</span><b>${s.prep.toFixed(1)} <small style="font-size:14px">د</small></b><span class="hint">من الطلب للجاهزية</span></div></div>
+  <div class="panels"><div class="panel"><h3>الطلبات حسب الساعة <small>آخر 12 ساعة</small></h3>${barChart(s.hours)}</div>
+    <div class="panel"><h3>المبيعات <small>آخر 7 أيام (${SAR})</small></h3>${lineChart(s.days)}</div></div>
+  <div class="panels"><div class="panel"><h3>الأكثر مبيعاً <small>آخر 24 ساعة</small></h3>${s.top.map(t=>`<div class="hb"><span>${esc(t.m.name)}</span><b class="num">${t.q}</b><div class="tr"><i style="width:${t.q/mx*100}%"></i></div></div>`).join('') || '<p class="hint">لا توجد بيانات</p>'}</div>
+    <div class="panel"><h3>الآن في المحل</h3><div class="status-line"><span class="pill s-new">جديد ${live.new}</span><span class="pill s-prep">يُحضّر ${live.prep}</span><span class="pill s-ready">جاهز ${live.ready}</span></div>
+      <p class="hint" style="margin-top:12px">مشتركو العروض: <b class="num">${S.subs}</b> · عروض أُرسلت: <b class="num">${S.offers.length}</b></p>
+      <p class="hint" style="margin-top:8px">الأرقام مبنية على طلبات التجربة. الأيام السابقة بيانات افتراضية.</p></div></div>`;
+}
+function ordRows(){
+  let l = S.orders.slice().sort((a,b)=>b.no-a.no);
+  if(ui.ofilter!=='all') l = l.filter(o=>o.status===ui.ofilter);
+  if(ui.osearch) l = l.filter(o=>String(o.no).includes(ui.osearch.trim()) || (o.name||'').includes(ui.osearch.trim()));
+  return l.slice(0,60).map(o=>`<tr><td class="num"><b>${o.no}</b></td><td>${tfmt(o.t)}</td><td>${o.items.map(i=>`${i.q}× ${esc(item(i.id)?.name||'')}`).join('، ')}</td><td class="num">${o.total}</td><td><span class="pill s-${o.status}">${STATUS[o.status]}</span></td></tr>`).join('') || '<tr><td colspan="5" class="hint">لا توجد طلبات مطابقة</td></tr>';
+}
+function ordView(){
+  const f = [['all','الكل'],['new','جديد'],['prep','يُحضّر'],['ready','جاهز'],['done','تم']];
+  return `<div class="filters">${f.map(([k,n])=>`<button class="chip" data-act="ofilter" data-f="${k}" aria-pressed="${ui.ofilter===k}">${n}</button>`).join('')}
+    <input id="oSearch" type="search" placeholder="رقم أو اسم" value="${esc(ui.osearch)}" aria-label="بحث في الطلبات"></div>
+    <div class="tblwrap card" style="padding:4px 12px"><table><thead><tr><th>الرقم</th><th>الوقت</th><th>الأصناف</th><th>الإجمالي</th><th>الحالة</th></tr></thead><tbody id="otable">${ordRows()}</tbody></table></div>`;
+}
+function menuTab(){
+  const cats = S.cats.map((c,i)=>`<div class="catrow"><input data-chg="cat-rename" data-id="${c.id}" value="${esc(c.name)}" aria-label="اسم القسم">
+      <button class="ib" data-act="cat-up" data-id="${c.id}" aria-label="تقديم القسم" ${i===0?'disabled':''}>${ico('up')}</button>
+      <button class="ib" data-act="cat-down" data-id="${c.id}" aria-label="تأخير القسم" ${i===S.cats.length-1?'disabled':''}>${ico('down')}</button>
+      <button class="ib dng" data-act="cat-del" data-id="${c.id}" aria-label="حذف القسم" ${S.menu.some(m=>m.cat===c.id)?'disabled title="انقل أصنافه أو احذفها أولاً"':''}>${ico('trash')}</button></div>`).join('');
+  const groups = S.cats.map(c=>{ const l = S.menu.filter(m=>m.cat===c.id); return `<div class="sec-h"><span>${esc(c.name)} <small class="hint">(${l.length})</small></span></div>
+    <div class="igrid">${l.map(m=>`<article class="icard">${m.img?`<img class="im" src="${m.img}" alt="${esc(m.name)}">`:`<div class="im">${ico('img')}</div>`}
+      <div class="bd"><b>${esc(m.name)}</b><span class="hint">${esc(m.desc)}</span><span class="price">${m.price} <small>${SAR}</small></span></div>
+      <div class="ft"><button class="switch" role="switch" aria-checked="${m.on}" aria-label="${esc(m.name)} متوفر" data-act="avail" data-id="${m.id}"></button><button class="btn btn-g" data-act="edit-item" data-id="${m.id}">${ico('edit')} تعديل</button></div></article>`).join('')}
+      <button class="icard" style="min-height:120px;align-items:center;justify-content:center;color:var(--muted);font-weight:700;gap:6px" data-act="new-item" data-c="${c.id}">${ico('plus')} صنف جديد</button></div>`; }).join('');
+  return `<div class="panel"><h3>الأقسام</h3>${cats}
+    <div class="catrow"><input id="newCat" placeholder="اسم قسم جديد" value="${esc(ui.newCat)}" aria-label="اسم قسم جديد"><button class="btn btn-a" data-act="cat-add">${ico('plus')} إضافة</button></div></div>
+    ${groups}`;
+}
+function modal(){
+  const d = ui.edit; if(!d) return '';
+  const dr = d.draft;
+  return `<div class="modal-bg" data-act="modal-close"><div class="modal" role="dialog" aria-label="${d.id?'تعديل صنف':'صنف جديد'}">
+    <h2>${d.id?'تعديل صنف':'صنف جديد'}</h2>
+    <div class="upl"><div class="pv">${dr.img?`<img src="${dr.img}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:14px">`:ico('img')}</div>
+      <div style="display:flex;flex-direction:column;gap:8px"><label class="btn btn-g" for="eFile">${ico('upload')} ${dr.img?'تغيير الصورة':'رفع صورة'}</label>
+      <input id="eFile" type="file" accept="image/*" class="sr" style="position:absolute;width:1px;height:1px;opacity:0" data-chg="pick-img">
+      ${dr.img?`<button class="btn btn-g" data-act="img-clear">إزالة الصورة</button>`:''}</div></div>
+    ${ui.imgErr?`<p class="err">${esc(ui.imgErr)}</p>`:''}
+    <label class="lbl2" for="eName">اسم الصنف</label><input class="field" id="eName" value="${esc(dr.name)}" maxlength="40">
+    <label class="lbl2" for="eDesc">وصف قصير</label><input class="field" id="eDesc" value="${esc(dr.desc)}" maxlength="70">
+    <div style="display:flex;gap:10px"><div style="flex:1"><label class="lbl2" for="ePrice">السعر (${SAR})</label><input class="field" id="ePrice" type="number" min="0" inputmode="decimal" value="${dr.price}"></div>
+      <div style="flex:1"><label class="lbl2" for="eCat">القسم</label><select class="field" id="eCat">${S.cats.map(c=>`<option value="${c.id}" ${c.id===dr.cat?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div></div>
+    <div class="row-r"><span>متوفر للطلب</span><button class="switch" role="switch" aria-checked="${dr.on}" aria-label="متوفر" data-act="e-toggle"></button></div>
+    <div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-p" style="flex:1" data-act="item-save">حفظ</button><button class="btn btn-g" data-act="modal-close-btn">إلغاء</button>${d.id?`<button class="btn btn-d" data-act="item-del" aria-label="حذف الصنف">${ico('trash')}</button>`:''}</div></div></div>`;
+}
+function offersTab(){
+  const tpl = TPL;
+  return `<div class="panel"><h3>عرض جديد <small>المشتركون: ${S.subs}</small></h3><p class="hint">يوصل لكل زبون وافق على العروض، بدون ما تجمع أرقام جوالات.</p>
+    <div class="tpl">${tpl.map((x,i)=>`<button data-act="tpl" data-i="${i}">${esc(x[0])}</button>`).join('')}</div>
+    <label class="lbl2" for="oT">عنوان العرض</label><input class="field" id="oT" maxlength="50" value="${esc(ui.draft.title)}">
+    <label class="lbl2" for="oB">التفاصيل</label><input class="field" id="oB" maxlength="90" value="${esc(ui.draft.body)}">
+    <button class="btn btn-a" style="margin-top:12px" data-act="send-offer">أرسل العرض الآن</button></div>
+    <div class="panel hist" style="margin-top:12px"><h3>العروض السابقة</h3>${S.offers.slice().reverse().map(f=>`<div>${esc(f.title)}<br><small class="hint">${esc(f.body)}</small></div>`).join('')}</div>`;
+}
+const TPL = [['خصم 20% على المشروبات الباردة','اليوم فقط من 4 إلى 7 مساءً'],['اشترِ قهوتين والثالثة علينا','العرض ساري حتى نهاية الأسبوع'],['صباحك سكر','كرواسون مع أي قهوة بـ 20 ر.س قبل 10 صباحاً']];
+function qrTab(){
+  return `<div class="panel"><h3>رمز المنيو للطباعة</h3><div class="qrbox"><div class="q">${qrSvg(customerUrl())}</div>
+    <div style="flex:1;min-width:200px"><b>ألصقه على العربة أو الطاولة</b><p class="hint">الزبون يمسحه فيفتح المنيو بدون تحميل تطبيق. اطبعه مرة واحدة، والمنيو يتحدّث لوحده.</p>
+    <label class="lbl2" for="menuUrl">رابط المنيو العام</label><input class="field" id="menuUrl" dir="ltr" data-chg="menu-url" value="${esc(customerUrl())}">
+    <p class="hint" style="margin-top:6px">الصق رابط الموقع النهائي هنا بعد النشر وسيتغيّر الرمز.</p></div></div></div>
+    <div class="panel" style="margin-top:12px"><h3>شاشة عرض الأرقام</h3><p class="hint">افتحها على تلفزيون أو تابلت عند الكاونتر. تعرض الأرقام الجاهزة بخط كبير وتومض لما يجهز طلب جديد.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn btn-p" data-act="pane" data-v="display">${ico('tv')} افتح شاشة العرض</button></div></div>`;
+}
+function setTab(){
+  const a = getAcct();
+  return `<div class="panel"><h3>بيانات المحل</h3>
+    <label class="lbl2" for="sName">اسم المحل</label><input class="field" id="sName" data-chg="shop-name" value="${esc(S.shop.name)}" maxlength="40">
+    <label class="lbl2" for="sSub">وصف قصير</label><input class="field" id="sSub" data-chg="shop-sub" value="${esc(S.shop.sub)}" maxlength="50">
+    <div class="row-r"><div><b>استقبال الطلبات</b><p class="hint">عند الإغلاق يتصفح الزبون المنيو بدون طلب.</p></div><button class="switch" role="switch" aria-checked="${S.shop.open}" aria-label="المحل مفتوح" data-act="shop-open"></button></div></div>
+  <div class="panel" style="margin-top:12px"><h3>الحساب</h3><div class="row-r"><span>${esc(a?.email||'حساب تجريبي')}</span><button class="btn btn-g" data-act="logout">${ico('logout')} تسجيل خروج</button></div>
+    <p class="hint" style="margin-top:8px">حساب تجريبي يُحفظ في هذا المتصفح فقط.</p></div>
+  <div class="panel" style="margin-top:12px"><h3>حالة الميزات</h3>
+    <div class="row-r"><span>المنيو والطلبات والبيجر</span><span class="pill s-ready">يعمل</span></div>
+    <div class="row-r"><span>صور الأصناف والأقسام</span><span class="pill s-ready">يعمل</span></div>
+    <div class="row-r"><span>شاشة العرض</span><span class="pill s-ready">يعمل</span></div>
+    <div class="row-r"><span>إشعارات Web Push (والصفحة مغلقة)</span><span class="pill s-prep">يحتاج خادم</span></div>
+    <div class="row-r"><span>حسابات حقيقية متعددة المحلات</span><span class="pill s-prep">يحتاج خادم</span></div>
+    ${saveFail?'<p class="err">مساحة التخزين في المتصفح امتلأت. صغّر الصور أو احذف بعضها.</p>':''}</div>`;
+}
+function renderDash(){
+  if(!ui.signed){ $('#dash').innerHTML = gate('d'); return; }
+  const body = {ov:ovView,ord:ordView,menu:menuTab,offers:offersTab,qr:qrTab,set:setTab}[ui.dtab]();
+  const cur = DTABS.find(t=>t[0]===ui.dtab);
+  $('#dash').innerHTML = `<div class="card"><div class="dash">
+    <nav class="dnav" aria-label="أقسام اللوحة">${DTABS.map(([k,n,i])=>`<button data-act="dtab" data-t="${k}" aria-pressed="${ui.dtab===k}">${ico(i)}${n}</button>`).join('')}</nav>
+    <div class="dmain"><div class="dhead"><h2>${cur[1]}</h2><span class="hint">${esc(S.shop.name)}</span></div>${body}</div></div></div>${modal()}`;
 }
 
 /* ================= actions ================= */
-function beep(){
-  try{ const a = new (window.AudioContext||window.webkitAudioContext)(); [0,.22,.44].forEach((d,i)=>{ const o=a.createOscillator(), g=a.createGain(); o.frequency.value=[880,1100,1320][i]; o.connect(g); g.connect(a.destination); g.gain.setValueAtTime(.2,a.currentTime+d); g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d+.2); o.start(a.currentTime+d); o.stop(a.currentTime+d+.2); }); }catch(e){}
-  try{ navigator.vibrate && navigator.vibrate([300,150,300,150,300]); }catch(e){}
-}
 function toast(title, body){ ui.toast = {title, body}; renderPhone(); clearTimeout(toast.t); toast.t = setTimeout(()=>{ ui.toast=null; renderPhone(); }, 4500); }
 function checkAlert(){
   const o = myOrder(); if(!o || o.status!=='ready') return;
   const key = o.id+':'+(o.callAt||0);
-  if(ui.alerted !== key){ ui.alerted = key; ui.alert = true; beep(); }
+  if(ui.alerted !== key){ ui.alerted = key; ui.alert = true; beep(); sysNotify('طلبك جاهز', 'رقم '+o.no+' جاهز للاستلام'); }
 }
 const A = {
   tab(el){ ui.tab = el.dataset.t; if(ui.tab==='offers') ui.newOffer=false; },
   cat(el){ ui.cat = el.dataset.c; },
-  inc(el){ const id=el.dataset.id; if(item(id)?.on) ui.cart[id]=(ui.cart[id]||0)+1; },
+  inc(el){ const id=el.dataset.id; if(item(id)?.on && S.shop.open) ui.cart[id]=(ui.cart[id]||0)+1; },
   dec(el){ const id=el.dataset.id; if(ui.cart[id]>1) ui.cart[id]--; else delete ui.cart[id]; if(!cartCount()) ui.sheet=false; },
   sheet(){ ui.sheet = true; }, 'sheet-close'(){ ui.sheet=false; },
   serve(el){ ui.serve = el.dataset.s; },
   order(){
-    if(!cartCount()) return;
+    if(!cartCount() || !S.shop.open) return;
     const items = Object.entries(ui.cart).map(([id,q])=>({id,q}));
     const o = {id:'o'+Date.now(), no:++S.seq, name:ui.name.trim().slice(0,20), serve:ui.serve, items, total:cartTotal(), note:ui.note.trim().slice(0,60), status:'new', t:Date.now(), callAt:0};
     S.orders.push(o); S.my = o.id; ui.cart = {}; ui.sheet=false; ui.tab='track'; ui.note=''; save();
   },
   'new-order'(){ S.my=null; ui.tab='menu'; save(); },
   dismiss(){ ui.alert=false; },
-  optin(){ S.optIn = !S.optIn; S.subs += S.optIn ? 1 : -1; save(); },
+  optin(){ S.optIn = !S.optIn; S.subs += S.optIn ? 1 : -1; save(); if(S.optIn) askNotif().then(r=>{ ui.notif=r; renderAll(); }); else ui.notif=''; },
   adv(el){ const o = S.orders.find(x=>x.id===el.dataset.id); if(!o) return; o.status = el.dataset.to; if(o.status==='ready'){ o.tReady = Date.now(); o.callAt = Date.now(); } save(); },
   recall(el){ const o = S.orders.find(x=>x.id===el.dataset.id); if(o){ o.callAt = Date.now(); save(); } },
-  otab(el){ ui.ownerTab = el.dataset.t; },
+  /* dashboard */
+  dtab(el){ ui.dtab = el.dataset.t; },
+  ofilter(el){ ui.ofilter = el.dataset.f; },
   avail(el){ const m = item(el.dataset.id); m.on = !m.on; if(!m.on) delete ui.cart[m.id]; save(); },
-  tpl(el){ const t = [['خصم 20% على المشروبات الباردة','اليوم فقط من 4 إلى 7 مساءً'],['اشترِ قهوتين والثالثة علينا','العرض ساري حتى نهاية الأسبوع'],['صباحك سكر','كرواسون مع أي قهوة بـ 20 ر.س قبل 10 صباحاً']][+el.dataset.i]; ui.draft = {title:t[0], body:t[1]}; },
-  'send-offer'(){
-    const t = ui.draft.title.trim(), b = ui.draft.body.trim(); if(!t) { $('#oT')?.focus(); return; }
-    S.offers.push({id:'f'+Date.now(), title:t, body:b, t:Date.now()}); ui.draft={title:'',body:''}; ui.newOffer = true; save();
-    if(S.optIn) setTimeout(()=>toast(t, b || shop.name), 150);
+  'cat-add'(){ const n = ui.newCat.trim(); if(!n) return $('#newCat')?.focus(); S.cats.push({id:'c'+Date.now(), name:n.slice(0,24), ic:'bag'}); ui.newCat=''; save(); },
+  'cat-up'(el){ const i = S.cats.findIndex(c=>c.id===el.dataset.id); if(i>0){ [S.cats[i-1],S.cats[i]]=[S.cats[i],S.cats[i-1]]; save(); } },
+  'cat-down'(el){ const i = S.cats.findIndex(c=>c.id===el.dataset.id); if(i<S.cats.length-1){ [S.cats[i+1],S.cats[i]]=[S.cats[i],S.cats[i+1]]; save(); } },
+  'cat-del'(el){ const id = el.dataset.id; if(S.menu.some(m=>m.cat===id)) return; S.cats = S.cats.filter(c=>c.id!==id); save(); },
+  'new-item'(el){ ui.imgErr=''; ui.edit = {id:null, draft:{name:'',desc:'',price:0,cat:el.dataset.c,on:true,img:''}}; },
+  'edit-item'(el){ const m = item(el.dataset.id); ui.imgErr=''; ui.edit = {id:m.id, draft:{...m}}; },
+  'e-toggle'(){ ui.edit.draft.on = !ui.edit.draft.on; },
+  'img-clear'(){ ui.edit.draft.img=''; },
+  'modal-close'(el){ ui.edit = null; },
+  'modal-close-btn'(){ ui.edit = null; },
+  'item-save'(){
+    const d = ui.edit.draft; d.name = d.name.trim(); if(!d.name){ $('#eName')?.focus(); return; }
+    d.price = Math.max(0, +d.price||0);
+    if(ui.edit.id){ Object.assign(item(ui.edit.id), d); } else { S.menu.push({...d, id:'m'+Date.now()}); }
+    ui.edit = null; save();
   },
-  pane(el){ setPane(el.dataset.v); },
-  reset(){ try{ localStorage.removeItem(KEY); }catch(e){} S = seed(); Object.assign(ui,{cart:{},sheet:false,alert:false,tab:'menu',alerted:'',draft:{title:'',body:''}}); },
-  'open-customer'(){ window.open(customerUrl(), '_blank'); }
+  'item-del'(){ const id = ui.edit.id; S.menu = S.menu.filter(m=>m.id!==id); delete ui.cart[id]; ui.edit=null; save(); },
+  tpl(el){ const t = TPL[+el.dataset.i]; ui.draft = {title:t[0], body:t[1]}; },
+  'send-offer'(){
+    const t = ui.draft.title.trim(), b = ui.draft.body.trim(); if(!t){ $('#oT')?.focus(); return; }
+    S.offers.push({id:'f'+Date.now(), title:t, body:b, t:Date.now()}); ui.draft={title:'',body:''}; ui.newOffer = true; save();
+    if(S.optIn) setTimeout(()=>{ toast(t, b || S.shop.name); chime(); sysNotify(t, b || S.shop.name); }, 150);
+  },
+  'shop-open'(){ S.shop.open = !S.shop.open; save(); },
+  logout(){ ui.signed=false; try{ sessionStorage.removeItem('dawrak_sess'); }catch(e){} },
+  'auth-tab'(el){ ui.authTab = el.dataset.t; ui.authErr=''; },
+  async 'demo-login'(){ if(!getAcct()) setAcct({email:'demo@dawrak.sa', pw: await sha('123456')}); signIn(); },
+  'disp-sound'(){ ui.dispSound = !ui.dispSound; if(ui.dispSound) chime(); },
+  'disp-full'(){ try{ const el = $('.disp'); (el.requestFullscreen||el.webkitRequestFullscreen).call(el).catch(()=>{}); }catch(e){} },
+  pane(el){ setView(el.dataset.v); },
+  reset(){ try{ localStorage.removeItem(KEY); }catch(e){} S = seed(); Object.assign(ui,{cart:{},sheet:false,alert:false,tab:'menu',alerted:'',draft:{title:'',body:''},edit:null,prevReady:null}); }
 };
 document.addEventListener('click', e => {
-  const el = e.target.closest('[data-act]'); if(!el || el.tagName==='INPUT') return;
-  if(el.dataset.act==='sheet-close' && el.classList.contains('sheet-bg') && e.target!==el) return;
+  const el = e.target.closest('[data-act]'); if(!el) return;
+  if((el.dataset.act==='sheet-close'||el.dataset.act==='modal-close') && el.classList.contains(el.dataset.act==='modal-close'?'modal-bg':'sheet-bg') && e.target!==el) return;
   const fn = A[el.dataset.act]; if(!fn) return;
-  fn(el); renderAll();
+  const r = fn(el); renderAll(); if(r && r.then) r.then(renderAll);
 });
+const C = {
+  'cat-rename'(el){ const c = catOf(el.dataset.id); const v = el.value.trim(); if(c && v){ c.name = v.slice(0,24); save(); } },
+  'shop-name'(el){ const v = el.value.trim(); if(v){ S.shop.name = v.slice(0,40); save(); } },
+  'shop-sub'(el){ S.shop.sub = el.value.trim().slice(0,50); save(); },
+  'menu-url'(el){ S.menuUrl = el.value.trim() === baseUrl()+'#customer' ? '' : el.value.trim(); save(); },
+  async 'pick-img'(el){
+    const f = el.files && el.files[0]; if(!f) return; ui.imgErr='';
+    try{ ui.edit.draft.img = await fileToDataURL(f); }catch(e){ ui.imgErr = 'تعذّر قراءة الصورة. جرّب صورة أخرى.'; }
+  }
+};
 document.addEventListener('change', e => {
-  const el = e.target; if(el.dataset.act==='price'){ const m = item(el.dataset.id); m.price = Math.max(0, Math.round(+el.value||0)); save(); renderAll(); }
+  const el = e.target;
+  if(el.dataset.chg && C[el.dataset.chg]){ const r = C[el.dataset.chg](el); renderAll(); if(r&&r.then) r.then(renderAll); return; }
+  if(el.id==='eCat' && ui.edit){ ui.edit.draft.cat = el.value; }
 });
 document.addEventListener('input', e => {
-  const id = e.target.id;
-  if(id==='fName') ui.name = e.target.value; else if(id==='fNote') ui.note = e.target.value;
-  else if(id==='oT') ui.draft.title = e.target.value; else if(id==='oB') ui.draft.body = e.target.value;
+  const id = e.target.id, v = e.target.value;
+  if(id==='fName') ui.name = v; else if(id==='fNote') ui.note = v;
+  else if(id==='oT') ui.draft.title = v; else if(id==='oB') ui.draft.body = v;
+  else if(id==='newCat') ui.newCat = v;
+  else if(id==='oSearch'){ ui.osearch = v; const t = $('#otable'); if(t) t.innerHTML = ordRows(); }
+  else if(ui.edit){ const d = ui.edit.draft; if(id==='eName') d.name=v; else if(id==='eDesc') d.desc=v; else if(id==='ePrice') d.price=v; }
 });
 
-/* ================= layout modes ================= */
-function setPane(v){
-  document.querySelectorAll('[data-pane]').forEach(p => p.classList.toggle('on', p.dataset.pane===v || (v==='staff'&&false)));
-  document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v===v));
+/* ================= layout / views ================= */
+const VIEWS = [['customer','الزبون','m-only'],['staff','الكاشير',''],['display','شاشة العرض',''],['dash','لوحة التحكم','']];
+function setView(v){
+  ui.view = v;
+  document.querySelectorAll('[data-pane]').forEach(p => { if(p.dataset.pane!=='customer' || document.body.classList.contains('solo') || innerWidth<=1000) p.classList.toggle('on', p.dataset.pane===v); else p.classList.add('on'); });
+  $('#seg').innerHTML = VIEWS.map(([k,n,c])=>`<button class="${c}" data-act="pane" data-v="${k}" aria-pressed="${k===v}">${n}</button>`).join('');
 }
-const qv = new URLSearchParams(location.search).get('view');
-if(['customer','staff','owner'].includes(qv)){ document.body.classList.add('solo','v-'+qv); setPane(qv); }
-else if(innerWidth<=1000) setPane('customer');
-else document.querySelectorAll('[data-pane]').forEach(p=>p.classList.add('on'));
-window.addEventListener('resize', ()=>{ if(!qv && innerWidth>1000) document.querySelectorAll('[data-pane]').forEach(p=>p.classList.add('on')); });
+function applyHash(){
+  const h = location.hash.slice(1), m = {customer:'customer', staff:'staff', display:'display', dashboard:'dash'}[h];
+  document.body.className = m ? 'solo v-'+m : '';
+  setView(m || (innerWidth<=1000 ? 'customer' : (ui.view==='customer'?'dash':ui.view)));
+}
+window.addEventListener('hashchange', ()=>{ applyHash(); renderAll(); });
+window.addEventListener('resize', ()=>{ if(!document.body.classList.contains('solo')) setView(ui.view); });
 
 function renderAll(){
   const keep = $('#pmain')?.scrollTop || 0;
-  renderPhone(); renderStaff(); renderOwner(); checkAlert();
+  renderPhone(); renderStaff(); renderDisplay(); renderDash(); checkAlert();
   if(ui.alert) renderPhone();
   const m = $('#pmain'); if(m) m.scrollTop = keep;
+  const a = $('#lnkCustomer'); if(a) a.href = baseUrl()+'#customer';
+  const b = $('#lnkDisplay'); if(b) b.href = baseUrl()+'#display';
 }
-renderAll();
-setInterval(()=>{ renderStaff(); if(ui.tab==='track') renderPhone(); }, 30000);
+applyHash(); renderAll();
+setInterval(()=>{ renderStaff(); renderDisplay(); if(ui.tab==='track') renderPhone(); }, 30000);
 </script>
 </body>
 </html>
