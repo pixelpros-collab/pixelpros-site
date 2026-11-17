@@ -1127,7 +1127,7 @@ dialog { color: var(--ink); }
   const form = $('#tester-form'), msg = $('#form-msg'), note = $('#form-note');
   let db = null, uid = null, viaWA = false;
   const WA = '966576989000';
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw7tOmsQsqE09SKC5ErN3DIHYdYMo18x7cnT87iHnpGsLfv6yPFIfc3pBHkk99gPaZt/exec';   // Google Apps Script web-app URL: every sign-up lands in the Google Sheet and emails the owner
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz_RQQPg0ZFGdfoGvFgU6uFwg0jgutxBfb_Zn3irh5jfQdKgn2xYhl49BNtP4UAGLrznA/exec';   // Google Apps Script web-app URL: every sign-up lands in the Google Sheet and emails the owner
   const useWhatsApp = () => { viaWA = true; };
   const say = (m, kind) => { msg.textContent = m; msg.className = 'form-msg' + (kind ? ' ' + kind : ''); };
   const showNote = (ar, en) => { note.innerHTML = bi(ar, en); note.hidden = false; };
