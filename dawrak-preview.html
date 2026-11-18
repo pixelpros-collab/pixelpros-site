@@ -224,7 +224,7 @@ details.card summary{cursor:pointer;font-weight:700;min-height:28px}
 @media (max-width:640px){.board{grid-template-columns:1fr}}
 
 /* ---------- display screen (always dark, for a TV) ---------- */
-.disp{background:#0A1213;color:#EDF3F2;border-radius:var(--r);padding:24px;min-height:560px;display:flex;flex-direction:column;gap:20px;position:relative}
+.disp{container-type:inline-size;container-name:disp;background:#0A1213;color:#EDF3F2;border-radius:var(--r);padding:24px;min-height:560px;display:flex;flex-direction:column;gap:20px;position:relative}
 .disp-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .disp-top h2{font-size:clamp(22px,3vw,38px)}
 .disp-top .clock{font-size:clamp(22px,3vw,32px);color:#9CB2B0}
@@ -244,7 +244,8 @@ details.card summary{cursor:pointer;font-weight:700;min-height:28px}
 .disp-foot .q svg{width:100%;height:100%;display:block}
 .disp-foot p{font-size:18px;color:#9CB2B0}
 .disp .btn{background:#1E3032;color:#EDF3F2}
-@media (max-width:640px){.disp-cols{grid-template-columns:1fr}}
+@container disp (max-width:700px){.disp-cols{grid-template-columns:1fr}.disp-col.rd{order:-1}}
+@media (orientation:portrait){body.solo.v-display .disp-cols{grid-template-columns:1fr;grid-template-rows:1.3fr 1fr}body.solo.v-display .disp-col.rd{order:-1}body.solo.v-display .rd .dn span{font-size:clamp(64px,15vw,170px)}}
 body.solo .disp{border-radius:0;min-height:100dvh}
 
 /* ---------- dashboard ---------- */
@@ -328,14 +329,63 @@ tr.clk:hover{background:var(--surface-2)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
+/* ---------- customer on tablets: container queries on the screen, so it adapts in the app and in the preview frame ---------- */
+.screen{container-type:size;container-name:scr}
+.scr-in{height:100%;display:flex;flex-direction:column;min-height:0}
+.side-cart{display:none}
+.sc-h{font-size:20px;margin-bottom:8px}
+.hrow{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.hr-top{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.hr-act{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px}
+.hr-act .btn{min-height:40px;padding:0 12px}
+.stars-s{color:#F2C14E;letter-spacing:2px;direction:ltr;align-self:center}
+.hrow details summary{cursor:pointer;min-height:32px;padding-top:4px}
+@container scr (min-width:700px){
+  .p-head{padding:22px 32px 18px}
+  .p-head h1{font-size:26px}
+  .p-main{padding:20px 32px 110px}
+  .chips{margin:0 -32px;padding-inline:32px}
+  .menu-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+  .menu-list .item{margin:0}
+  .glyph{width:76px;height:76px}
+  .pg{max-width:680px;margin-inline:auto}
+  .cartbar{inset-inline:0;margin-inline:auto;width:min(520px,calc(100% - 64px))}
+  .sheet-bg{align-items:center;justify-content:center;padding:24px}
+  .sheet{max-width:620px;border-radius:26px}
+  .nav{justify-content:center}
+  .nav button{flex:0 1 150px}
+  .alert .no{font-size:150px}
+  .alert h2{font-size:40px}
+}
+@container scr (min-width:900px) and (orientation:landscape){
+  .scr-in{display:grid;grid-template-columns:104px minmax(0,1fr) 380px;grid-template-rows:auto minmax(0,1fr);grid-template-areas:"head head head" "nav main cart"}
+  .p-head{grid-area:head}
+  .p-main{grid-area:main;padding:20px 24px 24px}
+  .chips{margin:0 -24px;padding-inline:24px}
+  .nav{grid-area:nav;position:static;flex-direction:column;justify-content:flex-start;gap:6px;border-top:0;border-inline-end:1px solid var(--line);padding:12px 8px}
+  .nav button{flex:none;min-height:76px}
+  .side-cart{display:block;grid-area:cart;border-inline-start:1px solid var(--line);background:var(--surface);overflow:auto;padding:18px;min-height:0}
+  .side-cart .field{background:var(--bg)}
+  .menu-list{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+}
+/* ---------- device preview frames (phone / tablet portrait / tablet landscape) ---------- */
+.devs{display:flex;gap:6px;margin:0 0 10px;flex-wrap:wrap;align-self:stretch;justify-content:center}
+.devs button{min-height:40px;padding:0 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-weight:700;color:var(--muted);font-size:14px}
+.devs button[aria-pressed=true]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.devwrap{position:relative;max-width:100%}
+.phone.tab{position:absolute!important;top:0!important;inset-inline-start:0;width:768px;height:1024px;max-width:none;max-height:none;min-height:0;border-radius:40px;padding:16px!important;transform-origin:top right}
+.phone.tab.land{width:1024px;height:768px}
+.grid.wide-dev{grid-template-columns:minmax(0,1fr)}
+
 /* ---------- solo (#customer | #staff | #display | #dashboard) ---------- */
-body.solo .top,body.solo .seg,body.solo .road,body.solo .pane-title{display:none}
+body.solo .top,body.solo .seg,body.solo .road,body.solo .pane-title,body.solo .devs{display:none}
 body.solo .shell{padding:0;max-width:none}
 body.solo .grid{display:block}
 body.solo [data-pane]{display:none!important}
 body.solo [data-pane].on{display:block!important}
 body.solo.v-customer .phone{width:100%;height:100dvh;max-height:none;min-height:0;border-radius:0;padding:0!important;position:static;box-shadow:none}
 body.solo.v-customer .screen{border-radius:0!important}
+body.solo.v-customer .devwrap{width:100%}
 body.solo:not(.v-customer):not(.v-display) .shell{padding:16px}
 </style>
 </head>
@@ -354,7 +404,8 @@ body.solo:not(.v-customer):not(.v-display) .shell{padding:16px}
     <section data-pane="customer" class="phone-wrap" aria-label="واجهة الزبون">
       <div style="width:100%;display:flex;flex-direction:column;align-items:center">
         <div class="pane-title" style="align-self:flex-start">واجهة الزبون: تظهر بعد مسح الـ QR</div>
-        <div class="phone"><div class="screen" id="screen"></div></div>
+        <div class="devs" role="group" aria-label="حجم الشاشة" id="devs"></div>
+        <div class="devwrap" id="devwrap"><div class="phone"><div class="screen" id="screen"></div></div></div>
       </div>
     </section>
     <div>
@@ -447,12 +498,12 @@ function seed(){
     cats:[{id:'hot',name:'قهوة ساخنة',ic:'hot'},{id:'cold',name:'باردة',ic:'cold'},{id:'bake',name:'مخبوزات',ic:'bake'}],
     menu, orders, customers,
     rewards:[{id:'w1',title:'قهوة مجانية',cost:100,on:true},{id:'w2',title:'كرواسون مجاني',cost:60,on:true},{id:'w3',title:'خصم 10 ر.س',cost:80,on:true}],
-    vouchers:[],
+    vouchers:[], history:[],
     prevDays:[540,620,590,710,780,700],
     offers:[{id:'f1',title:'خصم 20% على المشروبات الباردة',body:'اليوم فقط من 4 إلى 7 مساءً',aud:'all',t:now-DAY}]
   };
 }
-function load(){ try{ const r = localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return seed(); }
+function load(){ try{ const r = localStorage.getItem(KEY); if(r){ const d = JSON.parse(r); d.history = d.history || []; return d; } }catch(e){} return seed(); }
 let saveFail = false;
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); saveFail=false; }catch(e){ saveFail=true; } }
 let S = load();
@@ -461,7 +512,7 @@ window.addEventListener('storage', e => { if(e.key === KEY){ const n = S.orders.
 const ui = {tab:'menu', cat:null, cart:{}, sheet:false, serve:'هنا', name:'', phone:'', note:'', alert:false, toast:null, alerted:'',
   view:'dash', dtab:'ov', ofilter:'all', osearch:'', csearch:'', edit:null, cmodal:null, draft:{title:'',body:'',aud:'all'}, authTab:'in', authErr:'', notif:'',
   signed:false, prevReady:null, dispSound:false, newCat:'', imgErr:'', stars:0, comment:'', acctErr:'', cPhone:'', cName:'', vMsg:null, vCode:'', locMsg:'',
-  imp:null, nearId:null, nearFired:false, nearErr:false, newReward:{title:'',cost:50}};
+  imp:null, nearId:null, nearFired:false, nearErr:false, newReward:{title:'',cost:50}, dev:'phone', wide:false, rateFor:null};
 try{ ui.signed = sessionStorage.getItem('dawrak_sess')==='1'; }catch(e){}
 const item = id => S.menu.find(m => m.id === id);
 const catOf = id => S.cats.find(c => c.id === id);
@@ -544,21 +595,29 @@ function qrSvg(text){ try{ const q = qrcode(0,'M'); q.addData(text); q.make(); r
 function renderPhone(){
   const mo = myOrder();
   const unread = S.optIn && ui.tab !== 'offers' && ui.newOffer;
-  const body = ui.tab==='menu' ? menuView() : ui.tab==='track' ? trackView(mo) : ui.tab==='offers' ? offersView() : acctView();
-  const n = cartCount();
-  $('#screen').innerHTML = `
+  if(ui.wide) ui.sheet = false;
+  const inner = ui.tab==='track' ? trackView(mo) : ui.tab==='offers' ? offersView() : ui.tab==='acct' ? acctView() : '';
+  const body = ui.tab==='menu' ? menuView() : `<div class="pg">${inner}</div>`;
+  const n = cartCount(), rf = ui.rateFor && S.orders.find(o=>o.id===ui.rateFor);
+  $('#screen').innerHTML = `<div class="scr-in">
     <header class="p-head"><div><h1>${esc(S.shop.name)}</h1><small>${esc(S.shop.sub)}</small></div><span class="open ${S.shop.open?'':'closed'}">${S.shop.open?'مفتوح الآن':'مغلق'}</span></header>
     <main class="p-main" id="pmain">${body}</main>
-    ${ui.tab==='menu' && n ? `<button class="cartbar" data-act="sheet"><span>${ico('bag')} عرض السلة (<b class="num">${n}</b>)</span><b class="num">${cartTotal()} ${SAR}</b></button>` : ''}
+    ${ui.wide ? `<aside class="side-cart" aria-label="السلة">${n ? `<h2 class="sc-h">سلتك</h2>${cartPanel()}` : sideIdle(mo)}</aside>` : ''}
     <nav class="nav" aria-label="التنقل">
       <button data-act="tab" data-t="menu" ${ui.tab==='menu'?'aria-current="page"':''}>${ico('menu')}القائمة</button>
-      <button data-act="tab" data-t="track" ${ui.tab==='track'?'aria-current="page"':''}>${ico('clock')}طلبي${mo && mo.status==='ready' ? '<i class="dot"></i>':''}</button>
+      <button data-act="tab" data-t="track" ${ui.tab==='track'?'aria-current="page"':''}>${ico('clock')}طلباتي${mo && mo.status==='ready' ? '<i class="dot"></i>':''}</button>
       <button data-act="tab" data-t="offers" ${ui.tab==='offers'?'aria-current="page"':''}>${ico('tag')}العروض${unread?'<i class="dot"></i>':''}</button>
       <button data-act="tab" data-t="acct" ${ui.tab==='acct'?'aria-current="page"':''}>${ico('gift')}حسابي</button>
-    </nav>
+    </nav></div>
+    ${!ui.wide && ui.tab==='menu' && n ? `<button class="cartbar" data-act="sheet"><span>${ico('bag')} عرض السلة (<b class="num">${n}</b>)</span><b class="num">${cartTotal()} ${SAR}</b></button>` : ''}
     ${ui.sheet ? sheetView() : ''}
+    ${rf ? rateSheet(rf) : ''}
     ${ui.toast ? `<div class="toast" role="status"><div class="ic">${ico('bell')}</div><div><b>${esc(ui.toast.title)}</b><span>${esc(ui.toast.body)}</span></div></div>` : ''}
     ${ui.alert && mo ? `<div class="alert" role="alertdialog" aria-label="طلبك جاهز"><div class="ring">${ico('bell')}</div><h2>طلبك جاهز!</h2><div class="no">${mo.no}</div><p>تفضّل استلمه من الكاونتر</p><button data-act="dismiss">تمام، جاي</button></div>` : ''}`;
+}
+function sideIdle(o){
+  if(o && o.status!=='done') return `<div class="track ${o.status==='ready'?'ready':''}"><div class="lbl">طلبك الحالي</div><div class="no" style="font-size:64px">${o.no}</div><p class="msg">${{new:'وصل للكاشير',prep:'يُحضّر الآن',ready:'جاهز، تفضّل'}[o.status]}</p><button class="btn btn-g" style="margin-top:10px" data-act="tab" data-t="track">التفاصيل</button></div>`;
+  return `<div class="empty">${ico('bag')}<p><b>سلتك فارغة</b></p><p class="hint">اختر من المنيو وأضف للسلة</p></div>`;
 }
 function menuView(){
   const cc = curCat();
@@ -571,14 +630,12 @@ function menuView(){
     const pic = m.img ? `<img class="glyph" src="${m.img}" alt="${esc(m.name)}">` : `<div class="glyph">${ico(c?.ic||'bag')}</div>`;
     return `<article class="item ${m.on?'':'off'}">${pic}<div class="meta"><h3>${esc(m.name)}</h3><p>${esc(m.desc)}</p><div class="price">${m.price} <small>${SAR}</small></div></div>${ctl}</article>`;
   }).join('');
-  return `${S.shop.open ? '' : '<div class="banner">المحل مغلق حالياً. تقدر تتصفح المنيو فقط.</div>'}<div class="chips" role="group" aria-label="الأقسام">${chips}</div>${list || '<div class="empty">لا توجد أصناف في هذا القسم</div>'}`;
+  return `${S.shop.open ? '' : '<div class="banner">المحل مغلق حالياً. تقدر تتصفح المنيو فقط.</div>'}<div class="chips" role="group" aria-label="الأقسام">${chips}</div>${list ? `<div class="menu-list">${list}</div>` : '<div class="empty">لا توجد أصناف في هذا القسم</div>'}`;
 }
-function sheetView(){
+function cartPanel(){
   const rows = Object.entries(ui.cart).map(([id,q]) => { const m = item(id); return m ? `<div class="line"><span>${esc(m.name)}</span><div class="step"><button data-act="dec" data-id="${id}" aria-label="إنقاص">${ico('minus')}</button><b>${q}</b><button data-act="inc" data-id="${id}" aria-label="زيادة">${ico('plus')}</button></div></div>` : ''; }).join('');
   const c = me();
-  return `<div class="sheet-bg" data-act="sheet-close"><div class="sheet" role="dialog" aria-label="السلة">
-    <h2>سلتك <button class="step" data-act="sheet-close" aria-label="إغلاق" style="width:44px;height:44px;justify-content:center">${ico('x')}</button></h2>
-    ${rows || '<p class="hint">السلة فارغة</p>'}
+  return `${rows || '<p class="hint">السلة فارغة</p>'}
     <div class="two" role="group" aria-label="طريقة الاستلام"><button data-act="serve" data-s="هنا" aria-pressed="${ui.serve==='هنا'}">آكل هنا</button><button data-act="serve" data-s="سفري" aria-pressed="${ui.serve==='سفري'}">سفري</button></div>
     <input class="field" id="fName" placeholder="اسمك (اختياري)" value="${esc(ui.name || c?.name || '')}" autocomplete="off">
     ${c ? `<p class="hint" style="margin-top:8px">نقاطك: <b class="num">${c.points}</b> · هذا الطلب يضيف <b class="num">${S.shop.ppo}</b> نقطة</p>`
@@ -587,7 +644,11 @@ function sheetView(){
     <div class="total"><span>الإجمالي</span><span class="num">${cartTotal()} ${SAR}</span></div>
     <button class="btn btn-a big" data-act="order" ${cartCount()?'':'disabled'}>تأكيد الطلب</button>
     ${ui.acctErr?`<p class="err" role="alert">${esc(ui.acctErr)}</p>`:''}
-    <p class="hint" style="text-align:center;margin-top:8px">الدفع عند الكاشير.</p></div></div>`;
+    <p class="hint" style="text-align:center;margin-top:8px">الدفع عند الكاشير.</p>`;
+}
+function sheetView(){
+  return `<div class="sheet-bg" data-act="sheet-close"><div class="sheet" role="dialog" aria-label="السلة">
+    <h2>سلتك <button class="step" data-act="sheet-close" aria-label="إغلاق" style="width:44px;height:44px;justify-content:center">${ico('x')}</button></h2>${cartPanel()}</div></div>`;
 }
 function invoiceHtml(o){
   const sub = o.total/1.15, vat = o.total - sub;
@@ -596,28 +657,48 @@ function invoiceHtml(o){
     ${lines}<div class="line"><span>المجموع قبل الضريبة</span><span class="num">${sub.toFixed(2)}</span></div><div class="line"><span>ضريبة القيمة المضافة 15%</span><span class="num">${vat.toFixed(2)}</span></div>
     <div class="line"><b>الإجمالي</b><b class="num">${o.total.toFixed(2)} ${SAR}</b></div><small>الأسعار شاملة الضريبة. فاتورة تجريبية.</small></div>`;
 }
-function trackView(o){
-  if(!o) return `<div class="empty">${ico('clock')}<p>ما عندك طلب حالياً</p><button class="btn btn-p" style="margin-top:12px" data-act="tab" data-t="menu">تصفّح القائمة</button></div>`;
-  const ahead = S.orders.filter(x => (x.status==='new'||x.status==='prep') && x.no < o.no).length;
-  const msgs = {new:`وصل طلبك للكاشير. قبلك ${ahead} ${ahead===1?'طلب':'طلبات'}`, prep:'نحضّر طلبك الآن', ready:'طلبك جاهز، تفضّل للكاونتر', done:'بالعافية! نتمنى نشوفك قريب'};
-  const idx = {new:0,prep:1,ready:2,done:2}[o.status];
-  const lines = o.items.map(i => `<div class="line"><span>${i.q}× ${esc(item(i.id)?.name||'')}</span></div>`).join('');
-  const eta = o.status==='new' ? `<p class="hint">الوقت المتوقع: حوالي <b class="num">${3+ahead*2}</b> دقائق</p>` : '';
-  const rate = o.status==='done' && o.rating==null ? `<div class="card" style="margin-top:12px"><h3 style="text-align:center">قيّم تجربتك</h3>
-      <div class="stars" role="group" aria-label="التقييم">${[1,2,3,4,5].map(n=>`<button class="${n<=ui.stars?'on':''}" data-act="star" data-n="${n}" aria-label="${n} نجوم">${ico('star')}</button>`).join('')}</div>
-      <textarea class="field" id="rComment" placeholder="ملاحظاتك (اختياري)">${esc(ui.comment)}</textarea>
-      <button class="btn btn-a big" style="margin-top:10px" data-act="rate" ${ui.stars?'':'disabled'}>إرسال التقييم</button></div>`
-    : o.rating!=null ? `<p class="hint" style="text-align:center;margin-top:12px">شكراً لتقييمك ★ ${o.rating}/5</p>` : '';
-  const pts = o.pointsAwarded>0 ? `<p class="ok" style="text-align:center">أضفنا لك ${o.pointsAwarded} نقطة لهذا الطلب</p>` : '';
-  return `<div class="track ${o.status==='ready'?'ready':''}"><div class="lbl">رقم طلبك</div><div class="no">${o.no}</div>
-    <div class="st" aria-hidden="true"><div class="on">استُلم</div><div class="${idx>=1?'on':''}">يُحضّر</div><div class="${idx>=2?'on':''}">جاهز</div></div>
-    <p class="msg" role="status">${msgs[o.status]}</p>${eta}</div>${pts}
-    <div class="card" style="margin-top:12px">${lines}<div class="total" style="margin:10px 0 0"><span>الإجمالي</span><span class="num">${o.total} ${SAR}</span></div></div>
-    <details class="card" style="margin-top:12px"><summary>${ico('receipt')} الفاتورة</summary>${invoiceHtml(o)}</details>
-    ${rate}
-    <p class="hint" style="text-align:center;margin-top:12px">اترك هذه الصفحة مفتوحة. يهتز جوالك ويصدر صوتاً لما يجهز طلبك.</p>
-    ${o.status==='done' ? '<button class="btn btn-p big" style="margin-top:12px" data-act="new-order">طلب جديد</button>' : ''}`;
+function histItems(){
+  return S.history.map(id=>S.orders.find(o=>o.id===id)).filter(o=>o && o.status==='done' && o.id!==S.my).sort((a,b)=>b.t-a.t);
 }
+function histRow(x){
+  return `<article class="hrow"><div class="hr-top"><b>طلب #${x.no}</b><span class="hint">${dfmt(x.t)} · ${tfmt(x.t)}</span><b class="num">${x.total} ${SAR}</b></div>
+    <p class="hint">${x.items.map(i=>`${i.q}× ${esc(item(i.id)?.name||'')}`).join('، ')}</p>
+    <div class="hr-act">${x.rating!=null?`<span class="stars-s" aria-label="تقييمك ${x.rating} من 5">${'★'.repeat(x.rating)}${'☆'.repeat(5-x.rating)}</span>`:`<button class="btn btn-g" data-act="rate-open" data-id="${x.id}">${ico('star')} قيّم</button>`}
+      <button class="btn btn-g" data-act="reorder" data-id="${x.id}">${ico('repeat')} اطلبه مرة ثانية</button></div>
+    <details><summary class="hint">الفاتورة</summary>${invoiceHtml(x)}</details></article>`;
+}
+function trackView(o){
+  const hist = histItems();
+  if(!o && !hist.length) return `<div class="empty">${ico('clock')}<p>ما عندك طلبات بعد</p><button class="btn btn-p" style="margin-top:12px" data-act="tab" data-t="menu">تصفّح القائمة</button></div>`;
+  let top = '';
+  if(o){
+    const ahead = S.orders.filter(x => (x.status==='new'||x.status==='prep') && x.no < o.no).length;
+    const msgs = {new:`وصل طلبك للكاشير. قبلك ${ahead} ${ahead===1?'طلب':'طلبات'}`, prep:'نحضّر طلبك الآن', ready:'طلبك جاهز، تفضّل للكاونتر', done:'تم الاستلام. بالعافية!'};
+    const idx = {new:0,prep:1,ready:2,done:2}[o.status];
+    const lines = o.items.map(i => `<div class="line"><span>${i.q}× ${esc(item(i.id)?.name||'')}</span></div>`).join('');
+    const eta = o.status==='new' ? `<p class="hint">الوقت المتوقع: حوالي <b class="num">${3+ahead*2}</b> دقائق</p>` : '';
+    top = `<div class="track ${o.status==='ready'?'ready':''}"><div class="lbl">رقم طلبك</div><div class="no">${o.no}</div>
+      <div class="st" aria-hidden="true"><div class="on">استُلم</div><div class="${idx>=1?'on':''}">يُحضّر</div><div class="${idx>=2?'on':''}">جاهز</div></div>
+      <p class="msg" role="status">${msgs[o.status]}</p>${eta}
+      ${o.status==='ready' ? `<button class="btn btn-a big" style="margin-top:14px" data-act="picked">${ico('check')} استلمت طلبي</button>` : ''}</div>
+      <div class="card" style="margin-top:12px">${lines}<div class="total" style="margin:10px 0 0"><span>الإجمالي</span><span class="num">${o.total} ${SAR}</span></div></div>
+      <details class="card" style="margin-top:12px"><summary>${ico('receipt')} الفاتورة</summary>${invoiceHtml(o)}</details>
+      ${o.status!=='done' ? '<p class="hint" style="text-align:center;margin-top:12px">اترك هذه الصفحة مفتوحة. يهتز جوالك ويصدر صوتاً لما يجهز طلبك.</p>' : ''}`;
+  }
+  return top + (hist.length ? `<h3 style="margin:18px 0 8px">طلباتك السابقة</h3>${hist.map(histRow).join('')}` : '');
+}
+function rateSheet(o){
+  return `<div class="sheet-bg" data-act="rate-later"><div class="sheet" role="dialog" aria-label="قيّم طلبك">
+    <h2 style="justify-content:center">كيف كانت تجربتك؟</h2>
+    <p class="hint" style="text-align:center">طلب #${o.no} من ${esc(S.shop.name)}</p>
+    ${o.pointsAwarded>0?`<p class="ok" style="text-align:center">أضفنا لك ${o.pointsAwarded} نقطة على هذا الطلب</p>`:''}
+    <div class="stars" role="group" aria-label="التقييم">${[1,2,3,4,5].map(n=>`<button class="${n<=ui.stars?'on':''}" data-act="star" data-n="${n}" aria-label="${n} نجوم">${ico('star')}</button>`).join('')}</div>
+    <textarea class="field" id="rComment" placeholder="ملاحظاتك (اختياري)">${esc(ui.comment)}</textarea>
+    <button class="btn btn-a big" style="margin-top:10px" data-act="rate" ${ui.stars?'':'disabled'}>إرسال التقييم</button>
+    <button class="btn btn-g big" style="margin-top:8px" data-act="rate-later-btn">لاحقاً</button>
+    <p class="hint" style="text-align:center;margin-top:8px">انحفظ طلبك في «طلباتي» وتقدر تقيّمه بعدين.</p></div></div>`;
+}
+function closeRate(o){ o.rateAsked = true; if(S.my===o.id) S.my = null; ui.rateFor = null; ui.stars = 0; ui.comment = ''; ui.tab = 'track'; save(); }
 function offersView(){
   const list = offersForMe().map(f => `<article class="offer"><h3>${esc(f.title)}</h3><p>${esc(f.body)}</p><small>${mins(f.t)<60?`قبل ${mins(f.t)} دقيقة`:mins(f.t)<1440?`قبل ${Math.floor(mins(f.t)/60)} ساعة`:`قبل ${daysAgo(f.t)} يوم`}${f.aud!=='all'?' · خاص بك':''}</small></article>`).join('');
   const nmsg = {granted:'إشعارات النظام مفعّلة لهذه الصفحة.', denied:'المتصفح رفض الإشعارات. فعّلها من إعدادات الموقع.', unsupported:'هذا المتصفح لا يدعم إشعارات النظام.'}[ui.notif] || '';
@@ -931,9 +1012,12 @@ function renderDash(){
 /* ================= actions ================= */
 function toast(title, body){ ui.toast = {title, body}; renderPhone(); clearTimeout(toast.t); toast.t = setTimeout(()=>{ ui.toast=null; renderPhone(); }, 4500); }
 function checkAlert(){
-  const o = myOrder(); if(!o || o.status!=='ready') return;
-  const key = o.id+':'+(o.callAt||0);
-  if(ui.alerted !== key){ ui.alerted = key; ui.alert = true; beep(); sysNotify('طلبك جاهز', 'رقم '+o.no+' جاهز للاستلام'); }
+  const o = myOrder(); if(!o) return false;
+  if(o.status==='ready'){
+    const key = o.id+':'+(o.callAt||0);
+    if(ui.alerted !== key){ ui.alerted = key; ui.alert = true; beep(); sysNotify('طلبك جاهز', 'رقم '+o.no+' جاهز للاستلام'); return true; }
+  } else if(o.status==='done' && !o.rateAsked && !ui.rateFor){ ui.alert = false; ui.rateFor = o.id; ui.stars = 0; ui.comment = ''; return true; }
+  return false;
 }
 const A = {
   tab(el){ ui.tab = el.dataset.t; ui.acctErr=''; if(ui.tab==='offers') ui.newOffer=false; },
@@ -949,12 +1033,17 @@ const A = {
     ui.acctErr='';
     const items = Object.entries(ui.cart).map(([id,q])=>({id,q}));
     const o = {id:'o'+Date.now(), no:++S.seq, name:(ui.name.trim()||c?.name?.split(' ')[0]||'').slice(0,20), customerId:c?c.id:null, serve:ui.serve, items, total:cartTotal(), note:ui.note.trim().slice(0,60), status:'new', t:Date.now(), callAt:0, pointsAwarded:0, rating:null};
-    S.orders.push(o); S.my = o.id; ui.cart = {}; ui.sheet=false; ui.tab='track'; ui.note=''; ui.stars=0; ui.comment=''; save();
+    S.orders.push(o); S.history.push(o.id); S.my = o.id; ui.cart = {}; ui.sheet=false; ui.tab='track'; ui.note=''; ui.stars=0; ui.comment=''; save();
   },
   'new-order'(){ S.my=null; ui.tab='menu'; save(); },
   dismiss(){ ui.alert=false; },
   star(el){ ui.stars = +el.dataset.n; },
-  rate(){ const o = myOrder(); if(!o || !ui.stars) return; o.rating = ui.stars; o.ratingComment = ui.comment.trim().slice(0,200); ui.stars=0; ui.comment=''; save(); toast('شكراً لتقييمك','رأيك يساعدنا نتحسن'); },
+  rate(){ const o = S.orders.find(x=>x.id===ui.rateFor); if(!o || !ui.stars) return; o.rating = ui.stars; o.ratingComment = ui.comment.trim().slice(0,200); closeRate(o); toast('شكراً لتقييمك','رأيك يساعدنا نتحسن'); },
+  'rate-later'(){ const o = S.orders.find(x=>x.id===ui.rateFor); if(o) closeRate(o); else ui.rateFor = null; },
+  'rate-later-btn'(){ A['rate-later'](); },
+  'rate-open'(el){ ui.rateFor = el.dataset.id; ui.stars = 0; ui.comment = ''; },
+  picked(){ const o = myOrder(); if(!o || o.status!=='ready') return; o.status = 'done'; awardPoints(o); ui.alert = false; save(); },
+  dev(el){ ui.dev = el.dataset.d; renderDevs(); fitDev(); },
   optin(){ S.optIn = !S.optIn; S.subs += S.optIn ? 1 : -1; save(); if(S.optIn){ askNotif().then(r=>{ ui.notif=r; renderAll(); }); startNear(); } else { ui.notif=''; stopNear(); } },
   'sim-near'(){ nearAlert(); },
   'acct-login'(){
@@ -1029,9 +1118,9 @@ const A = {
   'disp-sound'(){ ui.dispSound = !ui.dispSound; if(ui.dispSound) chime(); },
   'disp-full'(){ try{ const el = $('.disp'); (el.requestFullscreen||el.webkitRequestFullscreen).call(el).catch(()=>{}); }catch(e){} },
   pane(el){ setView(el.dataset.v); },
-  reset(){ try{ localStorage.removeItem(KEY); }catch(e){} stopNear(); S = seed(); Object.assign(ui,{cart:{},sheet:false,alert:false,tab:'menu',alerted:'',draft:{title:'',body:'',aud:'all'},edit:null,cmodal:null,imp:null,prevReady:null}); }
+  reset(){ try{ localStorage.removeItem(KEY); }catch(e){} stopNear(); S = seed(); Object.assign(ui,{cart:{},sheet:false,alert:false,tab:'menu',alerted:'',draft:{title:'',body:'',aud:'all'},edit:null,cmodal:null,imp:null,prevReady:null,rateFor:null}); }
 };
-const BG = {'sheet-close':'sheet-bg','modal-close':'modal-bg','cmodal-close':'modal-bg'};
+const BG = {'rate-later':'sheet-bg','sheet-close':'sheet-bg','modal-close':'modal-bg','cmodal-close':'modal-bg'};
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-act]'); if(!el) return;
   const bg = BG[el.dataset.act]; if(bg && el.classList.contains(bg) && e.target!==el) return;
@@ -1095,6 +1184,7 @@ function setView(v){
   ui.view = v;
   document.querySelectorAll('[data-pane]').forEach(p => { if(p.dataset.pane!=='customer' || document.body.classList.contains('solo') || innerWidth<=1000) p.classList.toggle('on', p.dataset.pane===v); else p.classList.add('on'); });
   $('#seg').innerHTML = VIEWS.map(([k,n,c])=>`<button class="${c}" data-act="pane" data-v="${k}" aria-pressed="${k===v}">${n}</button>`).join('');
+  fitDev();
 }
 function applyHash(){
   const h = location.hash.slice(1), m = {customer:'customer', staff:'staff', display:'display', dashboard:'dash'}[h];
@@ -1102,18 +1192,31 @@ function applyHash(){
   setView(m || (innerWidth<=1000 ? 'customer' : (ui.view==='customer'?'dash':ui.view)));
 }
 window.addEventListener('hashchange', ()=>{ applyHash(); renderAll(); });
-window.addEventListener('resize', ()=>{ if(!document.body.classList.contains('solo')) setView(ui.view); });
+window.addEventListener('resize', ()=>{ if(!document.body.classList.contains('solo')) setView(ui.view); else fitDev(); });
 
 function renderAll(){
   const keep = $('#pmain')?.scrollTop || 0;
-  renderPhone(); renderStaff(); renderDisplay(); renderDash(); checkAlert();
-  if(ui.alert) renderPhone();
+  renderPhone(); renderStaff(); renderDisplay(); renderDash();
+  if(checkAlert()) renderPhone();
   const m = $('#pmain'); if(m) m.scrollTop = keep;
   const a = $('#lnkCustomer'); if(a) a.href = baseUrl()+'#customer';
   const b = $('#lnkDisplay'); if(b) b.href = baseUrl()+'#display';
 }
-applyHash(); renderAll(); if(S.optIn) startNear();
-setInterval(()=>{ renderStaff(); renderDisplay(); if(ui.tab==='track') renderPhone(); }, 30000);
+const DEVS = [['phone','جوال'],['tp','تابلت طولي'],['tl','تابلت عرضي']];
+function renderDevs(){ const d = $('#devs'); if(d) d.innerHTML = DEVS.map(([k,n])=>`<button data-act="dev" data-d="${k}" aria-pressed="${ui.dev===k}">${n}</button>`).join(''); }
+function fitDev(){
+  const ph = $('.phone'), wrap = $('#devwrap'), grid = $('.grid'); if(!ph || !wrap) return;
+  const tab = ui.dev!=='phone' && !document.body.classList.contains('solo');
+  ph.classList.toggle('tab', tab); ph.classList.toggle('land', tab && ui.dev==='tl'); grid.classList.toggle('wide-dev', tab);
+  if(!tab){ wrap.style.width=''; wrap.style.height=''; ph.style.transform=''; return; }
+  const W = ui.dev==='tl' ? 1024 : 768, H = ui.dev==='tl' ? 768 : 1024, avail = wrap.parentElement.clientWidth;
+  if(avail <= 0) return;
+  const k = Math.min(1, avail/W);
+  wrap.style.width = W*k+'px'; wrap.style.height = H*k+'px'; ph.style.transform = `scale(${k})`;
+}
+renderDevs(); applyHash(); renderAll(); if(S.optIn) startNear();
+try{ new ResizeObserver(()=>{ const el = $('#screen'), w = el.clientWidth, h = el.clientHeight, wide = w>=900 && w>h; if(wide!==ui.wide){ ui.wide = wide; renderPhone(); } }).observe($('#screen')); }catch(e){}
+setInterval(()=>{ renderStaff(); renderDisplay(); if(ui.tab==='track' && !ui.rateFor) renderPhone(); }, 30000);
 </script>
 </body>
 </html>
