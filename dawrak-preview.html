@@ -19,6 +19,7 @@
   --accent:#EBDFC8; --accent-ink:#1D2B5A;
   --new:#F2A36B; --prep:#E9C46A; --ready:#4FD1A0; --ready-bg:#0F2F27; --ready-solid:#1A7F5C;
   --danger:#FF8A7A; --chart:#2AA79B; --chart-2:#EBDFC8;
+  --c1:#2AA79B; --c2:#2F6DB5; --c3:#EBDFC8; --c4:#8F9BF5; --c5:#4FD1A0; --card-sh:0 1px 2px rgba(0,0,0,.25),0 10px 28px rgba(0,0,0,.22);
   --sea:linear-gradient(135deg,#1D2B5A 0%,#2F6DB5 55%,#2AA79B 100%);
   --r:16px; --shadow:0 10px 30px rgba(0,0,0,.45);
   --f-d:'Reem Kufi','IBM Plex Sans Arabic',system-ui,sans-serif; --f-b:'IBM Plex Sans Arabic',system-ui,sans-serif;
@@ -30,7 +31,8 @@
     --ink:#13232B; --muted:#55666B; --brand:#0E7C72; --brand-ink:#FFFFFF;
     --accent:#1D2B5A; --accent-ink:#FBF3E2;
     --new:#A64A12; --prep:#7A5600; --ready:#166B45; --ready-bg:#DDF1E7;
-    --danger:#B3261E; --chart:#0E7C72; --chart-2:#1D2B5A; --shadow:0 10px 30px rgba(29,43,90,.16);
+    --danger:#B3261E; --chart:#0E7C72; --chart-2:#1D2B5A;
+    --c1:#0E7C72; --c2:#2F6DB5; --c3:#1D2B5A; --c4:#C9A45C; --c5:#7AA7E0; --card-sh:0 1px 2px rgba(16,24,40,.05),0 10px 28px rgba(16,24,40,.08); --shadow:0 10px 30px rgba(29,43,90,.16);
   }
 }
 :root[data-theme="light"]{
@@ -39,7 +41,8 @@
   --ink:#13232B; --muted:#55666B; --brand:#0E7C72; --brand-ink:#FFFFFF;
   --accent:#1D2B5A; --accent-ink:#FBF3E2;
   --new:#A64A12; --prep:#7A5600; --ready:#166B45; --ready-bg:#DDF1E7;
-  --danger:#B3261E; --chart:#0E7C72; --chart-2:#1D2B5A; --shadow:0 10px 30px rgba(29,43,90,.16);
+  --danger:#B3261E; --chart:#0E7C72; --chart-2:#1D2B5A;
+    --c1:#0E7C72; --c2:#2F6DB5; --c3:#1D2B5A; --c4:#C9A45C; --c5:#7AA7E0; --card-sh:0 1px 2px rgba(16,24,40,.05),0 10px 28px rgba(16,24,40,.08); --shadow:0 10px 30px rgba(29,43,90,.16);
 }
 *{box-sizing:border-box;margin:0}
 html{-webkit-text-size-adjust:100%}
@@ -124,12 +127,14 @@ h1,h2,h3,.logo{font-family:var(--f-d)}
 .step button{width:44px;height:44px;display:grid;place-items:center;border-radius:12px}
 .step b{min-width:22px;text-align:center}
 .soldout{font-size:12px;font-weight:700;color:var(--danger);padding:0 6px}
-.cartbar{position:absolute;inset-inline:14px;bottom:78px;background:var(--accent);color:var(--accent-ink);border-radius:16px;min-height:56px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);width:calc(100% - 28px);font-weight:700}
+.cartbar{position:absolute;left:14px;right:14px;bottom:78px;background:var(--accent);color:var(--accent-ink);border-radius:16px;min-height:56px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);width:calc(100% - 28px);font-weight:700}
 .cartbar span{display:flex;align-items:center;gap:10px}
-.nav{position:absolute;inset-inline:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 6px}
+.nav{position:absolute;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 6px}
 .nav button{flex:1;min-width:0;min-height:56px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:700;color:var(--muted);position:relative}
 .nav button[aria-current=page]{color:var(--brand);background:var(--surface-2)}
-.dot{position:absolute;top:6px;inset-inline-start:calc(50% + 8px);width:10px;height:10px;border-radius:50%;background:var(--new);border:2px solid var(--surface)}
+.nav button[aria-current=page] .ico{stroke-width:2.4}
+.nav button:active{transform:scale(.96)}
+.dot{position:absolute;top:6px;right:calc(50% + 8px);width:10px;height:10px;border-radius:50%;background:var(--new);border:2px solid var(--surface)}
 .sheet-bg{position:absolute;inset:0;background:rgba(2,8,9,.65);z-index:20;display:flex;align-items:flex-end}
 .sheet{background:var(--bg);width:100%;max-height:90%;overflow:auto;border-radius:26px 26px 0 0;padding:18px 18px 22px;animation:up .25s ease-out}
 @keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
@@ -159,11 +164,11 @@ textarea.field{min-height:80px;resize:vertical}
 .offer h3{font-size:16px}
 .offer small{color:var(--muted)}
 .opt{display:flex;gap:12px;align-items:center;background:var(--surface-2);border-radius:var(--r);padding:14px;margin-bottom:12px}
-.switch{width:56px;height:32px;border-radius:999px;background:var(--line);position:relative;flex:none;transition:background .2s}
-.switch::after{content:"";position:absolute;top:4px;inset-inline-start:4px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.switch{width:56px;min-width:56px;height:32px;padding:0;border-radius:999px;background:var(--line);position:relative;flex:none;overflow:hidden;transition:background .2s}
+.switch::after{content:"";position:absolute;top:4px;right:4px;left:auto;width:24px;height:24px;border-radius:50%;background:#fff;transition:right .2s;box-shadow:0 1px 3px rgba(0,0,0,.4)}
 .switch[aria-checked=true]{background:var(--brand)}
-.switch[aria-checked=true]::after{transform:translateX(-24px)}
-.toast{position:absolute;top:12px;inset-inline:12px;z-index:40;background:var(--surface);border-radius:18px;padding:12px 14px;box-shadow:var(--shadow);border:1px solid var(--line);display:flex;gap:10px;align-items:flex-start;animation:down .35s ease-out}
+.switch[aria-checked=true]::after{right:28px}
+.toast{position:absolute;top:12px;left:12px;right:12px;z-index:40;background:var(--surface);border-radius:18px;padding:12px 14px;box-shadow:var(--shadow);border:1px solid var(--line);display:flex;gap:10px;align-items:flex-start;animation:down .35s ease-out}
 .toast .ic{width:36px;height:36px;border-radius:10px;background:var(--sea);color:#fff;display:grid;place-items:center;flex:none}
 .toast b{display:block;font-size:14px}.toast span{font-size:13px;color:var(--muted)}
 @keyframes down{from{transform:translateY(-30px);opacity:0}to{transform:none;opacity:1}}
@@ -262,7 +267,7 @@ body.solo .disp{border-radius:0;min-height:100dvh}
 .kpi b{display:block;font-size:28px;line-height:1.2;margin:2px 0}
 .delta{font-size:13px;font-weight:700}.delta.up{color:var(--ready)}.delta.dn2{color:var(--danger)}
 .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.panel{background:var(--surface);border:0;border-radius:20px;padding:16px;min-width:0;box-shadow:var(--card-sh)}
 .panel h3{font-size:16px;margin-bottom:10px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
 .panel h3 small{font-family:var(--f-b);font-weight:500;color:var(--muted)}
 .hero{background:var(--sea);color:#F6F1E4;border-radius:16px;padding:18px;margin-bottom:12px}
@@ -329,6 +334,131 @@ tr.clk:hover{background:var(--surface-2)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
+/* ---------- dashboard: top tabs + side panel + soft cards ---------- */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.grid.view-dash{grid-template-columns:minmax(0,1fr)}
+.grid.view-dash>[data-pane=customer]{order:2}
+.dsh{container-type:inline-size;container-name:dsh}
+.dsh-card{background:var(--bg);border:1px solid var(--line);border-radius:26px;padding:14px}
+.dsh-top{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border-radius:18px;padding:10px 12px;box-shadow:var(--card-sh)}
+.dsh-brand{display:flex;align-items:center;gap:8px;font-family:var(--f-d);font-weight:700;font-size:20px;flex:none}
+.dsh-brand i{width:34px;height:34px;border-radius:10px;background:var(--sea);color:#F6F1E4;display:grid;place-items:center;font-style:normal}
+.dsh-brand i .ico{width:18px;height:18px}
+.dsh-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0;padding:2px}
+.dsh-tabs button{flex:none;min-height:40px;padding:0 16px;border-radius:999px;font-weight:700;color:var(--muted);font-size:14px}
+.dsh-tabs button[aria-pressed=true]{background:var(--brand);color:var(--brand-ink);box-shadow:0 6px 16px rgba(42,167,155,.35)}
+.dsh-tools{display:flex;align-items:center;gap:8px;flex:none}
+.ib-r{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);position:relative;color:var(--muted)}
+.ib-r .ico{width:19px;height:19px}
+.ib-r .badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:var(--brand);color:var(--brand-ink);font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 4px;font-style:normal}
+.me{display:flex;align-items:center;gap:8px}
+.me .av{width:38px;height:38px;border-radius:50%;background:var(--sea);color:#F6F1E4;display:grid;place-items:center;font-weight:700;flex:none}
+.me b{display:block;font-size:14px;line-height:1.2}.me small{color:var(--muted);font-size:12px;direction:ltr;display:block;text-align:right}
+.dsh-body{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-top:14px}
+.dsh-side{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.dsh-side .welcome,.dsh-side .cap,.dsh-side .promo{display:none}
+.side-it{flex:none;min-height:42px;padding:0 14px;border-radius:999px;display:flex;align-items:center;gap:8px;font-weight:700;color:var(--muted);font-size:14px;background:var(--surface)}
+.side-it .ico{width:18px;height:18px}
+.side-it[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.dsh-main{min-width:0}
+.dsh-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.dsh-head h2{font-size:24px}
+.seg-s{display:flex;gap:2px;background:var(--surface);border-radius:999px;padding:3px;box-shadow:var(--card-sh)}
+.seg-s button{min-height:34px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:700;color:var(--muted)}
+.seg-s button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.kcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:12px}
+.kc{background:var(--surface);border-radius:20px;padding:14px 14px 6px;box-shadow:var(--card-sh);display:flex;flex-direction:column;min-width:0;transition:transform .2s}
+.kc:hover{transform:translateY(-3px)}
+.kc .kt{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+.kc .kt i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);color:var(--ink);font-style:normal}
+.kc .kt i .ico{width:16px;height:16px}
+.kc .kv{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+.kc .kv b{font-size:26px;line-height:1.1}
+.kc .kv b small{font-size:13px;font-weight:500;opacity:.7}
+.dp{font-size:12px;font-weight:700;border-radius:999px;padding:2px 8px;white-space:nowrap}
+.dp.up{background:var(--ready-bg);color:var(--ready)}
+.dp.dn{background:rgba(255,138,122,.16);color:var(--danger)}
+.spk{width:100%;height:44px;display:block;margin-top:6px}
+.spk path{fill:none;stroke:var(--chart);stroke-width:2;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.kc.dark{background:#14213D;color:#F6F1E4}
+.kc.dark .kt{color:#B9C3D6}.kc.dark .kt i{background:rgba(255,255,255,.12);color:#fff}
+.kc.dark .spk path{stroke:#EBDFC8}
+.kc.dark .dp.up{background:rgba(79,209,160,.18);color:#7BE3BC}
+.rowc{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-bottom:12px}
+.cardx{background:var(--surface);border-radius:20px;padding:16px;box-shadow:var(--card-sh);min-width:0}
+.cardx h3{font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.cardx .sub{color:var(--muted);font-size:13px;margin:2px 0 10px}
+.lg{display:flex;gap:12px;font-size:12px;color:var(--muted);font-family:var(--f-b);font-weight:500}
+.lg i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:5px}
+.flow text{fill:var(--muted);font-family:var(--f-b);font-size:11px}
+.flow .gl{stroke:var(--line);stroke-dasharray:3 4}
+.flow .a1{fill:url(#gA)}
+.flow .l1{fill:none;stroke:var(--c1);stroke-width:2.6;stroke-linecap:round}
+.flow .l2{fill:none;stroke:var(--c3);stroke-width:2;stroke-linecap:round}
+.flow .pt{fill:var(--c1);stroke:var(--surface);stroke-width:3}
+.flow .hit{fill:transparent}
+.flow .hit:hover{fill:color-mix(in srgb,var(--c1) 10%,transparent)}
+.donut{display:flex;flex-direction:column;align-items:center;gap:14px}
+.donut svg{width:170px;height:170px}
+.dc-s{fill:var(--muted);font-size:12px;font-family:var(--f-b)}
+.dc-v{fill:var(--ink);font-size:22px;font-weight:700;font-family:var(--f-b)}
+.dl{width:100%;display:grid;gap:8px}
+.dl div{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:8px;align-items:center;font-size:14px}
+.dl i{width:10px;height:10px;border-radius:50%}
+.dl .p{color:var(--muted);font-size:12px;min-width:34px;text-align:left}
+.lo .r{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.lo .r .hint{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.promo{background:var(--sea);color:#F6F1E4;border-radius:20px;padding:16px;margin-top:16px}
+.promo b{display:block;font-size:16px;font-family:var(--f-d)}
+.promo p{font-size:13px;opacity:.9;margin:4px 0 10px}
+.promo button{background:#0B1415;color:#F6F1E4;border-radius:999px;min-height:38px;padding:0 14px;font-weight:700;font-size:13px;display:inline-flex;gap:6px;align-items:center}
+.promo button .ico{width:16px;height:16px}
+@container dsh (min-width:860px){
+  .dsh-body{grid-template-columns:224px minmax(0,1fr)}
+  .dsh-side{flex-direction:column;overflow:visible;gap:4px;background:var(--surface);border-radius:20px;padding:16px;box-shadow:var(--card-sh);align-self:start;position:sticky;top:12px}
+  .dsh-side .welcome{display:block;margin-bottom:10px}
+  .dsh-side .welcome h2{font-size:20px;line-height:1.4}
+  .dsh-side .cap{display:block;color:var(--muted);font-size:12px;letter-spacing:.3px;margin:12px 6px 4px}
+  .dsh-side .promo{display:block}
+  .side-it{background:transparent;border-radius:12px;width:100%}
+}
+@container dsh (min-width:1000px){ .rowc.r2{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr)} .rowc.r3{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} }
+@container dsh (max-width:640px){ .dsh-top{flex-wrap:wrap} .dsh-tabs{order:3;width:100%} .me span{display:none} }
+
+/* ---------- login / sign-up ---------- */
+.auth-wrap{container-type:inline-size;max-width:900px;margin:10px auto}
+.auth{display:grid;grid-template-columns:minmax(0,1fr);background:var(--surface);border-radius:30px;overflow:hidden;box-shadow:var(--card-sh);border:1px solid var(--line)}
+.auth-hero{background:var(--sea);color:#F6F1E4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:34px 24px 46px;border-radius:0 0 50% 50% / 0 0 56px 56px;order:-1;animation:heroIn .45s ease}
+.auth-hero h2{font-size:30px}
+.auth-hero p{opacity:.9}
+.auth-hero .ghost{min-height:46px;padding:0 30px;border-radius:12px;border:2px solid #F6F1E4;color:#F6F1E4;font-weight:700;margin-top:8px;transition:background .2s,color .2s}
+.auth-hero .ghost:hover{background:#F6F1E4;color:#1D2B5A}
+.auth-form{padding:28px 24px 30px;display:flex;flex-direction:column;animation:formIn .45s ease}
+.auth-form h2{font-size:28px;text-align:center}
+.auth-form>.hint{text-align:center;margin:4px 0 12px}
+.inp{position:relative;margin-top:12px}
+.inp input{width:100%;min-height:52px;border-radius:12px;border:1px solid transparent;background:var(--surface-2);padding:0 16px 0 46px;text-align:right}
+.inp input::placeholder{color:var(--muted)}
+.inp input:focus{border-color:var(--brand);outline:none;box-shadow:0 0 0 3px rgba(42,167,155,.2)}
+.inp .ico{position:absolute;left:15px;top:50%;margin-top:-10px;width:20px;height:20px;color:var(--muted);pointer-events:none}
+.lnk{color:var(--brand);font-weight:700;font-size:14px;min-height:38px;margin:6px auto 2px;display:block}
+.auth-form .big{margin-top:12px}
+.or{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px;margin:18px 0 12px}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.soc{display:flex;justify-content:center;gap:10px}
+.soc button{width:50px;height:50px;border-radius:14px;border:1px solid var(--line);display:grid;place-items:center;font-size:19px;background:var(--surface)}
+.soc button:hover{border-color:var(--brand)}
+@keyframes heroIn{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+@keyframes formIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes heroL{from{opacity:.4;transform:translateX(-60px)}to{opacity:1;transform:none}}
+@keyframes heroR{from{opacity:.4;transform:translateX(60px)}to{opacity:1;transform:none}}
+@container (min-width:700px){
+  .auth{grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:540px}
+  .auth-hero{order:0;border-radius:0 190px 190px 0;padding:40px;animation-name:heroL}
+  .auth.up .auth-hero{order:-1;border-radius:190px 0 0 190px;animation-name:heroR}
+  .auth-form{padding:44px 52px;justify-content:center}
+}
+
 /* ---------- customer on tablets: container queries on the screen, so it adapts in the app and in the preview frame ---------- */
 .screen{container-type:size;container-name:scr}
 .scr-in{height:100%;display:flex;flex-direction:column;min-height:0}
@@ -349,7 +479,7 @@ tr.clk:hover{background:var(--surface-2)}
   .menu-list .item{margin:0}
   .glyph{width:76px;height:76px}
   .pg{max-width:680px;margin-inline:auto}
-  .cartbar{inset-inline:0;margin-inline:auto;width:min(520px,calc(100% - 64px))}
+  .cartbar{left:0;right:0;margin-left:auto;margin-right:auto;width:min(520px,calc(100% - 64px))}
   .sheet-bg{align-items:center;justify-content:center;padding:24px}
   .sheet{max-width:620px;border-radius:26px}
   .nav{justify-content:center}
@@ -373,7 +503,7 @@ tr.clk:hover{background:var(--surface-2)}
 .devs button{min-height:40px;padding:0 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-weight:700;color:var(--muted);font-size:14px}
 .devs button[aria-pressed=true]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
 .devwrap{position:relative;max-width:100%}
-.phone.tab{position:absolute!important;top:0!important;inset-inline-start:0;width:768px;height:1024px;max-width:none;max-height:none;min-height:0;border-radius:40px;padding:16px!important;transform-origin:top right}
+.phone.tab{position:absolute!important;top:0!important;right:0;width:768px;height:1024px;max-width:none;max-height:none;min-height:0;border-radius:40px;padding:16px!important;transform-origin:top right}
 .phone.tab.land{width:1024px;height:768px}
 .grid.wide-dev{grid-template-columns:minmax(0,1fr)}
 
@@ -449,7 +579,9 @@ const P = {
   star:'M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z',
   pin:'M12 22s8-7.2 8-13a8 8 0 1 0-16 0c0 5.8 8 13 8 13ZM12 11.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z',
   repeat:'M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3',
-  receipt:'M4 2v20l3-2 2 2 3-2 3 2 2-2 3 2V2ZM8 7h8M8 11h8M8 15h5'
+  receipt:'M4 2v20l3-2 2 2 3-2 3 2 2-2 3 2V2ZM8 7h8M8 11h8M8 15h5',
+  lock:'M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4', phone:'M7 2h10v20H7zM11 18h2',
+  apple:'M12 7c-1-2-3-2.5-4.5-2C5 6 4 9 4.5 12c.6 4 3 8 5.5 8 1 0 1.3-.6 2-.6s1 .6 2 .6c2.5 0 4.9-4 5.5-8 .5-3-.5-6-3-7-1.5-.5-3.5 0-4.5 2ZM12 7c0-2 1-4 3-5'
 };
 const ico = n => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="${P[n]||''}"/></svg>`;
 const SAR = 'ر.س', DAY = 86400000, MIN = 60000;
@@ -512,7 +644,7 @@ window.addEventListener('storage', e => { if(e.key === KEY){ const n = S.orders.
 const ui = {tab:'menu', cat:null, cart:{}, sheet:false, serve:'هنا', name:'', phone:'', note:'', alert:false, toast:null, alerted:'',
   view:'dash', dtab:'ov', ofilter:'all', osearch:'', csearch:'', edit:null, cmodal:null, draft:{title:'',body:'',aud:'all'}, authTab:'in', authErr:'', notif:'',
   signed:false, prevReady:null, dispSound:false, newCat:'', imgErr:'', stars:0, comment:'', acctErr:'', cPhone:'', cName:'', vMsg:null, vCode:'', locMsg:'',
-  imp:null, nearId:null, nearFired:false, nearErr:false, newReward:{title:'',cost:50}, dev:'phone', wide:false, rateFor:null};
+  imp:null, nearId:null, nearFired:false, nearErr:false, newReward:{title:'',cost:50}, dev:'phone', wide:false, rateFor:null, period:'week', authMsg:''};
 try{ ui.signed = sessionStorage.getItem('dawrak_sess')==='1'; }catch(e){}
 const item = id => S.menu.find(m => m.id === id);
 const catOf = id => S.cats.find(c => c.id === id);
@@ -738,19 +870,27 @@ const getAcct = () => { try{ return JSON.parse(localStorage.getItem(AKEY)); }cat
 const setAcct = a => { try{ localStorage.setItem(AKEY, JSON.stringify(a)); }catch(e){} };
 function signIn(){ ui.signed = true; ui.authErr=''; try{ sessionStorage.setItem('dawrak_sess','1'); }catch(e){} }
 function gate(p){
-  const a = getAcct(), up = ui.authTab==='up' || !a;
-  return `<div class="card gate"><div class="logo" style="justify-content:center"><i>${ico('user')}</i></div>
-    <h2>${up?'إنشاء حساب للمحل':'تسجيل دخول صاحب المحل'}</h2>
-    <p class="hint">النسخة التجريبية تحفظ الحساب في هذا المتصفح فقط. في النسخة الحقيقية يكون الحساب على الخادم.</p>
-    ${a ? `<div class="two" role="group"><button data-act="auth-tab" data-t="in" aria-pressed="${!up}">دخول</button><button data-act="auth-tab" data-t="up" aria-pressed="${up}">حساب جديد</button></div>` : ''}
-    <form data-form="${up?'up':'in'}" novalidate>
-      ${up?`<label class="lbl2" for="${p}Shop">اسم المحل</label><input class="field f-shop" id="${p}Shop" value="${esc(S.shop.name)}" autocomplete="organization">`:''}
-      <label class="lbl2" for="${p}Email">البريد الإلكتروني</label><input class="field" id="${p}Email" type="email" dir="ltr" autocomplete="email" placeholder="you@shop.com">
-      <label class="lbl2" for="${p}Pass">كلمة المرور</label><input class="field" id="${p}Pass" type="password" dir="ltr" autocomplete="${up?'new-password':'current-password'}" placeholder="6 أحرف على الأقل">
-      ${ui.authErr?`<p class="err" role="alert">${esc(ui.authErr)}</p>`:''}
-      <button class="btn btn-p big" style="margin-top:14px" type="submit">${up?'إنشاء الحساب':'دخول'}</button>
-    </form>
-    <button class="btn btn-g big" style="margin-top:10px" data-act="demo-login">جرّب بحساب تجريبي جاهز</button></div>`;
+  const up = ui.authTab==='up';
+  return `<div class="auth-wrap"><div class="auth ${up?'up':''}">
+    <section class="auth-form">
+      <h2>${up?'إنشاء حساب للمحل':'تسجيل الدخول'}</h2>
+      <p class="hint">${up?'منيو رقمي وبيجر على جوال الزبون في دقائق.':'ادخل للوحة تحكم محلك.'}</p>
+      <form data-form="${up?'up':'in'}" novalidate>
+        ${up?`<label class="sr" for="${p}Shop">اسم المحل</label><div class="inp"><input class="f-shop" id="${p}Shop" placeholder="اسم المحل" autocomplete="organization">${ico('hot')}</div>`:''}
+        <label class="sr" for="${p}Email">البريد الإلكتروني</label><div class="inp"><input id="${p}Email" type="email" dir="ltr" placeholder="البريد الإلكتروني" autocomplete="email">${ico('user')}</div>
+        <label class="sr" for="${p}Pass">كلمة المرور</label><div class="inp"><input id="${p}Pass" type="password" dir="ltr" placeholder="كلمة المرور (6 أحرف على الأقل)" autocomplete="${up?'new-password':'current-password'}">${ico('lock')}</div>
+        ${up?'':`<button type="button" class="lnk" data-act="forgot">نسيت كلمة المرور؟</button>`}
+        ${ui.authErr?`<p class="err" role="alert" style="text-align:center">${esc(ui.authErr)}</p>`:''}
+        ${ui.authMsg?`<p class="hint" role="status" style="text-align:center;margin-top:8px">${esc(ui.authMsg)}</p>`:''}
+        <button class="btn btn-p big" type="submit">${up?'إنشاء الحساب':'دخول'}</button>
+      </form>
+      <p class="or">أو تابع عبر</p>
+      <div class="soc"><button data-act="social" data-n="Google" aria-label="الدخول عبر Google"><b>G</b></button><button data-act="social" data-n="Apple" aria-label="الدخول عبر Apple">${ico('apple')}</button><button data-act="social" data-n="رقم الجوال" aria-label="الدخول برقم الجوال">${ico('phone')}</button></div>
+      <button class="lnk" data-act="demo-login" style="margin-top:12px">جرّب بحساب تجريبي جاهز</button>
+      <p class="hint" style="text-align:center;font-size:12px">النسخة التجريبية تحفظ الحساب في هذا المتصفح فقط.</p>
+    </section>
+    <section class="auth-hero"><h2>${up?'أهلاً من جديد!':'أهلاً بك!'}</h2><p>${up?'عندك حساب؟':'ما عندك حساب؟'}</p><button class="ghost" data-act="auth-tab" data-t="${up?'in':'up'}">${up?'تسجيل الدخول':'إنشاء حساب'}</button></section>
+  </div></div>`;
 }
 document.addEventListener('submit', async e => {
   const f = e.target.closest('form[data-form]'); if(!f) return; e.preventDefault();
@@ -763,6 +903,7 @@ document.addEventListener('submit', async e => {
     S.shop.name = name; save(); setAcct({email, pw:h}); signIn();
   } else {
     const a = getAcct();
+    if(!a){ ui.authErr='لا يوجد حساب في هذا المتصفح. أنشئ حساباً أو جرّب الحساب التجريبي.'; return renderAll(); }
     if(!a || a.email!==email || a.pw!==h){ ui.authErr='البريد أو كلمة المرور غير صحيحة'; return renderAll(); }
     signIn();
   }
@@ -838,23 +979,72 @@ function lineChart(vals){
   xy.forEach((p,i)=>{ const dt=new Date(Date.now()-(vals.length-1-i)*DAY); g+=`<text x="${p[0]}" y="${Hh-6}" text-anchor="middle">${dt.toLocaleDateString('ar-SA-u-nu-latn',{weekday:'short'})}</text>`; if(i===vals.length-1) g+=`<circle class="pt" cx="${p[0]}" cy="${p[1]}" r="5"/>`; });
   return `<svg class="chart" viewBox="0 0 ${W} ${Hh}" role="img" aria-label="مبيعات آخر 7 أيام">${g}</svg>`;
 }
+const PREV_WEEK = [600,560,650,690,720,810,760];
+function smooth(p){
+  let d = `M${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)}`;
+  for(let i=0;i<p.length-1;i++){ const p0=p[i-1]||p[i], p1=p[i], p2=p[i+1], p3=p[i+2]||p2;
+    d += ` C${(p1[0]+(p2[0]-p0[0])/6).toFixed(1)} ${(p1[1]+(p2[1]-p0[1])/6).toFixed(1)} ${(p2[0]-(p3[0]-p1[0])/6).toFixed(1)} ${(p2[1]-(p3[1]-p1[1])/6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`; }
+  return d;
+}
+function spark(vals){
+  if(vals.length<2) vals = [0,0];
+  const W=160, H=44, mx=Math.max(...vals), mn=Math.min(...vals), r=(mx-mn)||1;
+  const pts = vals.map((v,i)=>[i*(W/(vals.length-1)), H-4-(v-mn)/r*(H-8)]);
+  return `<svg class="spk" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${smooth(pts)}"/></svg>`;
+}
+function flowChart(a, b, labels, unit){
+  const W=640, H=240, pl=44, pr=12, pt=14, pb=28, max=Math.max(1,...a,...(b||[]))*1.15, n=a.length, step=(W-pl-pr)/(n-1);
+  const P = v => v.map((x,i)=>[pl+i*step, H-pb-(H-pt-pb)*x/max]);
+  const pa = P(a), da = smooth(pa);
+  let g = `<defs><linearGradient id="gA" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--c1);stop-opacity:.38"/><stop offset="1" style="stop-color:var(--c1);stop-opacity:0"/></linearGradient></defs>`;
+  [0,.25,.5,.75,1].forEach(f=>{ const y=pt+(H-pt-pb)*(1-f); g+=`<line class="gl" x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}"/><text x="${pl-8}" y="${y+4}" text-anchor="end">${Math.round(max*f)}</text>`; });
+  g += `<path class="a1" d="${da} L${pa[n-1][0]} ${H-pb} L${pa[0][0]} ${H-pb}Z"/>`;
+  if(b) g += `<path class="l2" d="${smooth(P(b))}"/>`;
+  g += `<path class="l1" d="${da}"/>`;
+  pa.forEach((q,i)=>{ if(n<=7 || i%2===1 || i===n-1) g+=`<text x="${q[0]}" y="${H-8}" text-anchor="middle">${labels[i]}</text>`;
+    g+=`<rect class="hit" x="${q[0]-step/2}" y="${pt}" width="${step}" height="${H-pt-pb}"><title>${labels[i]}: ${a[i]} ${unit}${b?` · الأسبوع الماضي ${b[i]}`:''}</title></rect>`; });
+  g += `<circle class="pt" cx="${pa[n-1][0]}" cy="${pa[n-1][1]}" r="6"/>`;
+  return `<svg class="chart flow" viewBox="0 0 ${W} ${H}" role="img" aria-label="رسم المبيعات">${g}</svg>`;
+}
+function donut(segs, total){
+  const R=62, C=2*Math.PI*R; let off=0;
+  const arcs = segs.map(x=>{ const len = total ? x.v/total*C : 0; const el = `<circle r="${R}" cx="85" cy="85" fill="none" style="stroke:${x.col}" stroke-width="22" stroke-dasharray="${Math.max(0,len-3).toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" transform="rotate(-90 85 85)"><title>${esc(x.n)}: ${x.v} ${SAR}</title></circle>`; off += len; return el; }).join('');
+  return `<svg viewBox="0 0 170 170" role="img" aria-label="المبيعات حسب القسم"><circle r="${R}" cx="85" cy="85" fill="none" style="stroke:var(--surface-2)" stroke-width="22"/>${arcs}<text x="85" y="80" text-anchor="middle" class="dc-s">المبيعات</text><text x="85" y="106" text-anchor="middle" class="dc-v">${total}</text></svg>`;
+}
+const kc = (ic,label,val,delta,sp,dark) => `<article class="kc ${dark?'dark':''}"><div class="kt"><i>${ico(ic)}</i>${label}</div><div class="kv"><b>${val}</b>${delta}</div>${sp}</article>`;
+const dayLabels = () => Array.from({length:7},(_,i)=>new Date(Date.now()-(6-i)*DAY).toLocaleDateString('ar-SA-u-nu-latn',{weekday:'short'}));
+const hourLabels = () => { const h = new Date().getHours(); return Array.from({length:12},(_,i)=>((h-(11-i)+48)%24)+':00'); };
 function ovView(){
-  const s = stats(), mx = Math.max(1,...s.top.map(t=>t.q));
-  const live = {new:0,prep:0,ready:0}; S.orders.forEach(o=>{ if(live[o.status]!==undefined) live[o.status]++; });
-  const active = S.customers.filter(c=>daysAgo(c.last)<14).length;
-  return `<div class="kpis">
-    <div class="kpi"><span>مبيعات 24 ساعة</span><b>${s.sales} <small style="font-size:14px">${SAR}</small></b><span class="delta ${s.delta>=0?'up':'dn2'}">${s.delta>=0?'▲':'▼'} ${Math.abs(s.delta)}% عن أمس</span></div>
-    <div class="kpi"><span>عدد الطلبات</span><b>${s.n}</b><span class="hint">${live.new+live.prep} قيد العمل</span></div>
-    <div class="kpi"><span>متوسط الطلب</span><b>${s.avg.toFixed(1)}</b><span class="hint">${SAR}</span></div>
-    <div class="kpi"><span>وقت التحضير</span><b>${s.prep.toFixed(1)}</b><span class="hint">دقيقة</span></div>
-    <div class="kpi"><span>التقييم</span><b>${s.rn?s.rating.toFixed(1):'—'}</b><span class="hint">من ${s.rn} تقييم</span></div>
-    <div class="kpi"><span>عملاء نشطون</span><b>${active}</b><span class="hint">آخر 14 يوماً</span></div></div>
-  <div class="panels"><div class="panel"><h3>الطلبات حسب الساعة <small>آخر 12 ساعة</small></h3>${barChart(s.hours)}</div>
-    <div class="panel"><h3>المبيعات <small>آخر 7 أيام (${SAR})</small></h3>${lineChart(s.days)}</div></div>
-  <div class="panels"><div class="panel"><h3>الأكثر مبيعاً <small>آخر 24 ساعة</small></h3>${s.top.map(t=>`<div class="hb"><span>${esc(t.m.name)}</span><b class="num">${t.q}</b><div class="tr"><i style="width:${t.q/mx*100}%"></i></div></div>`).join('') || '<p class="hint">لا توجد بيانات</p>'}</div>
-    <div class="panel"><h3>الآن في المحل</h3><div class="status-line"><span class="pill s-new">جديد ${live.new}</span><span class="pill s-prep">يُحضّر ${live.prep}</span><span class="pill s-ready">جاهز ${live.ready}</span></div>
-      <p class="hint" style="margin-top:12px">مشتركو العروض: <b class="num">${S.subs}</b> · عملاء مسجّلون: <b class="num">${S.customers.length}</b> · عروض أُرسلت: <b class="num">${S.offers.length}</b></p>
-      <p class="hint" style="margin-top:8px">الأرقام مبنية على طلبات التجربة. الأيام السابقة والعملاء بيانات افتراضية.</p></div></div>`;
+  const s = stats(), mx = Math.max(1,...s.top.map(t=>t.q)), now = Date.now(), H = 3600000;
+  const day = S.orders.filter(o=>now-o.t<24*H);
+  const hourSales = Array(12).fill(0); day.forEach(o=>{ const k=Math.floor((now-o.t)/H); if(k<12) hourSales[11-k]+=o.total; });
+  const avgH = hourSales.map((v,i)=>s.hours[i]?v/s.hours[i]:0);
+  const dlt = (a,b) => b ? Math.round((a-b)/b*100) : 0;
+  const pill = d => `<span class="dp ${d>=0?'up':'dn'}">${d>=0?'▲':'▼'} ${Math.abs(d)}%</span>`;
+  const rated = S.orders.filter(o=>o.rating!=null).sort((a,b)=>a.t-b.t);
+  const roll = rated.map((o,i,arr)=>{ const w=arr.slice(Math.max(0,i-3),i+1); return w.reduce((x,y)=>x+y.rating,0)/w.length; });
+  const cards = `<div class="kcards">
+    ${kc('bag','مبيعات 24 ساعة',`${s.sales} <small>${SAR}</small>`,pill(s.delta),spark(s.days))}
+    ${kc('list','عدد الطلبات',s.n,pill(dlt(s.n,26)),spark(s.hours))}
+    ${kc('receipt','متوسط الطلب',`${s.avg.toFixed(1)} <small>${SAR}</small>`,pill(dlt(s.avg,29.5)),spark(avgH))}
+    ${kc('star','رضا الزبائن',s.rn?`${s.rating.toFixed(1)} <small>/ 5</small>`:'—',s.rn?pill(dlt(s.rating,4.1)):'',spark(roll),true)}</div>`;
+  const week = ui.period!=='day';
+  const flow = week ? flowChart(s.days, PREV_WEEK, dayLabels(), SAR) : flowChart(s.hours, null, hourLabels(), 'طلب');
+  const catSales = {}; day.forEach(o=>o.items.forEach(i=>{ const m=item(i.id); if(m) catSales[m.cat]=(catSales[m.cat]||0)+m.price*i.q; }));
+  const COLS = ['var(--c1)','var(--c2)','var(--c3)','var(--c4)','var(--c5)'];
+  const segs = S.cats.map((c,i)=>({n:c.name, v:catSales[c.id]||0, col:COLS[i%5]})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
+  const tot = segs.reduce((a,x)=>a+x.v,0);
+  const latest = S.orders.slice().sort((a,b)=>b.t-a.t).slice(0,5);
+  return cards + `<div class="rowc r2">
+    <section class="cardx"><h3>${week?'المبيعات':'الطلبات'} <span class="lg">${week?`<span><i style="background:var(--c1)"></i>هذا الأسبوع</span><span><i style="background:var(--c3)"></i>الأسبوع الماضي</span>`:`<span><i style="background:var(--c1)"></i>طلبات كل ساعة</span>`}</span></h3>
+      <p class="sub">${week?`آخر 7 أيام مقارنة بالأسبوع الذي قبله (${SAR})`:'آخر 12 ساعة'}</p>${flow}</section>
+    <section class="cardx"><h3>المبيعات حسب القسم</h3><p class="sub">آخر 24 ساعة (${SAR})</p>
+      <div class="donut">${donut(segs,tot)}<div class="dl">${segs.map(x=>`<div><i style="background:${x.col}"></i><span>${esc(x.n)}</span><b class="num">${x.v}</b><span class="p">${tot?Math.round(x.v/tot*100):0}%</span></div>`).join('') || '<p class="hint">لا توجد مبيعات</p>'}</div></div></section></div>
+  <div class="rowc r3">
+    <section class="cardx"><h3>الأكثر مبيعاً</h3><p class="sub">آخر 24 ساعة</p>${s.top.map(t=>`<div class="hb"><span>${esc(t.m.name)}</span><b class="num">${t.q}</b><div class="tr"><i style="width:${t.q/mx*100}%"></i></div></div>`).join('') || '<p class="hint">لا توجد بيانات</p>'}</section>
+    <section class="cardx"><h3>آخر الطلبات <button class="btn btn-g" style="min-height:34px;font-size:13px;padding:0 12px" data-act="dtab" data-t="ord">عرض الكل</button></h3>
+      <div class="lo">${latest.map(o=>`<div class="r"><b class="num">#${o.no}</b><span class="hint">${esc(o.name||'زبون')} · ${tfmt(o.t)}</span><b class="num">${o.total}</b><span class="pill s-${o.status}">${STATUS[o.status]}</span></div>`).join('')}</div></section></div>
+  <p class="hint">الأرقام مبنية على طلبات التجربة. الأيام السابقة والمقارنات بيانات افتراضية.</p>`;
 }
 function ordRows(){
   let l = S.orders.slice().sort((a,b)=>b.no-a.no);
@@ -978,7 +1168,7 @@ function setTab(){
     <div class="row-r"><span>سجل العملاء والاستيراد</span><span class="pill s-ready">يعمل</span></div>
     <div class="row-r"><span>شاشة العرض والفاتورة</span><span class="pill s-ready">يعمل</span></div>
     <div class="row-r"><span>تنبيه القرب (والصفحة مفتوحة)</span><span class="pill s-ready">يعمل</span></div>
-    <div class="row-r"><span>إشعارات Web Push (والصفحة مغلقة)</span><span class="pill s-prep">يحتاج خادم</span></div>
+    <div class="row-r"><span>إشعارات Web Push (والصفحة مغلقة)</span><span class="pill s-prep">مبنية في Perk Pick، بانتظار النشر</span></div>
     <div class="row-r"><span>حسابات حقيقية ورمز تحقق للعميل</span><span class="pill s-prep">يحتاج خادم</span></div>
     ${saveFail?'<p class="err">مساحة التخزين في المتصفح امتلأت. صغّر الصور أو احذف بعضها.</p>':''}</div>`;
 }
@@ -1000,15 +1190,29 @@ function modal(){
     <div class="row-r"><span>متوفر للطلب</span><button class="switch" role="switch" aria-checked="${dr.on}" aria-label="متوفر" data-act="e-toggle"></button></div>
     <div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-p" style="flex:1" data-act="item-save">حفظ</button><button class="btn btn-g" data-act="modal-close-btn">إلغاء</button>${d.id?`<button class="btn btn-d" data-act="item-del" aria-label="حذف الصنف">${ico('trash')}</button>`:''}</div></div></div>`;
 }
+const TOPT = [['ov','الرئيسية'],['ord','الطلبات'],['menu','المنيو'],['cust','العملاء'],['offers','العروض']];
+const SIDET = [['ov','نظرة عامة','dash'],['loy','الولاء والمكافآت','gift'],['rev','التقييمات','star'],['qr','QR والشاشة','qr'],['set','الإعدادات','set']];
 function renderDash(){
   if(!ui.signed){ $('#dash').innerHTML = gate('d'); return; }
   const body = {ov:ovView,ord:ordView,menu:menuTab,cust:custTab,loy:loyTab,rev:revTab,offers:offersTab,qr:qrTab,set:setTab}[ui.dtab]();
-  const cur = DTABS.find(t=>t[0]===ui.dtab);
-  $('#dash').innerHTML = `<div class="card"><div class="dash">
-    <nav class="dnav" aria-label="أقسام اللوحة">${DTABS.map(([k,n,i])=>`<button data-act="dtab" data-t="${k}" aria-pressed="${ui.dtab===k}">${ico(i)}${n}</button>`).join('')}</nav>
-    <div class="dmain"><div class="dhead"><h2>${cur[1]}</h2><span class="hint">${esc(S.shop.name)}</span></div>${body}</div></div></div>${modal()}`;
+  const cur = DTABS.find(t=>t[0]===ui.dtab), a = getAcct(), newN = S.orders.filter(o=>o.status==='new').length;
+  $('#dash').innerHTML = `<div class="dsh"><div class="dsh-card">
+    <header class="dsh-top"><div class="dsh-brand"><i>${ico('hot')}</i>دورك</div>
+      <nav class="dsh-tabs" aria-label="الأقسام الرئيسية">${TOPT.map(([k,n])=>`<button data-act="dtab" data-t="${k}" aria-pressed="${ui.dtab===k}">${n}</button>`).join('')}</nav>
+      <div class="dsh-tools"><button class="ib-r" data-act="dtab" data-t="set" aria-label="الإعدادات">${ico('set')}</button>
+        <button class="ib-r" data-act="dtab" data-t="ord" aria-label="${newN} طلب جديد">${ico('bell')}${newN?`<i class="badge">${newN}</i>`:''}</button>
+        <div class="me"><span class="av">${esc((S.shop.name.trim()[0])||'د')}</span><span><b>${esc(S.shop.name)}</b><small>${esc(a?.email||'')}</small></span></div></div></header>
+    <div class="dsh-body">
+      <aside class="dsh-side" aria-label="أدوات اللوحة">
+        <div class="welcome"><h2>أهلاً بعودتك،<br>${esc(S.shop.name)}</h2><p class="hint">ملخص أداء محلك</p></div>
+        <small class="cap">الأدوات</small>
+        ${SIDET.map(([k,n,i])=>`<button class="side-it" data-act="dtab" data-t="${k}" aria-pressed="${ui.dtab===k}">${ico(i)}${n}</button>`).join('')}
+        <div class="promo"><b>شاشة الأرقام</b><p>اعرض الطلبات الجاهزة على تلفزيون أو تابلت عند الكاونتر.</p><button data-act="pane" data-v="display">${ico('tv')} افتح الشاشة</button></div>
+      </aside>
+      <main class="dsh-main"><div class="dsh-head"><div><h2>${cur[1]}</h2><p class="hint">الرئيسية / ${cur[1]}</p></div>
+        ${ui.dtab==='ov'?`<div class="seg-s" role="group" aria-label="الفترة"><button data-act="period" data-p="day" aria-pressed="${ui.period==='day'}">اليوم</button><button data-act="period" data-p="week" aria-pressed="${ui.period!=='day'}">7 أيام</button></div>`:''}</div>${body}</main>
+    </div></div></div>${modal()}`;
 }
-
 /* ================= actions ================= */
 function toast(title, body){ ui.toast = {title, body}; renderPhone(); clearTimeout(toast.t); toast.t = setTimeout(()=>{ ui.toast=null; renderPhone(); }, 4500); }
 function checkAlert(){
@@ -1113,7 +1317,10 @@ const A = {
       ()=>{ ui.locMsg='تعذّر تحديد الموقع. اسمح للمتصفح بالوصول أو استخدم الموقع التجريبي.'; renderAll(); }, {enableHighAccuracy:true, timeout:10000});
   },
   logout(){ ui.signed=false; try{ sessionStorage.removeItem('dawrak_sess'); }catch(e){} },
-  'auth-tab'(el){ ui.authTab = el.dataset.t; ui.authErr=''; },
+  'auth-tab'(el){ ui.authTab = el.dataset.t; ui.authErr=''; ui.authMsg=''; },
+  forgot(){ ui.authErr=''; ui.authMsg='استعادة كلمة المرور تتوفر مع الخادم في النسخة الحقيقية. جرّب الحساب التجريبي الآن.'; },
+  social(el){ ui.authErr=''; ui.authMsg=`الدخول عبر ${el.dataset.n} يتفعّل مع الخادم في النسخة الحقيقية.`; },
+  period(el){ ui.period = el.dataset.p; },
   async 'demo-login'(){ if(!getAcct()) setAcct({email:'demo@dawrak.sa', pw: await sha('123456')}); signIn(); },
   'disp-sound'(){ ui.dispSound = !ui.dispSound; if(ui.dispSound) chime(); },
   'disp-full'(){ try{ const el = $('.disp'); (el.requestFullscreen||el.webkitRequestFullscreen).call(el).catch(()=>{}); }catch(e){} },
@@ -1183,6 +1390,7 @@ const VIEWS = [['customer','الزبون','m-only'],['staff','الكاشير',''
 function setView(v){
   ui.view = v;
   document.querySelectorAll('[data-pane]').forEach(p => { if(p.dataset.pane!=='customer' || document.body.classList.contains('solo') || innerWidth<=1000) p.classList.toggle('on', p.dataset.pane===v); else p.classList.add('on'); });
+  $('.grid').classList.toggle('view-dash', v==='dash' && !document.body.classList.contains('solo'));
   $('#seg').innerHTML = VIEWS.map(([k,n,c])=>`<button class="${c}" data-act="pane" data-v="${k}" aria-pressed="${k===v}">${n}</button>`).join('');
   fitDev();
 }
@@ -1214,6 +1422,7 @@ function fitDev(){
   const k = Math.min(1, avail/W);
   wrap.style.width = W*k+'px'; wrap.style.height = H*k+'px'; ph.style.transform = `scale(${k})`;
 }
+if(!getAcct()) ui.authTab = 'up';
 renderDevs(); applyHash(); renderAll(); if(S.optIn) startNear();
 try{ new ResizeObserver(()=>{ const el = $('#screen'), w = el.clientWidth, h = el.clientHeight, wide = w>=900 && w>h; if(wide!==ui.wide){ ui.wide = wide; renderPhone(); } }).observe($('#screen')); }catch(e){}
 setInterval(()=>{ renderStaff(); renderDisplay(); if(ui.tab==='track' && !ui.rateFor) renderPhone(); }, 30000);
