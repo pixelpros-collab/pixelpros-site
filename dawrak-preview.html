@@ -5,24 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <title>دورك</title>
-<meta name="theme-color" content="#3B2416">
+<meta name="theme-color" content="#0B1415">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kufam:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Reem+Kufi:wght@500;600;700&display=swap">
 <style>
+/* Layout: phone mock + tabbed workspace (cashier / display / dashboard). Identity: deep teal, navy and sand. */
 :root{
-  --bg:#F6EFE6; --surface:#FFFDF9; --surface-2:#F0E6D8; --line:#E3D6C4;
-  --ink:#2A1B12; --muted:#6F5A4A; --brand:#3B2416; --brand-ink:#FFF6E8;
-  --accent:#E09A2B; --accent-ink:#2A1B12;
-  --new:#B5541C; --prep:#9A6A06; --ready:#1F7A4D; --ready-bg:#E4F3EB;
-  --danger:#B3261E; --chart:#C9811A; --chart-2:#3B2416;
-  --r:16px; --shadow:0 8px 30px rgba(59,36,22,.12);
-  --f-d:'Kufam','Tajawal',system-ui,sans-serif; --f-b:'Tajawal',system-ui,sans-serif;
+  color-scheme:dark;
+  --bg:#0B1415; --surface:#142021; --surface-2:#1C2C2D; --line:#2A3C3D;
+  --ink:#EDF3F2; --muted:#9CB2B0;
+  --brand:#2AA79B; --brand-ink:#04211E;
+  --accent:#EBDFC8; --accent-ink:#1D2B5A;
+  --new:#F2A36B; --prep:#E9C46A; --ready:#4FD1A0; --ready-bg:#0F2F27; --ready-solid:#1A7F5C;
+  --danger:#FF8A7A; --chart:#2AA79B; --chart-2:#EBDFC8;
+  --sea:linear-gradient(135deg,#1D2B5A 0%,#2F6DB5 55%,#2AA79B 100%);
+  --r:16px; --shadow:0 10px 30px rgba(0,0,0,.45);
+  --f-d:'Reem Kufi','IBM Plex Sans Arabic',system-ui,sans-serif; --f-b:'IBM Plex Sans Arabic',system-ui,sans-serif;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){ --bg:#17100B; --surface:#241811; --surface-2:#2E2017; --line:#43301F;
-    --ink:#F6EBDD; --muted:#C2AA94; --brand:#F0C47A; --brand-ink:#2A1B12;
-    --ready:#5FD39A; --ready-bg:#143324; --new:#F0A66B; --prep:#F0C47A; --chart:#F0C47A; --chart-2:#C2AA94; --shadow:0 8px 30px rgba(0,0,0,.45); }
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    color-scheme:light;
+    --bg:#F3EEE4; --surface:#FFFCF6; --surface-2:#EAE3D3; --line:#D9D0BC;
+    --ink:#13232B; --muted:#55666B; --brand:#0E7C72; --brand-ink:#FFFFFF;
+    --accent:#1D2B5A; --accent-ink:#FBF3E2;
+    --new:#A64A12; --prep:#7A5600; --ready:#166B45; --ready-bg:#DDF1E7;
+    --danger:#B3261E; --chart:#0E7C72; --chart-2:#1D2B5A; --shadow:0 10px 30px rgba(29,43,90,.16);
+  }
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --bg:#F3EEE4; --surface:#FFFCF6; --surface-2:#EAE3D3; --line:#D9D0BC;
+  --ink:#13232B; --muted:#55666B; --brand:#0E7C72; --brand-ink:#FFFFFF;
+  --accent:#1D2B5A; --accent-ink:#FBF3E2;
+  --new:#A64A12; --prep:#7A5600; --ready:#166B45; --ready-bg:#DDF1E7;
+  --danger:#B3261E; --chart:#0E7C72; --chart-2:#1D2B5A; --shadow:0 10px 30px rgba(29,43,90,.16);
 }
 *{box-sizing:border-box;margin:0}
 html{-webkit-text-size-adjust:100%}
@@ -33,28 +50,29 @@ button:disabled{opacity:.5;cursor:not-allowed}
 input,textarea,select{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
 .ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.num{font-family:var(--f-d);font-variant-numeric:tabular-nums}
+.num,.no,.dn span,.kpi b,.alert .no,.big-num{font-family:var(--f-b);font-weight:700;font-variant-numeric:tabular-nums}
 .hint{color:var(--muted);font-size:14px}
+h1,h2,h3,.logo{font-family:var(--f-d)}
 
 /* ---------- shell ---------- */
 .shell{max-width:1260px;margin:0 auto;padding:16px 16px 40px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.logo{display:flex;align-items:center;gap:10px;font-family:var(--f-d);font-weight:800;font-size:22px}
-.logo i{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--brand);color:var(--brand-ink);font-style:normal}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:24px}
+.logo i{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--sea);color:#F6F1E4;font-style:normal}
 .tag{font-size:13px;color:var(--muted);font-weight:500;font-family:var(--f-b)}
 .btn{min-height:44px;padding:0 16px;border-radius:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s;text-decoration:none;color:inherit}
 .btn:active{transform:scale(.97)}
 .btn-p{background:var(--brand);color:var(--brand-ink)}
 .btn-a{background:var(--accent);color:var(--accent-ink)}
 .btn-g{background:var(--surface);border:1px solid var(--line)}
-.btn-d{background:var(--surface);border:1px solid var(--danger);color:var(--danger)}
+.btn-d{background:transparent;border:1px solid var(--danger);color:var(--danger)}
 .seg{display:flex;gap:6px;background:var(--surface-2);padding:5px;border-radius:14px;margin-bottom:16px;max-width:560px}
 .seg button{flex:1;min-height:44px;border-radius:10px;font-weight:700;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:6px}
-.seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.3)}
 .seg .m-only{display:none}
 .grid{display:grid;grid-template-columns:410px minmax(0,1fr);gap:24px;align-items:start}
 .grid>*{min-width:0}
-.pane-title{font-family:var(--f-d);font-weight:700;font-size:15px;color:var(--muted);margin:0 4px 10px}
+.pane-title{font-family:var(--f-d);font-weight:600;font-size:15px;color:var(--muted);margin:0 4px 10px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
 .road{margin-top:24px}
 .road ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
@@ -79,15 +97,14 @@ input,textarea,select{font:inherit;color:inherit}
 }
 
 /* ---------- phone (customer) ---------- */
-.phone{width:390px;max-width:100%;height:800px;max-height:calc(100dvh - 120px);min-height:620px;background:#120C08;border-radius:46px;padding:10px;box-shadow:var(--shadow);position:sticky;top:12px;min-width:0}
+.phone{width:390px;max-width:100%;height:800px;max-height:calc(100dvh - 120px);min-height:620px;background:#050A0B;border-radius:46px;padding:10px;box-shadow:var(--shadow);position:sticky;top:12px;min-width:0}
 .screen{height:100%;background:var(--bg);border-radius:36px;overflow:hidden;position:relative;display:flex;flex-direction:column;min-width:0}
-.p-head{padding:18px 20px 12px;background:var(--brand);color:var(--brand-ink);display:flex;align-items:center;justify-content:space-between;gap:10px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .p-head{background:#2E2017;color:#F6EBDD}}
-.p-head h1{font-family:var(--f-d);font-size:19px;font-weight:800;line-height:1.2}
-.p-head small{opacity:.8;font-size:13px;display:block}
+.p-head{padding:18px 20px 14px;background:var(--sea);color:#F6F1E4;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.p-head h1{font-size:21px;font-weight:700;line-height:1.2}
+.p-head small{opacity:.85;font-size:13px;display:block}
 .open{background:rgba(255,255,255,.16);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:700;display:flex;gap:6px;align-items:center;white-space:nowrap}
-.open::before{content:"";width:8px;height:8px;border-radius:50%;background:#5FD39A}
-.open.closed::before{background:#F07A6B}
+.open::before{content:"";width:8px;height:8px;border-radius:50%;background:#5FE0B0}
+.open.closed::before{background:#FF9A8A}
 .p-main{flex:1;overflow:auto;padding:14px 16px 96px;min-width:0}
 .banner{background:var(--surface-2);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-weight:700;text-align:center}
 .chips{display:flex;gap:8px;overflow:auto;padding-bottom:10px;margin:0 -16px;padding-inline:16px;scrollbar-width:none}
@@ -97,114 +114,136 @@ input,textarea,select{font:inherit;color:inherit}
 .item.off{opacity:.5}
 .glyph{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;flex:none;background:var(--surface-2);color:var(--brand);object-fit:cover}
 .glyph .ico{width:28px;height:28px}
-.item h3{font-size:16px;font-weight:700;line-height:1.3}
+.item h3{font-family:var(--f-b);font-size:16px;font-weight:700;line-height:1.3}
 .item p{font-size:13px;color:var(--muted);line-height:1.4}
 .item .meta{flex:1;min-width:0}
-.price{font-family:var(--f-d);font-weight:700;font-size:15px;margin-top:2px}
-.price small{font-family:var(--f-b);font-weight:500;color:var(--muted);font-size:12px}
+.price{font-weight:700;font-size:15px;margin-top:2px}
+.price small{font-weight:500;color:var(--muted);font-size:12px}
 .add{width:44px;height:44px;border-radius:12px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
 .step{display:flex;align-items:center;gap:2px;background:var(--surface-2);border-radius:12px}
 .step button{width:44px;height:44px;display:grid;place-items:center;border-radius:12px}
-.step b{min-width:22px;text-align:center;font-family:var(--f-d)}
+.step b{min-width:22px;text-align:center}
 .soldout{font-size:12px;font-weight:700;color:var(--danger);padding:0 6px}
-.cartbar{position:absolute;inset-inline:14px;bottom:78px;background:var(--brand);color:var(--brand-ink);border-radius:16px;min-height:56px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);width:calc(100% - 28px);font-weight:700}
+.cartbar{position:absolute;inset-inline:14px;bottom:78px;background:var(--accent);color:var(--accent-ink);border-radius:16px;min-height:56px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);width:calc(100% - 28px);font-weight:700}
 .cartbar span{display:flex;align-items:center;gap:10px}
-.nav{position:absolute;inset-inline:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 8px}
-.nav button{flex:1;min-height:56px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:700;color:var(--muted);position:relative}
+.nav{position:absolute;inset-inline:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;padding:6px 6px}
+.nav button{flex:1;min-width:0;min-height:56px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:700;color:var(--muted);position:relative}
 .nav button[aria-current=page]{color:var(--brand);background:var(--surface-2)}
 .dot{position:absolute;top:6px;inset-inline-start:calc(50% + 8px);width:10px;height:10px;border-radius:50%;background:var(--new);border:2px solid var(--surface)}
-.sheet-bg{position:absolute;inset:0;background:rgba(20,12,7,.55);z-index:20;display:flex;align-items:flex-end}
-.sheet{background:var(--bg);width:100%;max-height:88%;overflow:auto;border-radius:26px 26px 0 0;padding:18px 18px 22px;animation:up .25s ease-out}
+.sheet-bg{position:absolute;inset:0;background:rgba(2,8,9,.65);z-index:20;display:flex;align-items:flex-end}
+.sheet{background:var(--bg);width:100%;max-height:90%;overflow:auto;border-radius:26px 26px 0 0;padding:18px 18px 22px;animation:up .25s ease-out}
 @keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
-.sheet h2{font-family:var(--f-d);font-size:19px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.sheet h2{font-size:20px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
 .line{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px dashed var(--line)}
 .field{width:100%;min-height:48px;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:10px 14px;margin-top:8px}
 textarea.field{min-height:80px;resize:vertical}
 .two{display:flex;gap:8px;margin-top:10px}
 .two button{flex:1;min-height:48px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-weight:700;color:var(--muted)}
 .two button[aria-pressed=true]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
-.total{display:flex;justify-content:space-between;font-weight:800;font-size:18px;margin:14px 0}
+.total{display:flex;justify-content:space-between;font-weight:700;font-size:18px;margin:14px 0}
 .big{width:100%;min-height:54px;font-size:17px;border-radius:14px}
 .track{text-align:center;padding:22px 16px;border-radius:24px;background:var(--surface);border:1px solid var(--line)}
 .track.ready{background:var(--ready-bg);border-color:var(--ready)}
 .track .lbl{color:var(--muted);font-weight:500}
-.track .no{font-size:84px;line-height:1.05;font-weight:800;font-family:var(--f-d);margin:2px 0 6px}
+.track .no{font-size:84px;line-height:1.05;margin:2px 0 6px}
 .track.ready .no{color:var(--ready)}
 .st{display:flex;margin:16px 0 6px;gap:6px}
 .st div{flex:1;font-size:13px;font-weight:700;color:var(--muted)}
 .st div::before{content:"";display:block;height:6px;border-radius:6px;background:var(--line);margin-bottom:6px}
 .st div.on{color:var(--ink)}
-.st div.on::before{background:var(--accent)}
-.track.ready .st div.on::before{background:var(--ready)}
+.st div.on::before{background:var(--brand)}
 .msg{font-weight:700;font-size:17px}
 .empty{text-align:center;color:var(--muted);padding:40px 10px}
 .empty .ico{width:44px;height:44px;margin-bottom:8px}
-.offer{background:var(--surface);border:1px solid var(--line);border-inline-start:6px solid var(--accent);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.offer{background:var(--surface);border:1px solid var(--line);border-inline-start:6px solid var(--brand);border-radius:var(--r);padding:14px;margin-bottom:10px}
 .offer h3{font-size:16px}
 .offer small{color:var(--muted)}
-.opt{display:flex;gap:12px;align-items:center;background:var(--surface-2);border-radius:var(--r);padding:14px;margin-bottom:14px}
+.opt{display:flex;gap:12px;align-items:center;background:var(--surface-2);border-radius:var(--r);padding:14px;margin-bottom:12px}
 .switch{width:56px;height:32px;border-radius:999px;background:var(--line);position:relative;flex:none;transition:background .2s}
-.switch::after{content:"";position:absolute;top:4px;inset-inline-start:4px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
-.switch[aria-checked=true]{background:var(--ready)}
+.switch::after{content:"";position:absolute;top:4px;inset-inline-start:4px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.switch[aria-checked=true]{background:var(--brand)}
 .switch[aria-checked=true]::after{transform:translateX(-24px)}
 .toast{position:absolute;top:12px;inset-inline:12px;z-index:40;background:var(--surface);border-radius:18px;padding:12px 14px;box-shadow:var(--shadow);border:1px solid var(--line);display:flex;gap:10px;align-items:flex-start;animation:down .35s ease-out}
-.toast .ic{width:36px;height:36px;border-radius:10px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;flex:none}
+.toast .ic{width:36px;height:36px;border-radius:10px;background:var(--sea);color:#fff;display:grid;place-items:center;flex:none}
 .toast b{display:block;font-size:14px}.toast span{font-size:13px;color:var(--muted)}
 @keyframes down{from{transform:translateY(-30px);opacity:0}to{transform:none;opacity:1}}
-.alert{position:absolute;inset:0;z-index:50;background:var(--ready);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;gap:10px}
+.alert{position:absolute;inset:0;z-index:50;background:var(--ready-solid);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;gap:10px}
 .alert .ring{width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;animation:pulse 1.2s infinite}
 .alert .ring .ico{width:56px;height:56px}
-.alert h2{font-family:var(--f-d);font-size:30px}
-.alert .no{font-size:96px;font-weight:800;font-family:var(--f-d);line-height:1}
-.alert button{background:#fff;color:#14583A;min-height:54px;padding:0 32px;border-radius:14px;font-weight:800;font-size:17px;margin-top:10px}
+.alert h2{font-size:32px}
+.alert .no{font-size:96px;line-height:1}
+.alert button{background:#fff;color:#0F4D37;min-height:54px;padding:0 32px;border-radius:14px;font-weight:700;font-size:17px;margin-top:10px}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.pts{border-radius:20px;background:var(--sea);color:#F6F1E4;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.pts .big-num{font-size:44px;line-height:1}
+.prog{height:8px;border-radius:8px;background:rgba(255,255,255,.25);overflow:hidden;margin-top:10px}
+.prog i{display:block;height:100%;background:#F6F1E4;border-radius:8px}
+.rw{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:8px}
+.rw .btn{min-height:40px;padding:0 14px}
+.vch{border:2px dashed var(--brand);border-radius:14px;padding:12px;margin-bottom:8px;text-align:center}
+.vch b{font-size:22px;letter-spacing:2px;display:block;direction:ltr}
+.vch.used{opacity:.5;border-color:var(--line)}
+.stars{display:flex;justify-content:center;gap:6px;direction:ltr;margin:8px 0}
+.stars button{width:44px;height:44px;display:grid;place-items:center;color:var(--muted)}
+.stars button.on{color:#F2C14E}
+.stars .ico{width:32px;height:32px}
+.stars button.on .ico{fill:#F2C14E}
+.inv{background:#fff;color:#1a1a1a;border-radius:14px;padding:14px;font-size:14px;margin-top:10px}
+.inv .line{border-color:#ddd}
+details.card summary{cursor:pointer;font-weight:700;min-height:28px}
 
 /* ---------- auth gate ---------- */
 .gate{max-width:420px;margin:20px auto;text-align:center}
-.gate h2{font-family:var(--f-d);margin:6px 0 4px}
+.gate h2{margin:6px 0 4px}
 .gate form{text-align:start}
 .gate .two{margin:14px 0}
 .err{color:var(--danger);font-weight:700;font-size:14px;margin-top:8px}
+.ok{color:var(--ready);font-weight:700;font-size:14px;margin-top:8px}
 .lbl2{font-weight:700;display:block;margin-top:12px}
 
 /* ---------- staff ---------- */
 .board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.col h3{font-family:var(--f-d);font-size:15px;display:flex;justify-content:space-between;align-items:center;margin:0 2px 8px}
+.col h3{font-size:16px;display:flex;justify-content:space-between;align-items:center;margin:0 2px 8px}
 .col h3 em{font-style:normal;background:var(--surface-2);border-radius:999px;min-width:28px;text-align:center;padding:1px 8px;font-size:13px}
 .ord{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
 .ord header{display:flex;justify-content:space-between;align-items:baseline}
-.ord .no{font-family:var(--f-d);font-size:28px;font-weight:800}
+.ord .no{font-size:28px}
 .ord small{color:var(--muted)}
 .ord ul{list-style:none;padding:0;margin:6px 0 10px;font-size:14px}
 .pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 10px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
-.pill.s-new{background:#F7E0D0;color:#8A3A0C}.pill.s-prep{background:#F6E8B8;color:#6B4A00}.pill.s-ready{background:var(--ready-bg);color:var(--ready)}.pill.s-done{background:var(--surface-2);color:var(--muted)}
+.pill.s-new{background:color-mix(in srgb,var(--new) 22%,transparent);color:var(--new)}
+.pill.s-prep{background:color-mix(in srgb,var(--prep) 22%,transparent);color:var(--prep)}
+.pill.s-ready{background:var(--ready-bg);color:var(--ready)}
+.pill.s-done{background:var(--surface-2);color:var(--muted)}
 .late{color:var(--danger);font-weight:700}
 .ord .btn{width:100%;min-height:46px}
 .ready-strip{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-.ready-strip .num{background:var(--ready);color:#fff;border-radius:10px;padding:2px 12px;font-weight:800}
+.ready-strip .num{background:var(--ready-solid);color:#fff;border-radius:10px;padding:2px 12px}
+.vbox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px;background:var(--surface-2);border-radius:12px;padding:10px}
+.vbox input{flex:1;min-width:120px;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--surface);padding:0 12px;direction:ltr;text-transform:uppercase}
 @media (max-width:640px){.board{grid-template-columns:1fr}}
 
-/* ---------- display screen ---------- */
-.disp{background:#17100B;color:#F6EBDD;border-radius:var(--r);padding:24px;min-height:560px;display:flex;flex-direction:column;gap:20px;position:relative}
+/* ---------- display screen (always dark, for a TV) ---------- */
+.disp{background:#0A1213;color:#EDF3F2;border-radius:var(--r);padding:24px;min-height:560px;display:flex;flex-direction:column;gap:20px;position:relative}
 .disp-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.disp-top h2{font-family:var(--f-d);font-size:clamp(22px,3vw,36px)}
-.disp-top .clock{font-family:var(--f-d);font-size:clamp(22px,3vw,32px);color:#C2AA94}
+.disp-top h2{font-size:clamp(22px,3vw,38px)}
+.disp-top .clock{font-size:clamp(22px,3vw,32px);color:#9CB2B0}
 .disp-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;flex:1}
-.disp-col{background:#241811;border-radius:20px;padding:18px}
-.disp-col h3{font-size:clamp(18px,2.2vw,26px);margin-bottom:14px;color:#C2AA94}
-.disp-col.rd{background:#123D29;border:2px solid #2FA36B}
+.disp-col{background:#142021;border-radius:20px;padding:18px}
+.disp-col h3{font-size:clamp(18px,2.2vw,26px);margin-bottom:14px;color:#9CB2B0}
+.disp-col.rd{background:#0F3A2E;border:2px solid #2FA36B}
 .disp-col.rd h3{color:#8FE5BA}
 .dn{display:flex;flex-wrap:wrap;gap:12px}
-.dn span{font-family:var(--f-d);font-weight:800;font-size:clamp(34px,5vw,64px);line-height:1;padding:10px 18px;border-radius:16px;background:#33241A;min-width:1.8em;text-align:center}
-.rd .dn span{font-size:clamp(52px,8vw,110px);background:#2FA36B;color:#fff}
+.dn span{font-size:clamp(34px,5vw,64px);line-height:1;padding:10px 18px;border-radius:16px;background:#1E3032;min-width:1.8em;text-align:center}
+.rd .dn span{font-size:clamp(52px,8vw,110px);background:#1FA971;color:#fff}
 .dn span.flash{animation:flash 1s ease-out 3}
 @keyframes flash{0%,100%{transform:scale(1)}50%{transform:scale(1.15);box-shadow:0 0 0 12px rgba(143,229,186,.35)}}
-.disp-empty{color:#8E7A68;font-size:20px}
+.disp-empty{color:#7F9694;font-size:20px}
 .disp-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .disp-foot .q{background:#fff;padding:8px;border-radius:12px;width:96px;height:96px}
 .disp-foot .q svg{width:100%;height:100%;display:block}
-.disp-foot p{font-size:18px;color:#C2AA94}
-.disp .btn{background:#33241A;color:#F6EBDD}
+.disp-foot p{font-size:18px;color:#9CB2B0}
+.disp .btn{background:#1E3032;color:#EDF3F2}
 @media (max-width:640px){.disp-cols{grid-template-columns:1fr}}
 body.solo .disp{border-radius:0;min-height:100dvh}
 
@@ -215,16 +254,18 @@ body.solo .disp{border-radius:0;min-height:100dvh}
 .dnav button[aria-pressed=true]{background:var(--brand);color:var(--brand-ink)}
 .dmain{min-width:0}
 .dhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-.dhead h2{font-family:var(--f-d);font-size:22px}
+.dhead h2{font-size:24px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px;margin-bottom:14px}
-.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi{background:var(--surface-2);border-radius:14px;padding:14px}
 .kpi span{color:var(--muted);font-size:14px}
-.kpi b{display:block;font-family:var(--f-d);font-size:28px;line-height:1.2;margin:2px 0}
+.kpi b{display:block;font-size:28px;line-height:1.2;margin:2px 0}
 .delta{font-size:13px;font-weight:700}.delta.up{color:var(--ready)}.delta.dn2{color:var(--danger)}
 .panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
-.panel h3{font-size:15px;font-family:var(--f-d);margin-bottom:10px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.panel h3{font-size:16px;margin-bottom:10px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
 .panel h3 small{font-family:var(--f-b);font-weight:500;color:var(--muted)}
+.hero{background:var(--sea);color:#F6F1E4;border-radius:16px;padding:18px;margin-bottom:12px}
+.hero .big-num{font-size:40px;line-height:1.1}
 .chart{width:100%;height:auto;display:block}
 .chart text{fill:var(--muted);font-family:var(--f-b);font-size:11px}
 .chart .gl{stroke:var(--line);stroke-width:1}
@@ -240,11 +281,14 @@ body.solo .disp{border-radius:0;min-height:100dvh}
 table{border-collapse:collapse;width:100%;min-width:480px}
 th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:start;font-size:14px;vertical-align:middle}
 th{color:var(--muted);font-weight:500;font-size:13px}
+tr.clk{cursor:pointer}
+tr.clk:hover{background:var(--surface-2)}
 .filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
 .filters .chip{min-height:38px;padding:0 14px;font-size:14px}
-.filters input{min-height:38px;border-radius:999px;border:1px solid var(--line);background:var(--surface);padding:0 14px;min-width:0;flex:1;max-width:180px}
+.filters input{min-height:38px;border-radius:999px;border:1px solid var(--line);background:var(--surface);padding:0 14px;min-width:0;flex:1;max-width:200px}
 .catrow{display:flex;gap:6px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
 .catrow input{flex:1;min-width:0;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--bg);padding:0 10px}
+.catrow input.nm{max-width:90px;text-align:center}
 .ib{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:var(--surface-2);flex:none}
 .ib.dng{color:var(--danger)}
 .igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:8px}
@@ -253,10 +297,10 @@ th{color:var(--muted);font-weight:500;font-size:13px}
 .icard .im .ico{width:34px;height:34px}
 .icard .bd{padding:10px 12px;display:flex;flex-direction:column;gap:4px;flex:1}
 .icard .ft{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:0 12px 12px}
-.sec-h{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:18px 0 4px;font-family:var(--f-d);font-weight:700}
-.modal-bg{position:fixed;inset:0;background:rgba(20,12,7,.6);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
-.modal{background:var(--bg);border-radius:20px;padding:20px;width:100%;max-width:460px;max-height:92dvh;overflow:auto;box-shadow:var(--shadow)}
-.modal h2{font-family:var(--f-d);font-size:19px;margin-bottom:6px}
+.sec-h{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:18px 0 4px;font-family:var(--f-d);font-weight:600}
+.modal-bg{position:fixed;inset:0;background:rgba(2,8,9,.7);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:20px;width:100%;max-width:460px;max-height:92dvh;overflow:auto;box-shadow:var(--shadow)}
+.modal h2{font-size:20px;margin-bottom:6px}
 .upl{display:flex;gap:12px;align-items:center;margin-top:10px}
 .upl .pv{width:88px;height:88px;border-radius:14px;background:var(--surface-2);display:grid;place-items:center;object-fit:cover;color:var(--muted);flex:none}
 .upl label.btn{cursor:pointer}
@@ -265,9 +309,18 @@ th{color:var(--muted);font-weight:500;font-size:13px}
 .qrbox{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 .qrbox .q{background:#fff;padding:14px;border-radius:16px;border:1px solid var(--line);width:200px;height:200px;display:grid;place-items:center}
 .qrbox .q svg{width:100%;height:100%}
+.poster{background:var(--sea);color:#F6F1E4;border-radius:20px;padding:22px;text-align:center;max-width:300px;margin:6px auto 0}
+.poster h3{font-size:26px}
+.poster .q{background:#fff;border-radius:14px;padding:10px;width:170px;height:170px;margin:14px auto}
+.poster .q svg{width:100%;height:100%;display:block}
 .tpl{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
-.tpl button{background:var(--surface-2);border-radius:999px;padding:8px 14px;font-size:14px;min-height:40px}
+.tpl button{background:var(--surface-2);border-radius:999px;padding:8px 14px;font-size:14px;min-height:40px;text-align:start}
+.sug{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:8px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+.sug p{margin:0}
 .hist div{padding:10px 0;border-bottom:1px dashed var(--line)}
+.rv{padding:12px 0;border-bottom:1px dashed var(--line)}
+.rv .s{color:#F2C14E;letter-spacing:2px;direction:ltr;display:inline-block}
+.code{background:var(--surface-2);border-radius:10px;padding:10px;font-size:13px;direction:ltr;text-align:left;white-space:pre-wrap;margin-top:8px}
 @media (max-width:760px){
   .dash{grid-template-columns:1fr}
   .dnav{flex-direction:row;overflow-x:auto;position:static;padding-bottom:4px}
@@ -309,7 +362,7 @@ body.solo:not(.v-customer):not(.v-display) .shell{padding:16px}
       <section data-pane="display" aria-label="شاشة العرض"><div class="pane-title">شاشة عرض الأرقام الجاهزة (للتلفزيون أو التابلت عند الكاونتر)</div><div id="display"></div></section>
       <section data-pane="dash" aria-label="لوحة التحكم"><div class="pane-title">لوحة تحكم صاحب المحل</div><div id="dash"></div></section>
       <div class="card road"><b>الخطوة القادمة: النسخة الحقيقية</b>
-        <ul><li>خادم وقاعدة بيانات (الآن البيانات في متصفحك فقط)</li><li>حسابات حقيقية وتسجيل دخول آمن</li><li>إشعارات Web Push تصل والصفحة مغلقة</li><li>ختم الولاء وعروض أعياد الميلاد</li><li>تحويلها لتطبيق جوال</li></ul></div>
+        <ul><li>خادم وقاعدة بيانات (الآن البيانات في متصفحك فقط)</li><li>حسابات حقيقية ودخول العميل برمز تحقق</li><li>إشعارات Web Push تصل والصفحة مغلقة</li><li>تحويلها لتطبيق جوال</li></ul></div>
     </div>
   </div>
 </div>
@@ -336,21 +389,30 @@ const P = {
   trash:'M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6', edit:'M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z',
   up:'M18 15l-6-6-6 6', down:'M6 9l6 6 6-6', tv:'M2 7h20v13H2zM17 2l-5 5-5-5',
   user:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8',
+  users:'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8',
   logout:'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9',
   expand:'M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3',
   vol:'M11 5 6 9H2v6h4l5 4ZM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14',
   qr:'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h3v3h-3zM20 14v3M14 20h3M20 20v1',
-  home:'M3 11 12 3l9 8v10H3Z'
+  gift:'M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7ZM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7Z',
+  star:'M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z',
+  pin:'M12 22s8-7.2 8-13a8 8 0 1 0-16 0c0 5.8 8 13 8 13ZM12 11.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z',
+  repeat:'M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3',
+  receipt:'M4 2v20l3-2 2 2 3-2 3 2 2-2 3 2V2ZM8 7h8M8 11h8M8 15h5'
 };
 const ico = n => `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="${P[n]||''}"/></svg>`;
-const SAR = 'ر.س';
+const SAR = 'ر.س', DAY = 86400000, MIN = 60000;
 const STATUS = {new:'جديد', prep:'يُحضّر', ready:'جاهز', done:'تم التسليم'};
 const tfmt = t => new Date(t).toLocaleTimeString('ar-SA-u-nu-latn',{hour:'2-digit',minute:'2-digit'});
+const dfmt = t => new Date(t).toLocaleDateString('ar-SA-u-nu-latn',{day:'numeric',month:'short'});
+const mask = p => p ? p.slice(0,3)+'****'+p.slice(-3) : '';
+const normPhone = v => { let d = String(v||'').replace(/\D/g,''); if(d.startsWith('966')) d = '0'+d.slice(3); if(/^5\d{8}$/.test(d)) d = '0'+d; return /^05\d{8}$/.test(d) ? d : ''; };
+function distM(a,b,c,d){ const R=6371000, r=x=>x*Math.PI/180, h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2; return 2*R*Math.asin(Math.sqrt(h)); }
 
 /* ================= state ================= */
-const KEY = 'dawrak_v2', AKEY = 'dawrak_acct';
+const KEY = 'dawrak_v3', AKEY = 'dawrak_acct';
 function seed(){
-  const now = Date.now(), M = 60000;
+  const now = Date.now();
   const menu = [
     {id:'m1',cat:'hot',name:'قهوة مختصة V60',desc:'إثيوبي، حمضية خفيفة',price:18,on:true,img:''},
     {id:'m2',cat:'hot',name:'لاتيه',desc:'إسبريسو مع حليب مبخّر',price:16,on:true,img:''},
@@ -363,24 +425,31 @@ function seed(){
     {id:'m9',cat:'bake',name:'كرواسون زبدة',desc:'طازج كل صباح',price:10,on:true,img:''},
     {id:'m10',cat:'bake',name:'كيك التمر',desc:'مع صوص الكراميل',price:14,on:true,img:''}
   ];
+  const customers = [
+    ['سلمان العتيبي','0551230001',120,9,740,1],['ريم القحطاني','0551230002',60,5,410,2],['خالد الدوسري','0551230003',30,3,190,20],
+    ['نورة الشمري','0551230004',210,14,1120,0],['فهد المطيري','0551230005',20,2,95,25],['هند الحربي','0551230006',90,7,520,3],
+    ['ماجد الزهراني','0551230007',10,1,36,30],['لينا السبيعي','0551230008',150,11,880,1]
+  ].map((c,i)=>({id:'c'+(i+1),name:c[0],phone:c[1],points:c[2],visits:c[3],spent:c[4],last:now-c[5]*DAY}));
   const orders = []; let r = 11; const rnd = () => (r = (r*9301+49297)%233280)/233280;
-  const live = menu.filter(m=>m.on);
+  const live = menu.filter(m=>m.on), comments = ['القهوة ممتازة والخدمة سريعة','تأخر الطلب شوي لكن الطعم يستاهل','أفضل لاتيه في الحي','الكرواسون كان بارد','','شكراً، ننتظر عروض جديدة',''];
   for(let k=0;k<26;k++){
-    const t = now - (20 + (25-k)*24)*M;
-    const items = [], n = 1 + (rnd()*2|0);
+    const t = now - (20 + (25-k)*24)*MIN, items = [], n = 1 + (rnd()*2|0);
     for(let j=0;j<n;j++){ const m = live[(rnd()*live.length)|0]; if(!items.find(i=>i.id===m.id)) items.push({id:m.id,q:1+(rnd()*1.6|0)}); }
-    orders.push({id:'s'+k,no:k+1,name:'',serve:rnd()>.5?'سفري':'هنا',items,total:items.reduce((a,i)=>a+menu.find(m=>m.id===i.id).price*i.q,0),note:'',status:'done',t,tReady:t+(4+(rnd()*5|0))*M,callAt:0});
+    const cu = k%3===0 ? customers[(rnd()*8)|0] : null, rated = k%4===1;
+    orders.push({id:'s'+k,no:k+1,name:cu?cu.name.split(' ')[0]:'',customerId:cu?cu.id:null,serve:rnd()>.5?'سفري':'هنا',items,total:items.reduce((a,i)=>a+menu.find(m=>m.id===i.id).price*i.q,0),note:'',status:'done',t,tReady:t+(4+(rnd()*5|0))*MIN,callAt:0,pointsAwarded:cu?10:0,rating:rated?3+(rnd()*2.99|0):null,ratingComment:rated?comments[(rnd()*comments.length)|0]:''});
   }
-  orders.push({id:'o1',no:27,name:'سلمان',serve:'سفري',items:[{id:'m2',q:2}],total:32,note:'',status:'ready',t:now-9*M,tReady:now-2*M,callAt:0});
-  orders.push({id:'o2',no:28,name:'',serve:'هنا',items:[{id:'m1',q:1},{id:'m9',q:1}],total:28,note:'بدون سكر',status:'prep',t:now-5*M,callAt:0});
-  orders.push({id:'o3',no:29,name:'ريم',serve:'سفري',items:[{id:'m6',q:1}],total:18,note:'',status:'new',t:now-M,callAt:0});
+  orders.push({id:'o1',no:27,name:'سلمان',customerId:'c1',serve:'سفري',items:[{id:'m2',q:2}],total:32,note:'',status:'ready',t:now-9*MIN,tReady:now-2*MIN,callAt:0,pointsAwarded:0,rating:null});
+  orders.push({id:'o2',no:28,name:'',customerId:null,serve:'هنا',items:[{id:'m1',q:1},{id:'m9',q:1}],total:28,note:'بدون سكر',status:'prep',t:now-5*MIN,callAt:0,pointsAwarded:0,rating:null});
+  orders.push({id:'o3',no:29,name:'ريم',customerId:'c2',serve:'سفري',items:[{id:'m6',q:1}],total:18,note:'',status:'new',t:now-MIN,callAt:0,pointsAwarded:0,rating:null});
   return {
-    seq:29, subs:38, optIn:false, my:null, menuUrl:'',
-    shop:{name:'قهوة الزاوية', sub:'عربة قهوة مختصة', open:true},
+    seq:29, subs:38, optIn:false, my:null, me:null, menuUrl:'',
+    shop:{name:'قهوة الزاوية', sub:'عربة قهوة مختصة', open:true, ppo:10, lat:null, lng:null, radius:200},
     cats:[{id:'hot',name:'قهوة ساخنة',ic:'hot'},{id:'cold',name:'باردة',ic:'cold'},{id:'bake',name:'مخبوزات',ic:'bake'}],
-    menu, orders,
+    menu, orders, customers,
+    rewards:[{id:'w1',title:'قهوة مجانية',cost:100,on:true},{id:'w2',title:'كرواسون مجاني',cost:60,on:true},{id:'w3',title:'خصم 10 ر.س',cost:80,on:true}],
+    vouchers:[],
     prevDays:[540,620,590,710,780,700],
-    offers:[{id:'f1',title:'خصم 20% على المشروبات الباردة',body:'اليوم فقط من 4 إلى 7 مساءً',t:now-86400000}]
+    offers:[{id:'f1',title:'خصم 20% على المشروبات الباردة',body:'اليوم فقط من 4 إلى 7 مساءً',aud:'all',t:now-DAY}]
   };
 }
 function load(){ try{ const r = localStorage.getItem(KEY); if(r) return JSON.parse(r); }catch(e){} return seed(); }
@@ -389,17 +458,39 @@ function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); saveFail=fal
 let S = load();
 window.addEventListener('storage', e => { if(e.key === KEY){ const n = S.orders.length; S = load(); if(ui.signed && S.orders.length > n) chime(); renderAll(); } });
 
-const ui = {tab:'menu', cat:null, cart:{}, sheet:false, serve:'هنا', name:'', note:'', alert:false, toast:null, alerted:'',
-  view:'dash', dtab:'ov', ofilter:'all', osearch:'', edit:null, draft:{title:'',body:''}, authTab:'in', authErr:'', notif:'',
-  signed:false, prevReady:null, dispSound:false, newCat:'', imgErr:''};
+const ui = {tab:'menu', cat:null, cart:{}, sheet:false, serve:'هنا', name:'', phone:'', note:'', alert:false, toast:null, alerted:'',
+  view:'dash', dtab:'ov', ofilter:'all', osearch:'', csearch:'', edit:null, cmodal:null, draft:{title:'',body:'',aud:'all'}, authTab:'in', authErr:'', notif:'',
+  signed:false, prevReady:null, dispSound:false, newCat:'', imgErr:'', stars:0, comment:'', acctErr:'', cPhone:'', cName:'', vMsg:null, vCode:'', locMsg:'',
+  imp:null, nearId:null, nearFired:false, nearErr:false, newReward:{title:'',cost:50}};
 try{ ui.signed = sessionStorage.getItem('dawrak_sess')==='1'; }catch(e){}
 const item = id => S.menu.find(m => m.id === id);
 const catOf = id => S.cats.find(c => c.id === id);
+const custOf = id => S.customers.find(c => c.id === id);
+const me = () => custOf(S.me);
 const myOrder = () => S.orders.find(o => o.id === S.my);
 const cartCount = () => Object.values(ui.cart).reduce((a,b)=>a+b,0);
 const cartTotal = () => Object.entries(ui.cart).reduce((a,[id,q]) => a + (item(id)?.price||0)*q, 0);
-const mins = t => Math.max(0, Math.floor((Date.now()-t)/60000));
+const mins = t => Math.max(0, Math.floor((Date.now()-t)/MIN));
+const daysAgo = t => Math.floor((Date.now()-t)/DAY);
 function curCat(){ if(!S.cats.find(c=>c.id===ui.cat)) ui.cat = S.cats[0]?.id || null; return ui.cat; }
+const AUD = {all:'كل الزبائن', loyal:'الأوفياء (5 زيارات فأكثر)', lapsed:'من غابوا 14 يوماً فأكثر'};
+const matchAud = (c, a) => a==='all' || (a==='loyal' && c.visits>=5) || (a==='lapsed' && daysAgo(c.last)>=14);
+const offersForMe = () => S.offers.filter(f => f.aud==='all' || (me() && matchAud(me(), f.aud))).slice().reverse();
+function findOrMakeCustomer(phone, name){
+  let c = S.customers.find(x=>x.phone===phone);
+  if(!c){ c = {id:'c'+Date.now(), name:(name||'عميل').slice(0,30), phone, points:0, visits:0, spent:0, last:Date.now()}; S.customers.push(c); }
+  else if(name && (!c.name || c.name==='عميل')) c.name = name.slice(0,30);
+  return c;
+}
+function awardPoints(o){
+  const c = o.customerId && custOf(o.customerId);
+  if(c && !o.pointsAwarded){ c.points += S.shop.ppo; c.visits++; c.spent += o.total; c.last = Date.now(); o.pointsAwarded = S.shop.ppo; }
+}
+function makeVoucher(c, w, used){
+  const code = 'DW-' + String(Math.floor(1000+Math.random()*9000));
+  S.vouchers.push({id:'v'+Date.now()+Math.random().toString(36).slice(2,5), code, title:w.title, customerId:c.id, status:used?'used':'active', t:Date.now()});
+  c.points -= w.cost; return code;
+}
 
 /* ================= sound, vibration, system notification ================= */
 let _ac = null;
@@ -418,11 +509,25 @@ async function askNotif(){
   try{ return await Notification.requestPermission(); }catch(e){ return 'denied'; }
 }
 
-/* ================= images ================= */
+/* ================= nearby alert (works while the page is open) ================= */
+function nearAlert(){
+  const o = offersForMe()[0];
+  const body = o ? 'عرض اليوم: '+o.title : 'تفضّل زورنا، قهوتك بانتظارك!';
+  toast('أنت قريب من '+S.shop.name, body); chime(); sysNotify('أنت قريب من '+S.shop.name, body);
+}
+function stopNear(){ try{ if(ui.nearId!=null) navigator.geolocation.clearWatch(ui.nearId); }catch(e){} ui.nearId=null; }
+function startNear(){
+  stopNear(); ui.nearFired=false; ui.nearErr=false;
+  if(!S.optIn || S.shop.lat==null || !navigator.geolocation) return;
+  try{ ui.nearId = navigator.geolocation.watchPosition(p => {
+    if(!ui.nearFired && distM(p.coords.latitude,p.coords.longitude,S.shop.lat,S.shop.lng) <= S.shop.radius){ ui.nearFired=true; nearAlert(); }
+  }, () => { ui.nearErr=true; }, {enableHighAccuracy:true, maximumAge:30000}); }catch(e){ ui.nearErr=true; }
+}
+
+/* ================= images / QR ================= */
 function fileToDataURL(file, max=520){
   return new Promise((res, rej) => {
-    const r = new FileReader();
-    r.onerror = rej;
+    const r = new FileReader(); r.onerror = rej;
     r.onload = () => { const img = new Image(); img.onerror = rej;
       img.onload = () => { const k = Math.min(1, max/Math.max(img.width,img.height)), c = document.createElement('canvas');
         c.width = Math.round(img.width*k); c.height = Math.round(img.height*k); c.getContext('2d').drawImage(img,0,0,c.width,c.height); res(c.toDataURL('image/jpeg',.78)); };
@@ -430,19 +535,16 @@ function fileToDataURL(file, max=520){
     r.readAsDataURL(file);
   });
 }
-
-/* ================= QR ================= */
+const readText = f => new Promise((res,rej)=>{ const r=new FileReader(); r.onerror=rej; r.onload=()=>res(String(r.result)); r.readAsText(f); });
 function baseUrl(){ const u = new URL(location.href); u.search=''; u.hash=''; return u.toString(); }
 function customerUrl(){ return S.menuUrl || (baseUrl() + '#customer'); }
-function qrSvg(text){
-  try{ const q = qrcode(0,'M'); q.addData(text); q.make(); return q.createSvgTag({cellSize:4,margin:0,scalable:true}); }catch(e){ return ''; }
-}
+function qrSvg(text){ try{ const q = qrcode(0,'M'); q.addData(text); q.make(); return q.createSvgTag({cellSize:4,margin:0,scalable:true}); }catch(e){ return ''; } }
 
 /* ================= customer ================= */
 function renderPhone(){
   const mo = myOrder();
   const unread = S.optIn && ui.tab !== 'offers' && ui.newOffer;
-  let body = ui.tab==='menu' ? menuView() : ui.tab==='track' ? trackView(mo) : offersView();
+  const body = ui.tab==='menu' ? menuView() : ui.tab==='track' ? trackView(mo) : ui.tab==='offers' ? offersView() : acctView();
   const n = cartCount();
   $('#screen').innerHTML = `
     <header class="p-head"><div><h1>${esc(S.shop.name)}</h1><small>${esc(S.shop.sub)}</small></div><span class="open ${S.shop.open?'':'closed'}">${S.shop.open?'مفتوح الآن':'مغلق'}</span></header>
@@ -452,6 +554,7 @@ function renderPhone(){
       <button data-act="tab" data-t="menu" ${ui.tab==='menu'?'aria-current="page"':''}>${ico('menu')}القائمة</button>
       <button data-act="tab" data-t="track" ${ui.tab==='track'?'aria-current="page"':''}>${ico('clock')}طلبي${mo && mo.status==='ready' ? '<i class="dot"></i>':''}</button>
       <button data-act="tab" data-t="offers" ${ui.tab==='offers'?'aria-current="page"':''}>${ico('tag')}العروض${unread?'<i class="dot"></i>':''}</button>
+      <button data-act="tab" data-t="acct" ${ui.tab==='acct'?'aria-current="page"':''}>${ico('gift')}حسابي</button>
     </nav>
     ${ui.sheet ? sheetView() : ''}
     ${ui.toast ? `<div class="toast" role="status"><div class="ic">${ico('bell')}</div><div><b>${esc(ui.toast.title)}</b><span>${esc(ui.toast.body)}</span></div></div>` : ''}
@@ -472,15 +575,26 @@ function menuView(){
 }
 function sheetView(){
   const rows = Object.entries(ui.cart).map(([id,q]) => { const m = item(id); return m ? `<div class="line"><span>${esc(m.name)}</span><div class="step"><button data-act="dec" data-id="${id}" aria-label="إنقاص">${ico('minus')}</button><b>${q}</b><button data-act="inc" data-id="${id}" aria-label="زيادة">${ico('plus')}</button></div></div>` : ''; }).join('');
+  const c = me();
   return `<div class="sheet-bg" data-act="sheet-close"><div class="sheet" role="dialog" aria-label="السلة">
     <h2>سلتك <button class="step" data-act="sheet-close" aria-label="إغلاق" style="width:44px;height:44px;justify-content:center">${ico('x')}</button></h2>
     ${rows || '<p class="hint">السلة فارغة</p>'}
     <div class="two" role="group" aria-label="طريقة الاستلام"><button data-act="serve" data-s="هنا" aria-pressed="${ui.serve==='هنا'}">آكل هنا</button><button data-act="serve" data-s="سفري" aria-pressed="${ui.serve==='سفري'}">سفري</button></div>
-    <input class="field" id="fName" placeholder="اسمك (اختياري)" value="${esc(ui.name)}" autocomplete="off">
+    <input class="field" id="fName" placeholder="اسمك (اختياري)" value="${esc(ui.name || c?.name || '')}" autocomplete="off">
+    ${c ? `<p class="hint" style="margin-top:8px">نقاطك: <b class="num">${c.points}</b> · هذا الطلب يضيف <b class="num">${S.shop.ppo}</b> نقطة</p>`
+        : `<input class="field" id="fPhone" inputmode="tel" dir="ltr" placeholder="رقم جوالك لتجمع نقاط (اختياري)" value="${esc(ui.phone)}" autocomplete="off"><p class="hint" style="margin-top:6px">بدون رقم تطلب كضيف، وبالرقم تجمع ${S.shop.ppo} نقطة لكل طلب.</p>`}
     <input class="field" id="fNote" placeholder="ملاحظة (مثال: بدون سكر)" value="${esc(ui.note)}" autocomplete="off">
     <div class="total"><span>الإجمالي</span><span class="num">${cartTotal()} ${SAR}</span></div>
     <button class="btn btn-a big" data-act="order" ${cartCount()?'':'disabled'}>تأكيد الطلب</button>
-    <p class="hint" style="text-align:center;margin-top:8px">الدفع عند الكاشير. لا حاجة لرقم جوال.</p></div></div>`;
+    ${ui.acctErr?`<p class="err" role="alert">${esc(ui.acctErr)}</p>`:''}
+    <p class="hint" style="text-align:center;margin-top:8px">الدفع عند الكاشير.</p></div></div>`;
+}
+function invoiceHtml(o){
+  const sub = o.total/1.15, vat = o.total - sub;
+  const lines = o.items.map(i=>{ const m=item(i.id); return `<div class="line"><span>${i.q}× ${esc(m?.name||'')}</span><span class="num">${((m?.price||0)*i.q).toFixed(2)}</span></div>`; }).join('');
+  return `<div class="inv"><div style="display:flex;justify-content:space-between"><b>${esc(S.shop.name)}</b><span class="num">INV-${o.no}</span></div><small>${new Date(o.t).toLocaleString('ar-SA-u-nu-latn')}</small>
+    ${lines}<div class="line"><span>المجموع قبل الضريبة</span><span class="num">${sub.toFixed(2)}</span></div><div class="line"><span>ضريبة القيمة المضافة 15%</span><span class="num">${vat.toFixed(2)}</span></div>
+    <div class="line"><b>الإجمالي</b><b class="num">${o.total.toFixed(2)} ${SAR}</b></div><small>الأسعار شاملة الضريبة. فاتورة تجريبية.</small></div>`;
 }
 function trackView(o){
   if(!o) return `<div class="empty">${ico('clock')}<p>ما عندك طلب حالياً</p><button class="btn btn-p" style="margin-top:12px" data-act="tab" data-t="menu">تصفّح القائمة</button></div>`;
@@ -489,20 +603,49 @@ function trackView(o){
   const idx = {new:0,prep:1,ready:2,done:2}[o.status];
   const lines = o.items.map(i => `<div class="line"><span>${i.q}× ${esc(item(i.id)?.name||'')}</span></div>`).join('');
   const eta = o.status==='new' ? `<p class="hint">الوقت المتوقع: حوالي <b class="num">${3+ahead*2}</b> دقائق</p>` : '';
+  const rate = o.status==='done' && o.rating==null ? `<div class="card" style="margin-top:12px"><h3 style="text-align:center">قيّم تجربتك</h3>
+      <div class="stars" role="group" aria-label="التقييم">${[1,2,3,4,5].map(n=>`<button class="${n<=ui.stars?'on':''}" data-act="star" data-n="${n}" aria-label="${n} نجوم">${ico('star')}</button>`).join('')}</div>
+      <textarea class="field" id="rComment" placeholder="ملاحظاتك (اختياري)">${esc(ui.comment)}</textarea>
+      <button class="btn btn-a big" style="margin-top:10px" data-act="rate" ${ui.stars?'':'disabled'}>إرسال التقييم</button></div>`
+    : o.rating!=null ? `<p class="hint" style="text-align:center;margin-top:12px">شكراً لتقييمك ★ ${o.rating}/5</p>` : '';
+  const pts = o.pointsAwarded>0 ? `<p class="ok" style="text-align:center">أضفنا لك ${o.pointsAwarded} نقطة لهذا الطلب</p>` : '';
   return `<div class="track ${o.status==='ready'?'ready':''}"><div class="lbl">رقم طلبك</div><div class="no">${o.no}</div>
     <div class="st" aria-hidden="true"><div class="on">استُلم</div><div class="${idx>=1?'on':''}">يُحضّر</div><div class="${idx>=2?'on':''}">جاهز</div></div>
-    <p class="msg" role="status">${msgs[o.status]}</p>${eta}</div>
+    <p class="msg" role="status">${msgs[o.status]}</p>${eta}</div>${pts}
     <div class="card" style="margin-top:12px">${lines}<div class="total" style="margin:10px 0 0"><span>الإجمالي</span><span class="num">${o.total} ${SAR}</span></div></div>
+    <details class="card" style="margin-top:12px"><summary>${ico('receipt')} الفاتورة</summary>${invoiceHtml(o)}</details>
+    ${rate}
     <p class="hint" style="text-align:center;margin-top:12px">اترك هذه الصفحة مفتوحة. يهتز جوالك ويصدر صوتاً لما يجهز طلبك.</p>
     ${o.status==='done' ? '<button class="btn btn-p big" style="margin-top:12px" data-act="new-order">طلب جديد</button>' : ''}`;
 }
 function offersView(){
-  const list = S.offers.slice().reverse().map(f => `<article class="offer"><h3>${esc(f.title)}</h3><p>${esc(f.body)}</p><small>${mins(f.t)<60?`قبل ${mins(f.t)} دقيقة`:mins(f.t)<1440?`قبل ${Math.floor(mins(f.t)/60)} ساعة`:'قبل يوم أو أكثر'}</small></article>`).join('');
+  const list = offersForMe().map(f => `<article class="offer"><h3>${esc(f.title)}</h3><p>${esc(f.body)}</p><small>${mins(f.t)<60?`قبل ${mins(f.t)} دقيقة`:mins(f.t)<1440?`قبل ${Math.floor(mins(f.t)/60)} ساعة`:`قبل ${daysAgo(f.t)} يوم`}${f.aud!=='all'?' · خاص بك':''}</small></article>`).join('');
   const nmsg = {granted:'إشعارات النظام مفعّلة لهذه الصفحة.', denied:'المتصفح رفض الإشعارات. فعّلها من إعدادات الموقع.', unsupported:'هذا المتصفح لا يدعم إشعارات النظام.'}[ui.notif] || '';
-  return `<div class="opt"><div style="flex:1"><b>وصّلني عروض المحل</b><p class="hint">بدون رقم جوال وبدون تسجيل. تقدر توقفها بأي وقت.</p></div>
+  const hasLoc = S.shop.lat!=null;
+  return `<div class="opt"><div style="flex:1"><b>وصّلني عروض المحل</b><p class="hint">بدون رسائل مزعجة. تقدر توقفها بأي وقت.</p></div>
     <button class="switch" role="switch" aria-checked="${S.optIn}" aria-label="استقبال العروض" data-act="optin"></button></div>
-    ${nmsg ? `<p class="hint" style="margin:-6px 4px 12px">${nmsg} وصولها والصفحة مغلقة يحتاج Web Push من الخادم في النسخة الحقيقية.</p>`:''}
+    ${nmsg ? `<p class="hint" style="margin:-4px 4px 12px">${nmsg} وصولها والصفحة مغلقة يحتاج Web Push من الخادم في النسخة الحقيقية.</p>`:''}
+    ${S.optIn ? `<div class="opt" style="background:var(--surface)"><div style="flex:1">${ico('pin')}<b> تنبيه القرب</b><p class="hint">${hasLoc?`ننبّهك لما تصير على بعد ${S.shop.radius} متر من المحل، والصفحة مفتوحة.${ui.nearErr?' تعذّر الوصول لموقعك.':''}`:'المحل لم يحدّد موقعه بعد.'}</p></div><button class="btn btn-g" data-act="sim-near" style="min-height:40px">جرّب التنبيه</button></div>`:''}
     ${list || '<div class="empty">لا توجد عروض الآن</div>'}`;
+}
+function acctView(){
+  const c = me();
+  if(!c) return `<div class="card"><h3>سجّل بجوالك وجمّع نقاط</h3><p class="hint">كل طلب مكتمل يضيف ${S.shop.ppo} نقطة. تستبدلها بمكافآت المحل.</p>
+    <label class="lbl2" for="cName">اسمك</label><input class="field" id="cName" value="${esc(ui.cName)}" autocomplete="name">
+    <label class="lbl2" for="cPhone">رقم الجوال</label><input class="field" id="cPhone" inputmode="tel" dir="ltr" placeholder="05XXXXXXXX" value="${esc(ui.cPhone)}" autocomplete="tel">
+    ${ui.acctErr?`<p class="err" role="alert">${esc(ui.acctErr)}</p>`:''}
+    <button class="btn btn-a big" style="margin-top:12px" data-act="acct-login">دخول</button>
+    <p class="hint" style="margin-top:8px">في النسخة الحقيقية يُؤكَّد الرقم برمز تحقق قبل عرض النقاط.</p></div>`;
+  const rw = S.rewards.filter(r=>r.on).sort((a,b)=>a.cost-b.cost), next = rw.find(r=>r.cost>c.points);
+  const mine = S.vouchers.filter(v=>v.customerId===c.id).slice().reverse();
+  const hist = S.orders.filter(o=>o.customerId===c.id && o.status==='done').sort((a,b)=>b.no-a.no).slice(0,5);
+  return `<div class="pts"><div><small>أهلاً ${esc(c.name.split(' ')[0])}</small><div class="big-num">${c.points}</div><small>نقطة</small></div><div style="text-align:end;max-width:55%">${next?`<small>باقي ${next.cost-c.points} نقطة على «${esc(next.title)}»</small><div class="prog"><i style="width:${Math.min(100,c.points/next.cost*100)}%"></i></div>`:'<small>تقدر تستبدل أي مكافأة الآن</small>'}</div></div>
+    <h3 style="margin:14px 0 8px">المكافآت</h3>
+    ${rw.map(r=>`<div class="rw"><div><b>${esc(r.title)}</b><div class="hint">${r.cost} نقطة</div></div><button class="btn btn-a" data-act="redeem" data-id="${r.id}" ${c.points>=r.cost?'':'disabled'}>استبدل</button></div>`).join('') || '<p class="hint">لا توجد مكافآت حالياً</p>'}
+    ${ui.acctErr?`<p class="err" role="alert">${esc(ui.acctErr)}</p>`:''}
+    ${mine.length?`<h3 style="margin:14px 0 8px">قسائمي</h3><p class="hint" style="margin-bottom:8px">أعطِ الرمز للكاشير عند الاستلام.</p>${mine.map(v=>`<div class="vch ${v.status==='used'?'used':''}"><span class="hint">${esc(v.title)}</span><b>${v.code}</b><span class="hint">${v.status==='used'?'مستخدمة':'فعّالة'}</span></div>`).join('')}`:''}
+    ${hist.length?`<h3 style="margin:14px 0 8px">طلباتي السابقة</h3>${hist.map(o=>`<div class="rw"><div><b>#${o.no}</b> <span class="hint">${o.items.map(i=>`${i.q}× ${esc(item(i.id)?.name||'')}`).join('، ')}</span></div><button class="btn btn-g" data-act="reorder" data-id="${o.id}" aria-label="اطلب مرة ثانية">${ico('repeat')}</button></div>`).join('')}`:''}
+    <button class="btn btn-g big" style="margin-top:14px" data-act="acct-out">${ico('logout')} خروج</button>`;
 }
 
 /* ================= auth ================= */
@@ -551,7 +694,7 @@ function ordCard(o){
   const m = mins(o.status==='ready' && o.tReady ? o.tReady : o.t);
   const act = {new:['prep','ابدأ التحضير','btn-p'], prep:['ready','جاهز، نادِ الزبون','btn-a'], ready:['done','تم التسليم','btn-g']}[o.status];
   return `<article class="ord"><header><span class="no">${o.no}</span><small class="${m>=8&&o.status!=='ready'?'late':''}">${m} د</small></header>
-    <small>${esc(o.name||'بدون اسم')} · <span class="pill">${esc(o.serve)}</span></small>
+    <small>${esc(o.name||'بدون اسم')} · <span class="pill">${esc(o.serve)}</span>${o.customerId?' · <span class="pill s-ready">عضو</span>':''}</small>
     <ul>${its}</ul>${o.note?`<p class="hint" style="margin:-4px 0 8px">ملاحظة: ${esc(o.note)}</p>`:''}
     <div style="display:flex;gap:8px"><button class="btn ${act[2]}" data-act="adv" data-id="${o.id}" data-to="${act[0]}">${act[1]}</button>${o.status==='ready'?`<button class="btn btn-g" style="width:auto" data-act="recall" data-id="${o.id}" aria-label="نداء مرة أخرى">${ico('bell')}</button>`:''}</div></article>`;
 }
@@ -559,7 +702,9 @@ function renderStaff(){
   if(!ui.signed){ $('#staff').innerHTML = gate('s'); return; }
   const col = (s,t) => { const l = S.orders.filter(o=>o.status===s).sort((a,b)=>a.no-b.no); return `<section class="col" aria-label="${t}"><h3>${t}<em class="num">${l.length}</em></h3>${l.map(ordCard).join('') || '<p class="hint" style="padding:6px 2px">لا شيء</p>'}</section>`; };
   const ready = S.orders.filter(o=>o.status==='ready').map(o=>`<span class="num">${o.no}</span>`).join('');
-  $('#staff').innerHTML = `<div class="card"><div class="ready-strip"><b>جاهز للاستلام:</b>${ready||'<span class="hint">لا يوجد</span>'}</div>
+  $('#staff').innerHTML = `<div class="card"><div class="vbox"><b>${ico('gift')} قسيمة مكافأة</b><input id="vCode" placeholder="DW-0000" maxlength="7" aria-label="رمز القسيمة" value="${esc(ui.vCode||'')}"><button class="btn btn-p" data-act="voucher-use">تحقق واستخدم</button>
+      ${ui.vMsg?`<span class="${ui.vMsg.ok?'ok':'err'}" role="status" style="margin:0">${esc(ui.vMsg.t)}</span>`:''}</div>
+    <div class="ready-strip"><b>جاهز للاستلام:</b>${ready||'<span class="hint">لا يوجد</span>'}</div>
     <div class="board">${col('new','جديد')}${col('prep','يُحضّر')}${col('ready','جاهز')}</div></div>`;
 }
 
@@ -582,16 +727,17 @@ function renderDisplay(){
 }
 
 /* ================= dashboard ================= */
-const DTABS = [['ov','نظرة عامة','dash'],['ord','الطلبات','list'],['menu','المنيو','menu'],['offers','العروض','tag'],['qr','QR والشاشة','qr'],['set','الإعدادات','set']];
+const DTABS = [['ov','نظرة عامة','dash'],['ord','الطلبات','list'],['menu','المنيو','menu'],['cust','العملاء','users'],['loy','الولاء والمكافآت','gift'],['rev','التقييمات','star'],['offers','العروض','tag'],['qr','QR والشاشة','qr'],['set','الإعدادات','set']];
 function stats(){
   const now = Date.now(), H = 3600000, day = S.orders.filter(o => now-o.t < 24*H);
   const sales = day.reduce((a,o)=>a+o.total,0), n = day.length;
   const hours = Array(12).fill(0); day.forEach(o => { const k = Math.floor((now-o.t)/H); if(k<12) hours[11-k]++; });
-  const withReady = day.filter(o=>o.tReady), prep = withReady.length ? withReady.reduce((a,o)=>a+(o.tReady-o.t),0)/withReady.length/60000 : 0;
+  const withReady = day.filter(o=>o.tReady), prep = withReady.length ? withReady.reduce((a,o)=>a+(o.tReady-o.t),0)/withReady.length/MIN : 0;
   const sold = {}; day.forEach(o=>o.items.forEach(i=>sold[i.id]=(sold[i.id]||0)+i.q));
   const top = Object.entries(sold).map(([id,q])=>({id,q,m:item(id)})).filter(x=>x.m).sort((a,b)=>b.q-a.q).slice(0,5);
   const days = [...S.prevDays, sales], yesterday = S.prevDays[S.prevDays.length-1];
-  return {sales, n, hours, prep, top, days, avg:n?sales/n:0, delta:yesterday?Math.round((sales-yesterday)/yesterday*100):0};
+  const rated = S.orders.filter(o=>o.rating!=null), rating = rated.length ? rated.reduce((a,o)=>a+o.rating,0)/rated.length : 0;
+  return {sales, n, hours, prep, top, days, avg:n?sales/n:0, delta:yesterday?Math.round((sales-yesterday)/yesterday*100):0, rating, rn:rated.length};
 }
 function barChart(vals){
   const W=520,Hh=170,pl=26,pb=22,pt=10,max=Math.max(4,...vals), bw=(W-pl)/vals.length, now=new Date().getHours();
@@ -608,23 +754,26 @@ function lineChart(vals){
   let g=''; [0,.5,1].forEach(f=>{ const y=pt+(Hh-pt-pb)*(1-f); g+=`<line class="gl" x1="${pl}" x2="${W}" y1="${y}" y2="${y}"/><text x="${pl-6}" y="${y+4}" text-anchor="end">${Math.round(max*f)}</text>`; });
   const d = xy.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
   g+=`<path class="ar" d="${d} L${xy[xy.length-1][0]} ${Hh-pb} L${xy[0][0]} ${Hh-pb}Z"/><path class="ln" d="${d}"/>`;
-  xy.forEach((p,i)=>{ const dt=new Date(Date.now()-(vals.length-1-i)*86400000); g+=`<text x="${p[0]}" y="${Hh-6}" text-anchor="middle">${dt.toLocaleDateString('ar-SA-u-nu-latn',{weekday:'short'})}</text>`; if(i===vals.length-1) g+=`<circle class="pt" cx="${p[0]}" cy="${p[1]}" r="5"/>`; });
+  xy.forEach((p,i)=>{ const dt=new Date(Date.now()-(vals.length-1-i)*DAY); g+=`<text x="${p[0]}" y="${Hh-6}" text-anchor="middle">${dt.toLocaleDateString('ar-SA-u-nu-latn',{weekday:'short'})}</text>`; if(i===vals.length-1) g+=`<circle class="pt" cx="${p[0]}" cy="${p[1]}" r="5"/>`; });
   return `<svg class="chart" viewBox="0 0 ${W} ${Hh}" role="img" aria-label="مبيعات آخر 7 أيام">${g}</svg>`;
 }
 function ovView(){
   const s = stats(), mx = Math.max(1,...s.top.map(t=>t.q));
   const live = {new:0,prep:0,ready:0}; S.orders.forEach(o=>{ if(live[o.status]!==undefined) live[o.status]++; });
+  const active = S.customers.filter(c=>daysAgo(c.last)<14).length;
   return `<div class="kpis">
-    <div class="kpi"><span>مبيعات آخر 24 ساعة</span><b>${s.sales} <small style="font-size:14px">${SAR}</small></b><span class="delta ${s.delta>=0?'up':'dn2'}">${s.delta>=0?'▲':'▼'} ${Math.abs(s.delta)}% عن أمس</span></div>
-    <div class="kpi"><span>عدد الطلبات</span><b>${s.n}</b><span class="hint">${live.new+live.prep} قيد العمل الآن</span></div>
-    <div class="kpi"><span>متوسط قيمة الطلب</span><b>${s.avg.toFixed(1)} <small style="font-size:14px">${SAR}</small></b><span class="hint">لكل زبون</span></div>
-    <div class="kpi"><span>متوسط وقت التحضير</span><b>${s.prep.toFixed(1)} <small style="font-size:14px">د</small></b><span class="hint">من الطلب للجاهزية</span></div></div>
+    <div class="kpi"><span>مبيعات 24 ساعة</span><b>${s.sales} <small style="font-size:14px">${SAR}</small></b><span class="delta ${s.delta>=0?'up':'dn2'}">${s.delta>=0?'▲':'▼'} ${Math.abs(s.delta)}% عن أمس</span></div>
+    <div class="kpi"><span>عدد الطلبات</span><b>${s.n}</b><span class="hint">${live.new+live.prep} قيد العمل</span></div>
+    <div class="kpi"><span>متوسط الطلب</span><b>${s.avg.toFixed(1)}</b><span class="hint">${SAR}</span></div>
+    <div class="kpi"><span>وقت التحضير</span><b>${s.prep.toFixed(1)}</b><span class="hint">دقيقة</span></div>
+    <div class="kpi"><span>التقييم</span><b>${s.rn?s.rating.toFixed(1):'—'}</b><span class="hint">من ${s.rn} تقييم</span></div>
+    <div class="kpi"><span>عملاء نشطون</span><b>${active}</b><span class="hint">آخر 14 يوماً</span></div></div>
   <div class="panels"><div class="panel"><h3>الطلبات حسب الساعة <small>آخر 12 ساعة</small></h3>${barChart(s.hours)}</div>
     <div class="panel"><h3>المبيعات <small>آخر 7 أيام (${SAR})</small></h3>${lineChart(s.days)}</div></div>
   <div class="panels"><div class="panel"><h3>الأكثر مبيعاً <small>آخر 24 ساعة</small></h3>${s.top.map(t=>`<div class="hb"><span>${esc(t.m.name)}</span><b class="num">${t.q}</b><div class="tr"><i style="width:${t.q/mx*100}%"></i></div></div>`).join('') || '<p class="hint">لا توجد بيانات</p>'}</div>
     <div class="panel"><h3>الآن في المحل</h3><div class="status-line"><span class="pill s-new">جديد ${live.new}</span><span class="pill s-prep">يُحضّر ${live.prep}</span><span class="pill s-ready">جاهز ${live.ready}</span></div>
-      <p class="hint" style="margin-top:12px">مشتركو العروض: <b class="num">${S.subs}</b> · عروض أُرسلت: <b class="num">${S.offers.length}</b></p>
-      <p class="hint" style="margin-top:8px">الأرقام مبنية على طلبات التجربة. الأيام السابقة بيانات افتراضية.</p></div></div>`;
+      <p class="hint" style="margin-top:12px">مشتركو العروض: <b class="num">${S.subs}</b> · عملاء مسجّلون: <b class="num">${S.customers.length}</b> · عروض أُرسلت: <b class="num">${S.offers.length}</b></p>
+      <p class="hint" style="margin-top:8px">الأرقام مبنية على طلبات التجربة. الأيام السابقة والعملاء بيانات افتراضية.</p></div></div>`;
 }
 function ordRows(){
   let l = S.orders.slice().sort((a,b)=>b.no-a.no);
@@ -652,14 +801,115 @@ function menuTab(){
     <div class="catrow"><input id="newCat" placeholder="اسم قسم جديد" value="${esc(ui.newCat)}" aria-label="اسم قسم جديد"><button class="btn btn-a" data-act="cat-add">${ico('plus')} إضافة</button></div></div>
     ${groups}`;
 }
+function custRows(){
+  const q = ui.csearch.trim();
+  const l = S.customers.filter(c=>!q || c.name.includes(q) || c.phone.includes(q)).sort((a,b)=>b.points-a.points);
+  return l.map(c=>`<tr class="clk" data-act="cust-open" data-id="${c.id}" tabindex="0"><td><b>${esc(c.name)}</b><br><span class="hint" dir="ltr">${mask(c.phone)}</span></td><td class="num">${c.visits}</td><td class="num">${c.spent}</td><td class="num"><b>${c.points}</b></td><td>${daysAgo(c.last)===0?'اليوم':`قبل ${daysAgo(c.last)} يوم`}</td></tr>`).join('') || '<tr><td colspan="5" class="hint">لا يوجد عملاء مطابقون</td></tr>';
+}
+function impView(){
+  const i = ui.imp; if(!i) return '';
+  return `<div class="card" style="margin-top:10px"><b>${i.rows.length} عميل صالح</b>${i.dup?` · <span class="hint">${i.dup} مكرر سيُتجاهل</span>`:''}
+    ${i.rows.slice(0,5).map(r=>`<p class="hint">${esc(r.name)} · <span dir="ltr">${mask(r.phone)}</span> · ${r.points} نقطة</p>`).join('')}
+    ${i.errors.length?`<div class="err" style="max-height:90px;overflow:auto">${i.errors.slice(0,6).map(e=>`<p>${esc(e)}</p>`).join('')}</div>`:''}
+    <div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-p" data-act="imp-ok" ${i.rows.length?'':'disabled'}>${ico('upload')} تأكيد الاستيراد</button><button class="btn btn-g" data-act="imp-cancel">إلغاء</button></div></div>`;
+}
+function custTab(){
+  return `<div class="filters"><input id="cSearch" type="search" placeholder="ابحث بالاسم أو الرقم" value="${esc(ui.csearch)}" aria-label="بحث في العملاء" style="max-width:none"></div>
+    <div class="tblwrap card" style="padding:4px 12px"><table><thead><tr><th>العميل</th><th>الزيارات</th><th>الإنفاق</th><th>النقاط</th><th>آخر زيارة</th></tr></thead><tbody id="ctable">${custRows()}</tbody></table></div>
+    <div class="panel" style="margin-top:12px"><h3>استيراد عملاء <small>CSV</small></h3><p class="hint">ارفع ملفاً بأعمدة <b dir="ltr">name,phone,points</b>. الأرقام الموجودة تُتجاهل وتبقى نقاطها كما هي.</p>
+      <div class="code">name,phone,points
+أحمد,0551112233,40</div>
+      <label class="btn btn-g" for="impFile" style="margin-top:10px;cursor:pointer">${ico('upload')} اختر ملف CSV</label><input id="impFile" type="file" accept=".csv,text/csv" style="position:absolute;width:1px;height:1px;opacity:0" data-chg="imp-file">
+      ${impView()}</div>`;
+}
+function custModal(){
+  const c = custOf(ui.cmodal); if(!c) return '';
+  const vs = S.vouchers.filter(v=>v.customerId===c.id).slice(-3).reverse();
+  return `<div class="modal-bg" data-act="cmodal-close"><div class="modal" role="dialog" aria-label="بطاقة العميل">
+    <h2>${esc(c.name)}</h2><p class="hint" dir="ltr" style="text-align:start">${mask(c.phone)}</p>
+    <div class="kpis" style="margin-top:12px"><div class="kpi"><span>النقاط</span><b>${c.points}</b></div><div class="kpi"><span>الزيارات</span><b>${c.visits}</b></div><div class="kpi"><span>الإنفاق</span><b>${c.spent}</b></div></div>
+    <h3 style="margin:8px 0">استبدال مكافأة الآن</h3>
+    ${S.rewards.filter(r=>r.on).map(r=>`<div class="rw"><div><b>${esc(r.title)}</b><div class="hint">${r.cost} نقطة</div></div><button class="btn btn-a" data-act="merch-redeem" data-id="${r.id}" ${c.points>=r.cost?'':'disabled'}>استبدل</button></div>`).join('') || '<p class="hint">لا توجد مكافآت</p>'}
+    ${vs.length?`<p class="hint" style="margin-top:8px">آخر القسائم: ${vs.map(v=>`${esc(v.title)} (${v.status==='used'?'مستخدمة':'فعّالة'})`).join('، ')}</p>`:''}
+    <button class="btn btn-g big" style="margin-top:12px" data-act="cmodal-close-btn">إغلاق</button></div></div>`;
+}
+function loyTab(){
+  const vs = S.vouchers.slice().reverse().slice(0,8);
+  return `<div class="panel"><h3>نقاط كل طلب مكتمل</h3><div class="catrow"><input class="nm" type="number" min="0" id="ppo" data-chg="ppo" value="${S.shop.ppo}" aria-label="نقاط الطلب"><span class="hint">نقطة تُضاف للعميل عند تسليم الطلب</span></div></div>
+    <div class="panel" style="margin-top:12px"><h3>المكافآت</h3>
+    ${S.rewards.map(r=>`<div class="catrow"><input data-chg="rw-title" data-id="${r.id}" value="${esc(r.title)}" aria-label="اسم المكافأة"><input class="nm" type="number" min="1" data-chg="rw-cost" data-id="${r.id}" value="${r.cost}" aria-label="تكلفة المكافأة بالنقاط">
+      <button class="switch" role="switch" aria-checked="${r.on}" aria-label="تفعيل ${esc(r.title)}" data-act="rw-on" data-id="${r.id}"></button>
+      <button class="ib dng" data-act="rw-del" data-id="${r.id}" aria-label="حذف المكافأة">${ico('trash')}</button></div>`).join('')}
+    <div class="catrow"><input id="rwT" placeholder="مكافأة جديدة" value="${esc(ui.newReward.title)}" aria-label="اسم المكافأة الجديدة"><input class="nm" id="rwC" type="number" min="1" value="${ui.newReward.cost}" aria-label="التكلفة"><button class="btn btn-a" data-act="rw-add">${ico('plus')} إضافة</button></div></div>
+    <div class="panel" style="margin-top:12px"><h3>آخر القسائم</h3>${vs.map(v=>`<div class="row-r"><span><b dir="ltr">${v.code}</b> · ${esc(v.title)} <span class="hint">· ${esc(custOf(v.customerId)?.name||'')}</span></span><span class="pill s-${v.status==='used'?'done':'ready'}">${v.status==='used'?'مستخدمة':'فعّالة'}</span></div>`).join('') || '<p class="hint">لا توجد قسائم بعد</p>'}</div>`;
+}
+function revTab(){
+  const s = stats(), l = S.orders.filter(o=>o.rating!=null).sort((a,b)=>b.no-a.no).slice(0,20);
+  return `<div class="hero"><span>متوسط تقييم ${s.rn} طلب</span><div class="big-num">★ ${s.rn?s.rating.toFixed(1):'—'} <small style="font-size:18px">/ 5</small></div></div>
+    <div class="panel">${l.map(o=>`<article class="rv"><div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(o.name||'زبون')}</b><span class="s" aria-label="${o.rating} من 5">${'★'.repeat(o.rating)}${'☆'.repeat(5-o.rating)}</span></div>
+      <p>${o.ratingComment?esc(o.ratingComment):'<span class="hint">بدون ملاحظة مكتوبة</span>'}</p><small class="hint">طلب #${o.no} · ${dfmt(o.t)} · ${o.total} ${SAR}</small></article>`).join('') || '<p class="hint">لا توجد تقييمات بعد</p>'}</div>`;
+}
+const TPL = [['خصم 20% على المشروبات الباردة','اليوم فقط من 4 إلى 7 مساءً','all'],['اشترِ قهوتين والثالثة علينا','العرض ساري حتى نهاية الأسبوع','all'],['صباحك سكر','كرواسون مع أي قهوة بـ 20 ر.س قبل 10 صباحاً','all']];
+function suggestions(){
+  const s = [], lapsed = S.customers.filter(c=>matchAud(c,'lapsed')).length, loyal = S.customers.filter(c=>matchAud(c,'loyal')).length, top = stats().top[0];
+  if(lapsed) s.push({why:`${lapsed} عميل لم يزوروك منذ 14 يوماً`, title:'اشتقنا لك', body:'قهوتك الثانية علينا لو زرتنا هذا الأسبوع', aud:'lapsed'});
+  if(loyal) s.push({why:`${loyal} عميل وفي (5 زيارات فأكثر)`, title:'مكافأة لعملائنا الأوفياء', body:'ضعف النقاط على طلبك اليوم', aud:'loyal'});
+  if(top) s.push({why:`${top.m.name} الأكثر طلباً آخر 24 ساعة`, title:`جرّب ${top.m.name} اليوم`, body:'الأكثر طلباً عند زبائننا، بسعر خاص اليوم', aud:'all'});
+  return s;
+}
+function offersTab(){
+  const cnt = a => S.customers.filter(c=>matchAud(c,a)).length;
+  return `<div class="panel"><h3>اقتراحات مبنية على بياناتك <small>قواعد بسيطة وليست ذكاء اصطناعي</small></h3>
+    ${suggestions().map((x,i)=>`<div class="sug"><div><b>${esc(x.title)}</b><p class="hint">${esc(x.why)} · ${AUD[x.aud]}</p></div><button class="btn btn-g" data-act="sug" data-i="${i}">استخدم</button></div>`).join('') || '<p class="hint">لا توجد اقتراحات الآن</p>'}</div>
+    <div class="panel" style="margin-top:12px"><h3>عرض جديد <small>المشتركون: ${S.subs}</small></h3>
+    <div class="tpl">${TPL.map((x,i)=>`<button data-act="tpl" data-i="${i}">${esc(x[0])}</button>`).join('')}</div>
+    <label class="lbl2" for="oA">إلى من؟</label><select class="field" id="oA" data-chg="aud">${Object.entries(AUD).map(([k,n])=>`<option value="${k}" ${ui.draft.aud===k?'selected':''}>${n}${k==='all'?'':` (${cnt(k)})`}</option>`).join('')}</select>
+    <label class="lbl2" for="oT">عنوان العرض</label><input class="field" id="oT" maxlength="50" value="${esc(ui.draft.title)}">
+    <label class="lbl2" for="oB">التفاصيل</label><input class="field" id="oB" maxlength="90" value="${esc(ui.draft.body)}">
+    <button class="btn btn-a" style="margin-top:12px" data-act="send-offer">أرسل العرض الآن</button></div>
+    <div class="panel hist" style="margin-top:12px"><h3>العروض السابقة</h3>${S.offers.slice().reverse().map(f=>`<div>${esc(f.title)} <span class="pill">${AUD[f.aud||'all'].split(' (')[0]}</span><br><small class="hint">${esc(f.body)}</small></div>`).join('')}</div>`;
+}
+function qrTab(){
+  return `<div class="panel"><h3>رمز المنيو</h3><div class="qrbox"><div class="q">${qrSvg(customerUrl())}</div>
+    <div style="flex:1;min-width:200px"><b>ألصقه على العربة أو الطاولة</b><p class="hint">الزبون يمسحه فيفتح المنيو بدون تحميل تطبيق. اطبعه مرة واحدة، والمنيو يتحدّث لوحده.</p>
+    <label class="lbl2" for="menuUrl">رابط المنيو العام</label><input class="field" id="menuUrl" dir="ltr" data-chg="menu-url" value="${esc(customerUrl())}">
+    <p class="hint" style="margin-top:6px">الصق رابط الموقع النهائي هنا بعد النشر وسيتغيّر الرمز.</p></div></div></div>
+    <div class="panel" style="margin-top:12px"><h3>بوستر جاهز للطباعة</h3><div class="poster"><h3>${esc(S.shop.name)}</h3><p>امسح، اطلب، واستلم بدون طابور</p><div class="q">${qrSvg(customerUrl())}</div><small>ونجمع لك نقاط على كل طلب</small></div></div>
+    <div class="panel" style="margin-top:12px"><h3>شاشة عرض الأرقام</h3><p class="hint">افتحها على تلفزيون أو تابلت عند الكاونتر. تعرض الأرقام الجاهزة بخط كبير وتومض لما يجهز طلب جديد.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn btn-p" data-act="pane" data-v="display">${ico('tv')} افتح شاشة العرض</button></div></div>`;
+}
+function setTab(){
+  const a = getAcct(), s = S.shop;
+  return `<div class="panel"><h3>بيانات المحل</h3>
+    <label class="lbl2" for="sName">اسم المحل</label><input class="field" id="sName" data-chg="shop-name" value="${esc(s.name)}" maxlength="40">
+    <label class="lbl2" for="sSub">وصف قصير</label><input class="field" id="sSub" data-chg="shop-sub" value="${esc(s.sub)}" maxlength="50">
+    <div class="row-r"><div><b>استقبال الطلبات</b><p class="hint">عند الإغلاق يتصفح الزبون المنيو بدون طلب.</p></div><button class="switch" role="switch" aria-checked="${s.open}" aria-label="المحل مفتوح" data-act="shop-open"></button></div></div>
+  <div class="panel" style="margin-top:12px"><h3>موقع المحل <small>لتنبيه القرب</small></h3>
+    <p class="hint">${s.lat==null?'لم يُحدَّد الموقع بعد.':`الموقع محفوظ: <span dir="ltr">${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}</span>`}</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn btn-p" data-act="loc-here">${ico('pin')} استخدم موقعي الحالي</button><button class="btn btn-g" data-act="loc-demo">موقع تجريبي (الرياض)</button>${s.lat!=null?'<button class="btn btn-d" data-act="loc-clear">إزالة</button>':''}</div>
+    ${ui.locMsg?`<p class="err" role="status">${esc(ui.locMsg)}</p>`:''}
+    <label class="lbl2" for="sRad">نصف قطر التنبيه (متر)</label><input class="field" id="sRad" type="number" min="50" max="2000" step="50" data-chg="radius" value="${s.radius}"></div>
+  <div class="panel" style="margin-top:12px"><h3>الحساب</h3><div class="row-r"><span>${esc(a?.email||'حساب تجريبي')}</span><button class="btn btn-g" data-act="logout">${ico('logout')} تسجيل خروج</button></div>
+    <p class="hint" style="margin-top:8px">حساب تجريبي يُحفظ في هذا المتصفح فقط.</p></div>
+  <div class="panel" style="margin-top:12px"><h3>حالة الميزات</h3>
+    <div class="row-r"><span>المنيو والطلبات والبيجر</span><span class="pill s-ready">يعمل</span></div>
+    <div class="row-r"><span>النقاط والمكافآت والتقييمات</span><span class="pill s-ready">يعمل</span></div>
+    <div class="row-r"><span>سجل العملاء والاستيراد</span><span class="pill s-ready">يعمل</span></div>
+    <div class="row-r"><span>شاشة العرض والفاتورة</span><span class="pill s-ready">يعمل</span></div>
+    <div class="row-r"><span>تنبيه القرب (والصفحة مفتوحة)</span><span class="pill s-ready">يعمل</span></div>
+    <div class="row-r"><span>إشعارات Web Push (والصفحة مغلقة)</span><span class="pill s-prep">يحتاج خادم</span></div>
+    <div class="row-r"><span>حسابات حقيقية ورمز تحقق للعميل</span><span class="pill s-prep">يحتاج خادم</span></div>
+    ${saveFail?'<p class="err">مساحة التخزين في المتصفح امتلأت. صغّر الصور أو احذف بعضها.</p>':''}</div>`;
+}
 function modal(){
+  if(ui.cmodal) return custModal();
   const d = ui.edit; if(!d) return '';
   const dr = d.draft;
   return `<div class="modal-bg" data-act="modal-close"><div class="modal" role="dialog" aria-label="${d.id?'تعديل صنف':'صنف جديد'}">
     <h2>${d.id?'تعديل صنف':'صنف جديد'}</h2>
     <div class="upl"><div class="pv">${dr.img?`<img src="${dr.img}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:14px">`:ico('img')}</div>
       <div style="display:flex;flex-direction:column;gap:8px"><label class="btn btn-g" for="eFile">${ico('upload')} ${dr.img?'تغيير الصورة':'رفع صورة'}</label>
-      <input id="eFile" type="file" accept="image/*" class="sr" style="position:absolute;width:1px;height:1px;opacity:0" data-chg="pick-img">
+      <input id="eFile" type="file" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0" data-chg="pick-img">
       ${dr.img?`<button class="btn btn-g" data-act="img-clear">إزالة الصورة</button>`:''}</div></div>
     ${ui.imgErr?`<p class="err">${esc(ui.imgErr)}</p>`:''}
     <label class="lbl2" for="eName">اسم الصنف</label><input class="field" id="eName" value="${esc(dr.name)}" maxlength="40">
@@ -669,43 +919,9 @@ function modal(){
     <div class="row-r"><span>متوفر للطلب</span><button class="switch" role="switch" aria-checked="${dr.on}" aria-label="متوفر" data-act="e-toggle"></button></div>
     <div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-p" style="flex:1" data-act="item-save">حفظ</button><button class="btn btn-g" data-act="modal-close-btn">إلغاء</button>${d.id?`<button class="btn btn-d" data-act="item-del" aria-label="حذف الصنف">${ico('trash')}</button>`:''}</div></div></div>`;
 }
-function offersTab(){
-  const tpl = TPL;
-  return `<div class="panel"><h3>عرض جديد <small>المشتركون: ${S.subs}</small></h3><p class="hint">يوصل لكل زبون وافق على العروض، بدون ما تجمع أرقام جوالات.</p>
-    <div class="tpl">${tpl.map((x,i)=>`<button data-act="tpl" data-i="${i}">${esc(x[0])}</button>`).join('')}</div>
-    <label class="lbl2" for="oT">عنوان العرض</label><input class="field" id="oT" maxlength="50" value="${esc(ui.draft.title)}">
-    <label class="lbl2" for="oB">التفاصيل</label><input class="field" id="oB" maxlength="90" value="${esc(ui.draft.body)}">
-    <button class="btn btn-a" style="margin-top:12px" data-act="send-offer">أرسل العرض الآن</button></div>
-    <div class="panel hist" style="margin-top:12px"><h3>العروض السابقة</h3>${S.offers.slice().reverse().map(f=>`<div>${esc(f.title)}<br><small class="hint">${esc(f.body)}</small></div>`).join('')}</div>`;
-}
-const TPL = [['خصم 20% على المشروبات الباردة','اليوم فقط من 4 إلى 7 مساءً'],['اشترِ قهوتين والثالثة علينا','العرض ساري حتى نهاية الأسبوع'],['صباحك سكر','كرواسون مع أي قهوة بـ 20 ر.س قبل 10 صباحاً']];
-function qrTab(){
-  return `<div class="panel"><h3>رمز المنيو للطباعة</h3><div class="qrbox"><div class="q">${qrSvg(customerUrl())}</div>
-    <div style="flex:1;min-width:200px"><b>ألصقه على العربة أو الطاولة</b><p class="hint">الزبون يمسحه فيفتح المنيو بدون تحميل تطبيق. اطبعه مرة واحدة، والمنيو يتحدّث لوحده.</p>
-    <label class="lbl2" for="menuUrl">رابط المنيو العام</label><input class="field" id="menuUrl" dir="ltr" data-chg="menu-url" value="${esc(customerUrl())}">
-    <p class="hint" style="margin-top:6px">الصق رابط الموقع النهائي هنا بعد النشر وسيتغيّر الرمز.</p></div></div></div>
-    <div class="panel" style="margin-top:12px"><h3>شاشة عرض الأرقام</h3><p class="hint">افتحها على تلفزيون أو تابلت عند الكاونتر. تعرض الأرقام الجاهزة بخط كبير وتومض لما يجهز طلب جديد.</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn btn-p" data-act="pane" data-v="display">${ico('tv')} افتح شاشة العرض</button></div></div>`;
-}
-function setTab(){
-  const a = getAcct();
-  return `<div class="panel"><h3>بيانات المحل</h3>
-    <label class="lbl2" for="sName">اسم المحل</label><input class="field" id="sName" data-chg="shop-name" value="${esc(S.shop.name)}" maxlength="40">
-    <label class="lbl2" for="sSub">وصف قصير</label><input class="field" id="sSub" data-chg="shop-sub" value="${esc(S.shop.sub)}" maxlength="50">
-    <div class="row-r"><div><b>استقبال الطلبات</b><p class="hint">عند الإغلاق يتصفح الزبون المنيو بدون طلب.</p></div><button class="switch" role="switch" aria-checked="${S.shop.open}" aria-label="المحل مفتوح" data-act="shop-open"></button></div></div>
-  <div class="panel" style="margin-top:12px"><h3>الحساب</h3><div class="row-r"><span>${esc(a?.email||'حساب تجريبي')}</span><button class="btn btn-g" data-act="logout">${ico('logout')} تسجيل خروج</button></div>
-    <p class="hint" style="margin-top:8px">حساب تجريبي يُحفظ في هذا المتصفح فقط.</p></div>
-  <div class="panel" style="margin-top:12px"><h3>حالة الميزات</h3>
-    <div class="row-r"><span>المنيو والطلبات والبيجر</span><span class="pill s-ready">يعمل</span></div>
-    <div class="row-r"><span>صور الأصناف والأقسام</span><span class="pill s-ready">يعمل</span></div>
-    <div class="row-r"><span>شاشة العرض</span><span class="pill s-ready">يعمل</span></div>
-    <div class="row-r"><span>إشعارات Web Push (والصفحة مغلقة)</span><span class="pill s-prep">يحتاج خادم</span></div>
-    <div class="row-r"><span>حسابات حقيقية متعددة المحلات</span><span class="pill s-prep">يحتاج خادم</span></div>
-    ${saveFail?'<p class="err">مساحة التخزين في المتصفح امتلأت. صغّر الصور أو احذف بعضها.</p>':''}</div>`;
-}
 function renderDash(){
   if(!ui.signed){ $('#dash').innerHTML = gate('d'); return; }
-  const body = {ov:ovView,ord:ordView,menu:menuTab,offers:offersTab,qr:qrTab,set:setTab}[ui.dtab]();
+  const body = {ov:ovView,ord:ordView,menu:menuTab,cust:custTab,loy:loyTab,rev:revTab,offers:offersTab,qr:qrTab,set:setTab}[ui.dtab]();
   const cur = DTABS.find(t=>t[0]===ui.dtab);
   $('#dash').innerHTML = `<div class="card"><div class="dash">
     <nav class="dnav" aria-label="أقسام اللوحة">${DTABS.map(([k,n,i])=>`<button data-act="dtab" data-t="${k}" aria-pressed="${ui.dtab===k}">${ico(i)}${n}</button>`).join('')}</nav>
@@ -720,23 +936,44 @@ function checkAlert(){
   if(ui.alerted !== key){ ui.alerted = key; ui.alert = true; beep(); sysNotify('طلبك جاهز', 'رقم '+o.no+' جاهز للاستلام'); }
 }
 const A = {
-  tab(el){ ui.tab = el.dataset.t; if(ui.tab==='offers') ui.newOffer=false; },
+  tab(el){ ui.tab = el.dataset.t; ui.acctErr=''; if(ui.tab==='offers') ui.newOffer=false; },
   cat(el){ ui.cat = el.dataset.c; },
   inc(el){ const id=el.dataset.id; if(item(id)?.on && S.shop.open) ui.cart[id]=(ui.cart[id]||0)+1; },
   dec(el){ const id=el.dataset.id; if(ui.cart[id]>1) ui.cart[id]--; else delete ui.cart[id]; if(!cartCount()) ui.sheet=false; },
-  sheet(){ ui.sheet = true; }, 'sheet-close'(){ ui.sheet=false; },
+  sheet(){ ui.sheet = true; ui.acctErr=''; }, 'sheet-close'(){ ui.sheet=false; },
   serve(el){ ui.serve = el.dataset.s; },
   order(){
     if(!cartCount() || !S.shop.open) return;
+    let c = me();
+    if(!c && ui.phone.trim()){ const p = normPhone(ui.phone); if(!p){ ui.acctErr='رقم الجوال غير صحيح. مثال: 0551234567'; return; } c = findOrMakeCustomer(p, ui.name.trim()); S.me = c.id; }
+    ui.acctErr='';
     const items = Object.entries(ui.cart).map(([id,q])=>({id,q}));
-    const o = {id:'o'+Date.now(), no:++S.seq, name:ui.name.trim().slice(0,20), serve:ui.serve, items, total:cartTotal(), note:ui.note.trim().slice(0,60), status:'new', t:Date.now(), callAt:0};
-    S.orders.push(o); S.my = o.id; ui.cart = {}; ui.sheet=false; ui.tab='track'; ui.note=''; save();
+    const o = {id:'o'+Date.now(), no:++S.seq, name:(ui.name.trim()||c?.name?.split(' ')[0]||'').slice(0,20), customerId:c?c.id:null, serve:ui.serve, items, total:cartTotal(), note:ui.note.trim().slice(0,60), status:'new', t:Date.now(), callAt:0, pointsAwarded:0, rating:null};
+    S.orders.push(o); S.my = o.id; ui.cart = {}; ui.sheet=false; ui.tab='track'; ui.note=''; ui.stars=0; ui.comment=''; save();
   },
   'new-order'(){ S.my=null; ui.tab='menu'; save(); },
   dismiss(){ ui.alert=false; },
-  optin(){ S.optIn = !S.optIn; S.subs += S.optIn ? 1 : -1; save(); if(S.optIn) askNotif().then(r=>{ ui.notif=r; renderAll(); }); else ui.notif=''; },
-  adv(el){ const o = S.orders.find(x=>x.id===el.dataset.id); if(!o) return; o.status = el.dataset.to; if(o.status==='ready'){ o.tReady = Date.now(); o.callAt = Date.now(); } save(); },
+  star(el){ ui.stars = +el.dataset.n; },
+  rate(){ const o = myOrder(); if(!o || !ui.stars) return; o.rating = ui.stars; o.ratingComment = ui.comment.trim().slice(0,200); ui.stars=0; ui.comment=''; save(); toast('شكراً لتقييمك','رأيك يساعدنا نتحسن'); },
+  optin(){ S.optIn = !S.optIn; S.subs += S.optIn ? 1 : -1; save(); if(S.optIn){ askNotif().then(r=>{ ui.notif=r; renderAll(); }); startNear(); } else { ui.notif=''; stopNear(); } },
+  'sim-near'(){ nearAlert(); },
+  'acct-login'(){
+    const p = normPhone(ui.cPhone), n = ui.cName.trim();
+    if(!n){ ui.acctErr='اكتب اسمك'; return; } if(!p){ ui.acctErr='رقم الجوال غير صحيح. مثال: 0551234567'; return; }
+    S.me = findOrMakeCustomer(p, n).id; ui.acctErr=''; save();
+  },
+  'acct-out'(){ S.me = null; ui.acctErr=''; save(); },
+  redeem(el){ const c = me(), w = S.rewards.find(r=>r.id===el.dataset.id); if(!c||!w) return; if(c.points<w.cost){ ui.acctErr='نقاطك لا تكفي'; return; } const code = makeVoucher(c,w,false); ui.acctErr=''; save(); toast('تم الاستبدال', 'رمز قسيمتك '+code); },
+  reorder(el){ const o = S.orders.find(x=>x.id===el.dataset.id); if(!o||!S.shop.open) return; ui.cart = {}; o.items.forEach(i=>{ if(item(i.id)?.on) ui.cart[i.id]=i.q; }); ui.tab='menu'; ui.sheet = cartCount()>0; },
+  adv(el){ const o = S.orders.find(x=>x.id===el.dataset.id); if(!o) return; o.status = el.dataset.to; if(o.status==='ready'){ o.tReady = Date.now(); o.callAt = Date.now(); } if(o.status==='done') awardPoints(o); save(); },
   recall(el){ const o = S.orders.find(x=>x.id===el.dataset.id); if(o){ o.callAt = Date.now(); save(); } },
+  'voucher-use'(){
+    const code = ($('#vCode')?.value||'').trim().toUpperCase(); ui.vCode = code;
+    const v = S.vouchers.find(x=>x.code===code);
+    if(!v) ui.vMsg = {ok:false, t:'الرمز غير موجود'};
+    else if(v.status==='used') ui.vMsg = {ok:false, t:'هذه القسيمة مستخدمة من قبل'};
+    else { v.status='used'; ui.vMsg = {ok:true, t:`تم: ${v.title} للعميل ${custOf(v.customerId)?.name||''}`}; ui.vCode=''; save(); }
+  },
   /* dashboard */
   dtab(el){ ui.dtab = el.dataset.t; },
   ofilter(el){ ui.ofilter = el.dataset.f; },
@@ -749,8 +986,10 @@ const A = {
   'edit-item'(el){ const m = item(el.dataset.id); ui.imgErr=''; ui.edit = {id:m.id, draft:{...m}}; },
   'e-toggle'(){ ui.edit.draft.on = !ui.edit.draft.on; },
   'img-clear'(){ ui.edit.draft.img=''; },
-  'modal-close'(el){ ui.edit = null; },
-  'modal-close-btn'(){ ui.edit = null; },
+  'modal-close'(){ ui.edit = null; }, 'modal-close-btn'(){ ui.edit = null; },
+  'cmodal-close'(){ ui.cmodal = null; }, 'cmodal-close-btn'(){ ui.cmodal = null; },
+  'cust-open'(el){ ui.cmodal = el.dataset.id; },
+  'merch-redeem'(el){ const c = custOf(ui.cmodal), w = S.rewards.find(r=>r.id===el.dataset.id); if(c && w && c.points>=w.cost){ makeVoucher(c,w,true); save(); } },
   'item-save'(){
     const d = ui.edit.draft; d.name = d.name.trim(); if(!d.name){ $('#eName')?.focus(); return; }
     d.price = Math.max(0, +d.price||0);
@@ -758,35 +997,79 @@ const A = {
     ui.edit = null; save();
   },
   'item-del'(){ const id = ui.edit.id; S.menu = S.menu.filter(m=>m.id!==id); delete ui.cart[id]; ui.edit=null; save(); },
-  tpl(el){ const t = TPL[+el.dataset.i]; ui.draft = {title:t[0], body:t[1]}; },
+  'imp-cancel'(){ ui.imp = null; },
+  'imp-ok'(){
+    const i = ui.imp; if(!i) return; let n=0;
+    i.rows.forEach(r=>{ if(!S.customers.find(c=>c.phone===r.phone)){ S.customers.push({id:'c'+Date.now()+n, name:r.name, phone:r.phone, points:r.points, visits:0, spent:0, last:Date.now()-30*DAY}); n++; } });
+    ui.imp = null; save(); toast('تم الاستيراد', `أُضيف ${n} عميل`);
+  },
+  'rw-on'(el){ const r = S.rewards.find(x=>x.id===el.dataset.id); r.on = !r.on; save(); },
+  'rw-del'(el){ S.rewards = S.rewards.filter(x=>x.id!==el.dataset.id); save(); },
+  'rw-add'(){ const t = ui.newReward.title.trim(), c = Math.round(+ui.newReward.cost); if(!t||!(c>0)) return $('#rwT')?.focus(); S.rewards.push({id:'w'+Date.now(), title:t.slice(0,40), cost:c, on:true}); ui.newReward={title:'',cost:50}; save(); },
+  tpl(el){ const t = TPL[+el.dataset.i]; ui.draft = {title:t[0], body:t[1], aud:t[2]}; },
+  sug(el){ const t = suggestions()[+el.dataset.i]; if(t) ui.draft = {title:t.title, body:t.body, aud:t.aud}; },
   'send-offer'(){
     const t = ui.draft.title.trim(), b = ui.draft.body.trim(); if(!t){ $('#oT')?.focus(); return; }
-    S.offers.push({id:'f'+Date.now(), title:t, body:b, t:Date.now()}); ui.draft={title:'',body:''}; ui.newOffer = true; save();
-    if(S.optIn) setTimeout(()=>{ toast(t, b || S.shop.name); chime(); sysNotify(t, b || S.shop.name); }, 150);
+    const o = {id:'f'+Date.now(), title:t, body:b, aud:ui.draft.aud, t:Date.now()};
+    S.offers.push(o); ui.draft={title:'',body:'',aud:'all'}; ui.newOffer = true; save();
+    if(S.optIn && (o.aud==='all' || (me() && matchAud(me(), o.aud)))) setTimeout(()=>{ toast(t, b || S.shop.name); chime(); sysNotify(t, b || S.shop.name); }, 150);
   },
   'shop-open'(){ S.shop.open = !S.shop.open; save(); },
+  'loc-demo'(){ S.shop.lat = 24.7136; S.shop.lng = 46.6753; ui.locMsg=''; save(); startNear(); },
+  'loc-clear'(){ S.shop.lat = null; S.shop.lng = null; save(); stopNear(); },
+  'loc-here'(){
+    ui.locMsg='';
+    if(!navigator.geolocation){ ui.locMsg='المتصفح لا يدعم تحديد الموقع'; return; }
+    navigator.geolocation.getCurrentPosition(p=>{ S.shop.lat=p.coords.latitude; S.shop.lng=p.coords.longitude; save(); startNear(); renderAll(); },
+      ()=>{ ui.locMsg='تعذّر تحديد الموقع. اسمح للمتصفح بالوصول أو استخدم الموقع التجريبي.'; renderAll(); }, {enableHighAccuracy:true, timeout:10000});
+  },
   logout(){ ui.signed=false; try{ sessionStorage.removeItem('dawrak_sess'); }catch(e){} },
   'auth-tab'(el){ ui.authTab = el.dataset.t; ui.authErr=''; },
   async 'demo-login'(){ if(!getAcct()) setAcct({email:'demo@dawrak.sa', pw: await sha('123456')}); signIn(); },
   'disp-sound'(){ ui.dispSound = !ui.dispSound; if(ui.dispSound) chime(); },
   'disp-full'(){ try{ const el = $('.disp'); (el.requestFullscreen||el.webkitRequestFullscreen).call(el).catch(()=>{}); }catch(e){} },
   pane(el){ setView(el.dataset.v); },
-  reset(){ try{ localStorage.removeItem(KEY); }catch(e){} S = seed(); Object.assign(ui,{cart:{},sheet:false,alert:false,tab:'menu',alerted:'',draft:{title:'',body:''},edit:null,prevReady:null}); }
+  reset(){ try{ localStorage.removeItem(KEY); }catch(e){} stopNear(); S = seed(); Object.assign(ui,{cart:{},sheet:false,alert:false,tab:'menu',alerted:'',draft:{title:'',body:'',aud:'all'},edit:null,cmodal:null,imp:null,prevReady:null}); }
 };
+const BG = {'sheet-close':'sheet-bg','modal-close':'modal-bg','cmodal-close':'modal-bg'};
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-act]'); if(!el) return;
-  if((el.dataset.act==='sheet-close'||el.dataset.act==='modal-close') && el.classList.contains(el.dataset.act==='modal-close'?'modal-bg':'sheet-bg') && e.target!==el) return;
+  const bg = BG[el.dataset.act]; if(bg && el.classList.contains(bg) && e.target!==el) return;
   const fn = A[el.dataset.act]; if(!fn) return;
   const r = fn(el); renderAll(); if(r && r.then) r.then(renderAll);
 });
+document.addEventListener('keydown', e => { if(e.key==='Enter' && e.target.matches('tr.clk')) e.target.click(); });
 const C = {
-  'cat-rename'(el){ const c = catOf(el.dataset.id); const v = el.value.trim(); if(c && v){ c.name = v.slice(0,24); save(); } },
+  'cat-rename'(el){ const c = S.cats.find(c=>c.id===el.dataset.id), v = el.value.trim(); if(c && v){ c.name = v.slice(0,24); save(); } },
   'shop-name'(el){ const v = el.value.trim(); if(v){ S.shop.name = v.slice(0,40); save(); } },
   'shop-sub'(el){ S.shop.sub = el.value.trim().slice(0,50); save(); },
   'menu-url'(el){ S.menuUrl = el.value.trim() === baseUrl()+'#customer' ? '' : el.value.trim(); save(); },
+  radius(el){ S.shop.radius = Math.min(2000, Math.max(50, Math.round(+el.value||200))); save(); },
+  ppo(el){ S.shop.ppo = Math.max(0, Math.round(+el.value||0)); save(); },
+  'rw-title'(el){ const r = S.rewards.find(x=>x.id===el.dataset.id), v = el.value.trim(); if(r&&v){ r.title = v.slice(0,40); save(); } },
+  'rw-cost'(el){ const r = S.rewards.find(x=>x.id===el.dataset.id), v = Math.round(+el.value); if(r&&v>0){ r.cost = v; save(); } },
+  aud(el){ ui.draft.aud = el.value; },
   async 'pick-img'(el){
     const f = el.files && el.files[0]; if(!f) return; ui.imgErr='';
     try{ ui.edit.draft.img = await fileToDataURL(f); }catch(e){ ui.imgErr = 'تعذّر قراءة الصورة. جرّب صورة أخرى.'; }
+  },
+  async 'imp-file'(el){
+    const f = el.files && el.files[0]; if(!f) return;
+    try{
+      const lines = (await readText(f)).replace(/^﻿/,'').split(/\r?\n/).filter(l=>l.trim());
+      const rows = [], errors = [], seen = new Set(); let dup = 0;
+      lines.forEach((ln,i)=>{
+        const p = ln.split(/[,;\t]/).map(x=>x.trim());
+        if(i===0 && /name|phone|الاسم|الجوال/i.test(ln)) return;
+        const phone = normPhone(p[1]), name = p[0], pts = p[2]===undefined||p[2]==='' ? 0 : Math.round(+p[2]);
+        if(!name){ errors.push(`سطر ${i+1}: الاسم ناقص`); return; }
+        if(!phone){ errors.push(`سطر ${i+1}: رقم الجوال غير صحيح`); return; }
+        if(!(pts>=0)){ errors.push(`سطر ${i+1}: النقاط غير صحيحة`); return; }
+        if(seen.has(phone) || S.customers.find(c=>c.phone===phone)){ dup++; return; }
+        seen.add(phone); rows.push({name:name.slice(0,30), phone, points:pts});
+      });
+      ui.imp = {rows, errors, dup};
+    }catch(e){ ui.imp = {rows:[], errors:['تعذّر قراءة الملف'], dup:0}; }
   }
 };
 document.addEventListener('change', e => {
@@ -796,10 +1079,13 @@ document.addEventListener('change', e => {
 });
 document.addEventListener('input', e => {
   const id = e.target.id, v = e.target.value;
-  if(id==='fName') ui.name = v; else if(id==='fNote') ui.note = v;
+  if(id==='fName') ui.name = v; else if(id==='fNote') ui.note = v; else if(id==='fPhone') ui.phone = v;
+  else if(id==='cName') ui.cName = v; else if(id==='cPhone') ui.cPhone = v; else if(id==='rComment') ui.comment = v;
   else if(id==='oT') ui.draft.title = v; else if(id==='oB') ui.draft.body = v;
-  else if(id==='newCat') ui.newCat = v;
+  else if(id==='newCat') ui.newCat = v; else if(id==='rwT') ui.newReward.title = v; else if(id==='rwC') ui.newReward.cost = v;
+  else if(id==='vCode') ui.vCode = v;
   else if(id==='oSearch'){ ui.osearch = v; const t = $('#otable'); if(t) t.innerHTML = ordRows(); }
+  else if(id==='cSearch'){ ui.csearch = v; const t = $('#ctable'); if(t) t.innerHTML = custRows(); }
   else if(ui.edit){ const d = ui.edit.draft; if(id==='eName') d.name=v; else if(id==='eDesc') d.desc=v; else if(id==='ePrice') d.price=v; }
 });
 
@@ -826,7 +1112,7 @@ function renderAll(){
   const a = $('#lnkCustomer'); if(a) a.href = baseUrl()+'#customer';
   const b = $('#lnkDisplay'); if(b) b.href = baseUrl()+'#display';
 }
-applyHash(); renderAll();
+applyHash(); renderAll(); if(S.optIn) startNear();
 setInterval(()=>{ renderStaff(); renderDisplay(); if(ui.tab==='track') renderPhone(); }, 30000);
 </script>
 </body>
